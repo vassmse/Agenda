@@ -7,15 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendaFE", "AgendaFE", "{5B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendaCON", "AgendaCON", "{20C61BF7-3F95-4413-8C5D-B716342CA6FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaContracts", "AgendaContracts\AgendaContracts.csproj", "{C07D5505-271A-4D94-B70C-0262CDF34259}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaContracts", "AgendaContracts\AgendaContracts.csproj", "{C07D5505-271A-4D94-B70C-0262CDF34259}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendaBE", "AgendaBE", "{5818D42C-A856-4586-AEC4-D6DBD2309FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaFE.Logic", "AgendaFE.Logic\AgendaFE.Logic.csproj", "{01267DB9-216E-4735-AA24-ABB6FF99F6EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaFE.Logic", "AgendaFE.Logic\AgendaFE.Logic.csproj", "{01267DB9-216E-4735-AA24-ABB6FF99F6EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaFE.UI", "AgendaFE.UI\AgendaFE.UI.csproj", "{7BA5A53E-0A73-444C-8EBB-A9BC3E064C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaBE.Service", "AgendaBE.Service\AgendaBE.Service.csproj", "{6B49C45A-C454-4479-AB0B-2B1BDD1C0665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgendaBE.Service", "AgendaBE.Service\AgendaBE.Service.csproj", "{6B49C45A-C454-4479-AB0B-2B1BDD1C0665}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
