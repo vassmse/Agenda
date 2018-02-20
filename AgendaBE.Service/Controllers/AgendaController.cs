@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AgendaBE.Service.Models;
+using AgendaContracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,7 @@ namespace AgendaBE.Service.Controllers
     public class AgendaController : Controller
     {
         private readonly DataBaseContext _context;
+        private List<UserDto> users = new List<UserDto>();
 
         public AgendaController(DataBaseContext context)
         {
@@ -22,14 +24,17 @@ namespace AgendaBE.Service.Controllers
             {
                 _context.Users.Add(new User { Name = "User1", PasswordHash = "1234", Email = "a@b.com", RegisterDate=DateTime.Now });
                 _context.Users.Add(new User { Name = "User2", PasswordHash = "almafa", Email = "alma@b.com", RegisterDate = DateTime.Now });
+                users.Add(new UserDto { Name = "User1", PasswordHash = "1234", Email = "a@b.com" });
+                users.Add(new UserDto { Name = "User2", PasswordHash = "almafa", Email = "alma@b.com" });
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDto> GetAll()
         {
-            return _context.Users.ToList();
+            // return _context.Users.ToList();
+            return users;
         }
 
         [HttpGet("{id}", Name = "GetUser")]
