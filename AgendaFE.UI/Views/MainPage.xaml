@@ -12,9 +12,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding NewUserName, Mode=TwoWay}"></TextBox>
-        <Button Content="Add user" Grid.Row="1" ></Button>
+        <TextBox Grid.Row="0" Text="{Binding NewUserName, Mode=TwoWay}" />
+        <Button x:Name="btn1" Content="Add user" Grid.Row="1" Command="{Binding AddUserCommand}" />
         <ItemsControl ItemsSource="{Binding UserNames}" Grid.Row="2">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -22,5 +23,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <!--<Button Content="Push me" Command="{Binding DisplayMessageCommand}" Grid.Row="0"/>-->
     </Grid>
 </Page>

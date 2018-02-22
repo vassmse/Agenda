@@ -25,7 +25,7 @@ namespace AgendaFE.UI
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContext = new MainViewModel();
         }
     }
