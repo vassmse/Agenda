@@ -8,7 +8,67 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
+        <NavigationView x:Name="NavView"
+                    ItemInvoked="NavView_ItemInvoked"
+                    SelectionChanged="NavView_SelectionChanged"
+                    Loaded="NavView_Loaded"
+                    Canvas.ZIndex="0">
+            <NavigationView.MenuItems>
+                <NavigationViewItemHeader Content="Calendar"/>
+                <NavigationViewItem x:Uid="AppsNavItem" Icon="Calendar" Content="Today" Tag="home"/>
+                <NavigationViewItem x:Uid="GamesNavItem" Icon="Calendar" Content="7 days" Tag="home"/>
+                <NavigationViewItem x:Uid="Warning" Icon="Audio" Content="Expired" Tag="music"/>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItemHeader Content="Categories"/>
+                <NavigationViewItem  Content="Work" Tag="apps"/>
+                <NavigationViewItem  Content="School" Tag="games"/>
+                <NavigationViewItem  Content="Shopping" Tag="music"/>
+            </NavigationView.MenuItems>
+
+            <!--<NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="ASB" QueryIcon="Find"/>
+            </NavigationView.AutoSuggestBox>-->
+
+            <!--<NavigationView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="24,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                           FontSize="28"
+                           VerticalAlignment="Center"
+                           Text="Welcome"/>
+                        <CommandBar Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            DefaultLabelPosition="Right"
+                            Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                            <AppBarButton Label="Refresh" Icon="Refresh"/>
+                            <AppBarButton Label="Import" Icon="Import"/>
+                        </CommandBar>
+                    </Grid>
+                </DataTemplate>
+            </NavigationView.HeaderTemplate>-->
+
+            <!--<NavigationView.PaneFooter>
+                <HyperlinkButton x:Name="MoreInfoBtn"
+                             Content="More info"
+                             Margin="12,0"/>
+            </NavigationView.PaneFooter>-->
+
+            <Frame x:Name="ContentFrame" Margin="24">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+
+        </NavigationView>
+
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -22,8 +82,7 @@
                     <TextBlock Text="{Binding}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
+        </ItemsControl>-->
         <!--<Button Content="Push me" Command="{Binding DisplayMessageCommand}" Grid.Row="0"/>-->
     </Grid>
 </Page>
