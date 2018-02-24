@@ -35,10 +35,10 @@ namespace AgendaFE.UI
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             NavView.MenuItems.Add(new NavigationViewItem()
-            { Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "work" });
+            { Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
 
             NavView.MenuItems.Add(new NavigationViewItem()
-            { Content = "School", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "school" });
+            { Content = "School", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "category" });
 
             NavView.MenuItems.Add(new NavigationViewItemSeparator());
 
@@ -80,6 +80,18 @@ namespace AgendaFE.UI
                 case "week":
                     ContentFrame.Navigate(typeof(WeeklyReportPage));
                     NavView.Header = "Weekly report";
+                    break;
+                case "expired":
+                    ContentFrame.Navigate(typeof(WeeklyReportPage));
+                    NavView.Header = "Expired tasks";
+                    break;
+                case "category":
+                    ContentFrame.Navigate(typeof(SingleCategoryPage));
+                    NavView.Header = item.Content;
+                    break;
+                case "addnew":
+                    ContentFrame.Navigate(typeof(NewCategoryPage));
+                    NavView.Header = "Add new category";
                     break;
 
             }
