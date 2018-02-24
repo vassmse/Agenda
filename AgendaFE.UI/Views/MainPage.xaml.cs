@@ -34,21 +34,26 @@ namespace AgendaFE.UI
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
+            NavView.MenuItems.Add(new NavigationViewItem()
+            { Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "work" });
 
-            // you can also add items in code behind
-            //NavView.MenuItems.Add(new NavigationViewItemSeparator());
-            //NavView.MenuItems.Add(new NavigationViewItem()
-            //{ Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
+            NavView.MenuItems.Add(new NavigationViewItem()
+            { Content = "School", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "school" });
 
-            //// set the initial SelectedItem 
-            //foreach (NavigationViewItemBase item in NavView.MenuItems)
-            //{
-            //    if (item is NavigationViewItem && item.Tag.ToString() == "apps")
-            //    {
-            //        NavView.SelectedItem = item;
-            //        break;
-            //    }
-            //}
+            NavView.MenuItems.Add(new NavigationViewItemSeparator());
+
+            NavView.MenuItems.Add(new NavigationViewItem()
+            { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+
+            // set the initial SelectedItem 
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "today")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -68,8 +73,13 @@ namespace AgendaFE.UI
         {
             switch (item.Tag)
             {
-                case "home":
-                    ContentFrame.Navigate(typeof(TestPage));
+                case "today":
+                    ContentFrame.Navigate(typeof(DailyReportPage));
+                    NavView.Header = "Daily report";
+                    break;
+                case "week":
+                    ContentFrame.Navigate(typeof(WeeklyReportPage));
+                    NavView.Header = "Weekly report";
                     break;
 
             }

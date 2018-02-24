@@ -46,12 +46,12 @@ namespace AgendaFE.UI.ViewModels
         {
             businessLayer = new PresentationManager();
             UserNames = new ObservableCollection<string>();
-            AddUserCommand = new RelayCommand(AddUser);
-            foreach (var user in businessLayer.GetUserNames())
-            {
-                UserNames.Add(user);
-            }
-            AddUserCommand.RaiseCanExecuteChanged();
+            //AddUserCommand = new RelayCommand(AddUser);
+            //foreach (var user in businessLayer.GetUserNames())
+            //{
+            //    UserNames.Add(user);
+            //}
+            //AddUserCommand.RaiseCanExecuteChanged();
 
         }
 
