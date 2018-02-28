@@ -14,6 +14,7 @@
                     ItemInvoked="NavView_ItemInvoked"
                     SelectionChanged="NavView_SelectionChanged"
                     Loaded="NavView_Loaded"
+                    OpenPaneLength="220"
                     Header="Agenda"
                     Canvas.ZIndex="0">
             <NavigationView.MenuItems>
@@ -24,21 +25,6 @@
                 <NavigationViewItemSeparator/>
                 <NavigationViewItemHeader Content="Categories" Margin="33,0,0,0"/>
 
-                <NavigationViewList ItemsSource="{Binding TestMenus}">
-                    <NavigationViewList.ItemTemplate>
-                        <DataTemplate >
-                            <NavigationViewItem Icon="Calendar" Content="{Binding}" Tag="{Binding}" />
-                        </DataTemplate>
-                    </NavigationViewList.ItemTemplate>
-                </NavigationViewList>
-
-                <!--<NavigationViewList ItemsSource="{Binding Categories}">
-                    <NavigationViewList.ItemTemplate>
-                        <DataTemplate x:DataType="models:CategoryDto">
-                            <NavigationViewItem Icon="Calendar" Content="{Binding Name}" Tag="{Binding Name}" />
-                        </DataTemplate>
-                    </NavigationViewList.ItemTemplate>
-                </NavigationViewList>-->
 
             </NavigationView.MenuItems>
 

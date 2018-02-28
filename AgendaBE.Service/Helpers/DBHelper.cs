@@ -9,11 +9,18 @@ namespace AgendaBE.Service.Helpers
 {
     public class DBHelper
     {
-        public readonly DataBaseContext _context;
+        private DataBaseContext _context;
 
         public DBHelper(DataBaseContext context)
         {
             _context = context;
+            if (_context.Categories.Count() == 0)
+            {
+                AddCategory(new CategoryDto { Name = "School", Description = "blaa", Done = false, StateType = StateTypes.Checklist });
+                AddCategory(new CategoryDto { Name = "Work", Description = "blaa bla bla", Done = false, StateType = StateTypes.Checklist });
+                AddCategory(new CategoryDto { Name = "Shopping", Description = "blaa", Done = false, StateType = StateTypes.Kanban3 });
+            }
+
         }
 
         public List<CategoryDto> GetCategories()
@@ -49,7 +56,7 @@ namespace AgendaBE.Service.Helpers
 
         private Category GetCategory(CategoryDto category)
         {
-            return new Category { Name = category.Name, Description = category.Description, Done = category.Done, StateType = category.StateType.ToString()};
+            return new Category { Name = category.Name, Description = category.Description, Done = category.Done, StateType = category.StateType.ToString() };
         }
 
     }

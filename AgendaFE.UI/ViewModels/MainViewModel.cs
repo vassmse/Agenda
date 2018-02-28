@@ -47,18 +47,6 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
-        private List<string> testMenus;
-
-        public List<string> TestMenus
-        {
-            get { return testMenus; }
-            set
-            {
-                testMenus = value;
-                RaisePropertyChanged(nameof(TestMenus));
-            }
-        }
-
 
         #endregion
 
@@ -71,13 +59,10 @@ namespace AgendaFE.UI.ViewModels
         public MainViewModel()
         {
             businessLayer = new PresentationManager();
-            //Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());
+
+            Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());   
             NewCategory = new CategoryDto();
-            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
-
-            TestMenus = new List<string> { "a", "b", "c", "d" };
-            
-
+            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);       
 
         }
 
@@ -90,7 +75,6 @@ namespace AgendaFE.UI.ViewModels
         {
             //businessLayer.AddCategory(NewCategory);
             //Categories.Add(NewCategory);
-            TestMenus.Add("ads");
             NewCategory.Name = String.Empty;
             NewCategory.Description = String.Empty;
         }

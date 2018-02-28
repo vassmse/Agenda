@@ -24,6 +24,7 @@ namespace AgendaFE.UI
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        ViewModelLocator vm = new ViewModelLocator();
 
         public MainPage()
         {
@@ -32,11 +33,11 @@ namespace AgendaFE.UI
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
-            //foreach(var category in viewModel.Categories)
-            //{
-            //    NavView.MenuItems.Add(new NavigationViewItem()
-            //    { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-            //}
+            foreach (var category in vm.MainViewModel.Categories)
+            {
+                NavView.MenuItems.Add(new NavigationViewItem()
+                { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            }
 
             //NavView.MenuItems.Add(new NavigationViewItem()
             //{ Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });

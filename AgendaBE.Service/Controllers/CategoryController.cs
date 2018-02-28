@@ -14,11 +14,12 @@ namespace AgendaBE.Service.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        public DBHelper Helper { get; set; }
+        private DBHelper Helper { get; }
 
         public CategoryController(DataBaseContext context)
         {
-            Helper = new DBHelper(context);    
+            Helper = new DBHelper(context);
+            
         }
 
         // GET: api/<controller>
