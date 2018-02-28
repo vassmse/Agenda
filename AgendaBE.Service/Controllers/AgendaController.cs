@@ -15,17 +15,28 @@ namespace AgendaBE.Service.Controllers
     {
         private readonly DataBaseContext _context;
         private List<UserDto> users = new List<UserDto>();
+        private List<CategoryDto> categories = new List<CategoryDto>();
 
         public AgendaController(DataBaseContext context)
         {
-            _context = context;
+            _context = context;            
 
             if (_context.Users.Count() == 0)
             {
-                _context.Users.Add(new User { Name = "User1", PasswordHash = "1234", Email = "a@b.com", RegisterDate=DateTime.Now });
+                _context.Users.Add(new User { Name = "User1", PasswordHash = "1234", Email = "a@b.com", RegisterDate = DateTime.Now });
                 _context.Users.Add(new User { Name = "User2", PasswordHash = "almafa", Email = "alma@b.com", RegisterDate = DateTime.Now });
                 users.Add(new UserDto { Name = "User1", PasswordHash = "1234", Email = "a@b.com" });
                 users.Add(new UserDto { Name = "User2", PasswordHash = "almafa", Email = "alma@b.com" });
+                _context.SaveChanges();
+            }
+
+            if (_context.Categories.Count() == 0)
+            {
+                User user = new User { Name = "User0", PasswordHash = "assd", Email = "a111@b.com", RegisterDate = DateTime.Now };
+                _context.Users.Add(user);
+                users.Add(new UserDto { Name = "User0", PasswordHash = "assd", Email = "a111@b.com" });
+                _context.Categories.Add(new Category { Name = "School", Description = "BME", Done = false, StateType = StateTypes.Checklist.ToString(), ParentUser = user, ParentUserId = user.UserId });
+                categories.Add(new CategoryDto { Name = "School", Description = "BME", Done = false, StateType = StateTypes.Checklist });
                 _context.SaveChanges();
             }
         }
@@ -33,7 +44,6 @@ namespace AgendaBE.Service.Controllers
         [HttpGet]
         public IEnumerable<UserDto> GetAll()
         {
-            // return _context.Users.ToList();
             return users;
         }
 

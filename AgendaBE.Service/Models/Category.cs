@@ -26,7 +26,7 @@ namespace AgendaBE.Service.Models
         public List<Task> Tasks { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int ParentUserId { get; set; }
 
         [Required]
         [ForeignKey("UserForeignKey")]

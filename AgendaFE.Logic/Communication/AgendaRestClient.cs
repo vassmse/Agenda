@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AgendaFE.Logic.Communication
 {
-    class AgendaRestClient
+    public class AgendaRestClient
     {
-        const string BaseUrl = "http://localhost:51104/api/agenda";
+        const string BaseUrl = "http://localhost:51104/api/";
 
         public T Execute<T>(RestRequest request) where T : new()
         {
@@ -30,6 +30,20 @@ namespace AgendaFE.Logic.Communication
             var request = new RestRequest();
 
             return Execute<List<UserDto>>(request);
+        }
+
+        public List<CategoryDto> GetCategories()
+        {
+            var request = new RestRequest("category");
+
+            return Execute<List<CategoryDto>>(request);
+        }
+
+        public void AddCategory(CategoryDto newCategory)
+        {
+            var request = new RestRequest("category", Method.POST);
+            request.AddJsonBody(newCategory);
+            Execute<List<CategoryDto>>(request);
         }
 
     }

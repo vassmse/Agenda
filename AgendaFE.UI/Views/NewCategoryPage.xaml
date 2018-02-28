@@ -8,17 +8,13 @@
     mc:Ignorable="d">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox x:Name="CategoryName" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" />
-        <RichEditBox x:Name="Description" Header="Description" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True" Height="100" />
+        <TextBox x:Name="CategoryName" Header= "Name" Text="{Binding NewCategory.Name, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" />
+        <TextBox x:Name="Description" Header="Description" Text="{Binding NewCategory.Description, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True" Height="100" />
 
-        <ComboBox x:Name="Type" PlaceholderText="Type" Margin="0,24,0,0"  Width="100">
-            <x:String>Checklist</x:String>
-            <x:String>Kanban Board - 3</x:String>
-            <x:String>Kanban Board - 5</x:String>
-        </ComboBox>
+        <ComboBox x:Name="TypeComboBox" PlaceholderText="Type" Margin="0,24,0,0" />
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="Save" Margin="0,24"/>
+            <Button Content="Save" Margin="0,24" Command="{Binding AddCategoryCommand}"/>
             <Button Content="Cancel" Margin="24"/>
         </StackPanel>
     </StackPanel>

@@ -1,4 +1,5 @@
-﻿using AgendaFE.Logic.EntryPoints;
+﻿using AgendaContracts.Models;
+using AgendaFE.Logic.EntryPoints;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -14,56 +15,69 @@ namespace AgendaFE.UI.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public RelayCommand AddUserCommand { get; private set; }
+        #region Command properties
 
-        private ObservableCollection<string> userNames;
+        public RelayCommand AddCategoryCommand { get; private set; }
 
-        public ObservableCollection<string> UserNames
+        #endregion
+
+        #region Full Properties
+
+        private ObservableCollection<CategoryDto> categories;
+
+        public ObservableCollection<CategoryDto> Categories
         {
-            get { return userNames; }
+            get { return categories; }
             set
             {
-                userNames = value;
-                RaisePropertyChanged(nameof(UserNames));
+                categories = value;
+                RaisePropertyChanged(nameof(Categories));
             }
         }
 
-        private string newUserName;
+        private CategoryDto newCategory;
 
-        public string NewUserName
+        public CategoryDto NewCategory
         {
-            get { return newUserName; }
+            get { return newCategory; }
             set
             {
-                newUserName = value;
-                RaisePropertyChanged(nameof(NewUserName));
+                newCategory = value;
+                RaisePropertyChanged(nameof(NewCategory));
             }
         }
+
+
+        #endregion
+
+        #region Private properties
 
         private PresentationManager businessLayer { get; set; }
+
+        #endregion
 
         public MainViewModel()
         {
             businessLayer = new PresentationManager();
-            UserNames = new ObservableCollection<string>();
-            //AddUserCommand = new RelayCommand(AddUser);
-            //foreach (var user in businessLayer.GetUserNames())
-            //{
-            //    UserNames.Add(user);
-            //}
-            //AddUserCommand.RaiseCanExecuteChanged();
+            Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());
+            NewCategory = new CategoryDto();
+            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);           
+            
+
 
         }
 
-        public bool CanAddUser()
+        public bool CanAddCategory()
         {
             return true;
         }
 
-        public void AddUser()
+        public void AddCategory()
         {
-            UserNames.Add(NewUserName);
-            NewUserName = String.Empty;
+            businessLayer.AddCategory(NewCategory);
+            Categories.Add(NewCategory);
+            NewCategory.Name = String.Empty;
+            NewCategory.Description = String.Empty;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgendaContracts.Models;
+using AgendaFE.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,13 @@ namespace AgendaFE.UI.Views
     /// </summary>
     public sealed partial class NewCategoryPage : Page
     {
+        MainViewModel viewModel = new MainViewModel();
+
         public NewCategoryPage()
         {
             this.InitializeComponent();
+            DataContext = viewModel;
+            TypeComboBox.ItemsSource = Enum.GetValues(typeof(StateTypes));
         }
     }
 }

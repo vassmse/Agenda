@@ -8,10 +8,18 @@ namespace AgendaContracts.Models
     {
         public string Name { get; set; }
 
-        public string StateType { get; set; }
+        public StateTypes StateType { get; set; }
 
         public bool Done { get; set; }
 
         public string Description { get; set; }
+    }
+
+    public enum StateTypes
+    {
+        Checklist,
+        MultiChecklist,
+        Kanban3,
+        Kanban5
     }
 }
