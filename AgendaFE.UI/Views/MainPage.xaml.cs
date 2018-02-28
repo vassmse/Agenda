@@ -24,12 +24,10 @@ namespace AgendaFE.UI
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MainViewModel viewModel = new MainViewModel();
 
         public MainPage()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)

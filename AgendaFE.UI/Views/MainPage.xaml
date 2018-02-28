@@ -6,7 +6,8 @@
     xmlns:models="using:AgendaContracts.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <NavigationView x:Name="NavView"
@@ -23,13 +24,21 @@
                 <NavigationViewItemSeparator/>
                 <NavigationViewItemHeader Content="Categories" Margin="33,0,0,0"/>
 
-                <NavigationViewList ItemsSource="{Binding Categories}">
+                <NavigationViewList ItemsSource="{Binding TestMenus}">
+                    <NavigationViewList.ItemTemplate>
+                        <DataTemplate >
+                            <NavigationViewItem Icon="Calendar" Content="{Binding}" Tag="{Binding}" />
+                        </DataTemplate>
+                    </NavigationViewList.ItemTemplate>
+                </NavigationViewList>
+
+                <!--<NavigationViewList ItemsSource="{Binding Categories}">
                     <NavigationViewList.ItemTemplate>
                         <DataTemplate x:DataType="models:CategoryDto">
                             <NavigationViewItem Icon="Calendar" Content="{Binding Name}" Tag="{Binding Name}" />
                         </DataTemplate>
                     </NavigationViewList.ItemTemplate>
-                </NavigationViewList>
+                </NavigationViewList>-->
 
             </NavigationView.MenuItems>
 
