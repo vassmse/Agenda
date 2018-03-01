@@ -29,11 +29,12 @@ namespace AgendaFE.UI
         public MainPage()
         {
             InitializeComponent();
+            DataContext = vm.MainPage;
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (var category in vm.MainViewModel.Categories)
+            foreach (var category in vm.MainPage.Categories)
             {
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });

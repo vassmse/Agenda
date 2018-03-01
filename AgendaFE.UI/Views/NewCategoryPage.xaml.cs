@@ -24,10 +24,12 @@ namespace AgendaFE.UI.Views
     /// </summary>
     public sealed partial class NewCategoryPage : Page
     {
+        ViewModelLocator vm = new ViewModelLocator();
 
         public NewCategoryPage()
         {
             this.InitializeComponent();
+            DataContext = vm.MainPage;
             TypeComboBox.ItemsSource = Enum.GetValues(typeof(StateTypes));
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgendaFE.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace AgendaFE.UI.Views
     /// </summary>
     public sealed partial class WeeklyReportPage : Page
     {
+        ViewModelLocator vm = new ViewModelLocator();
+
         public WeeklyReportPage()
         {
             this.InitializeComponent();
+            DataContext = vm.MainPage;
         }
     }
 }

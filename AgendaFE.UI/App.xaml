@@ -7,8 +7,18 @@
     xmlns:vm="using:AgendaFE.UI.ViewModels">
 
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" />
+        <ResourceDictionary>
+            <vm:ViewModelLocator x:Key="ViewModelLocator" />
+        </ResourceDictionary>
+
+            <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+              TintColor="Yellow" TintOpacity=".9"/>
+        <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+              TintColor="Orange" TintOpacity=".9"/>-->
+        
     </Application.Resources>
+    
+    
 
 
 </Application>
