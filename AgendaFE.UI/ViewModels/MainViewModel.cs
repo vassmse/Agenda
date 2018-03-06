@@ -47,6 +47,32 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
+        private CategoryDto selectedCategory;
+
+        public CategoryDto SelectedCategory
+        {
+            get { return selectedCategory; }
+            set
+            {
+                selectedCategory = value;
+                RaisePropertyChanged(nameof(SelectedCategory));
+            }
+        }
+
+        private List<string> testString;
+
+        public List<string> TestString
+        {
+            get { return testString; }
+            set
+            {
+                testString = value;
+                RaisePropertyChanged(nameof(TestString));
+            }
+        }
+
+
+
 
         #endregion
 
@@ -60,9 +86,25 @@ namespace AgendaFE.UI.ViewModels
         {
             businessLayer = new PresentationManager();
 
-            Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());   
+            Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());
             NewCategory = new CategoryDto();
-            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);       
+            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
+            SelectedCategory = new CategoryDto();
+            //Dummy datas
+            SelectedCategory.Name = "School";
+            SelectedCategory.StateType = StateTypes.Checklist;
+            SelectedCategory.Tasks = new List<TaskDto>
+            {
+                new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
+                new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now }
+            };
+
+            TestString = new List<string>
+            {
+                "alma",
+                "körte",
+                "banán"
+            };
 
         }
 

@@ -7,69 +7,135 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" >
-            <Grid Grid.Row="0" Height="80">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="30"/>
-
-                <TextBlock Text="Banana" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                    <TextBlock Text="Fruit" />
-                    <TextBlock Text="2018-02-16" Padding="20 0" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
-                    <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
-                    <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
-                    <SymbolIcon  Symbol="Home" Margin="10 0"/>
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1" Margin="10" >
-            <Grid Grid.Row="0" Height="80">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="30"/>
-
-                <TextBlock Text="Banana" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <TextBlock Text="Fruit" />
-                    <TextBlock Text="2018-02-16" Padding="20 0" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
-                    <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
-                    <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
-                    <SymbolIcon  Symbol="Home" Margin="10 0"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+    <SplitView x:Name="splitView"
+               PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+               IsPaneOpen="True"
+               DisplayMode="Inline"
+               OpenPaneLength="256"
+               CompactPaneLength="48"
+               PanePlacement="Right">
+        <SplitView.Content>
 
 
-    </Grid>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding SelectedCategory.Tasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" Background="Transparent" >
+                                    <Grid Grid.Row="0" Height="80" PointerPressed="Button_Click" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20"/>
+
+                                        <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                        <TextBlock Text="{Binding Description}" />
+                                            <TextBlock Text="{Binding DeadlineDate}" Padding="20 0" />
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
+                                            <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
+                                            <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
+                                            <SymbolIcon  Symbol="Home" Margin="10 0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+
+
+
+
+                <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" PointerPressed="Button_Click" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" >
+                        <Grid Grid.Row="0" Height="80">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20"/>
+
+                            <TextBlock Text="Banana" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock Text="Fruit" />
+                                <TextBlock Text="2018-02-16" Padding="20 0" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
+                                <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
+                                <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
+                                <SymbolIcon  Symbol="Home" Margin="10 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1" Margin="10" >
+                        <Grid Grid.Row="0" Height="80">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20"/>
+
+                            <TextBlock Text="Banana" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock Text="Fruit" />
+                                <TextBlock Text="2018-02-16" Padding="20 0" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
+                                <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
+                                <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
+                                <SymbolIcon  Symbol="Home" Margin="10 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+
+                </Grid>-->
+
+        </SplitView.Content>
+        <SplitView.Pane>
+            <TextBlock Text="Pane"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+        </SplitView.Pane>
+
+    </SplitView>
+
+
+
+
+
+
 </Page>

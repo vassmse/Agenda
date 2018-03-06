@@ -32,5 +32,12 @@ namespace AgendaFE.UI.Views
             this.InitializeComponent();
             DataContext = vm.MainPage;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = !splitView.IsPaneOpen;
+        }
     }
+
+   
 }

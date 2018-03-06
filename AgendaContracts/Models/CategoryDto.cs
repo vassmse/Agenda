@@ -13,6 +13,8 @@ namespace AgendaContracts.Models
         public bool Done { get; set; }
 
         public string Description { get; set; }
+
+        public List<TaskDto> Tasks { get; set; }
     }
 
     public enum StateTypes
