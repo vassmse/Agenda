@@ -59,20 +59,6 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
-        private List<string> testString;
-
-        public List<string> TestString
-        {
-            get { return testString; }
-            set
-            {
-                testString = value;
-                RaisePropertyChanged(nameof(TestString));
-            }
-        }
-
-
-
 
         #endregion
 
@@ -97,13 +83,6 @@ namespace AgendaFE.UI.ViewModels
             {
                 new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
                 new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now }
-            };
-
-            TestString = new List<string>
-            {
-                "alma",
-                "körte",
-                "banán"
             };
 
         }

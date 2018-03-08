@@ -37,6 +37,17 @@ namespace AgendaFE.UI.Views
         {
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
         }
+
+        private void ItemsControl_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 0);
+        }
+
+        private void ItemsControl_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+
+        }
     }
 
    
