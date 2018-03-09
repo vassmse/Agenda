@@ -5,6 +5,8 @@
     xmlns:local="using:AgendaFE.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
 
     <SplitView x:Name="splitView"
@@ -21,6 +23,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" Background="Transparent" >
+
                                     <Grid Grid.Row="0" Height="80" >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="40"/>
@@ -54,9 +57,13 @@
 
                     <Border BorderBrush="Black" BorderThickness="2" Margin="10" Background="Transparent" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
                         <StackPanel Orientation="Horizontal" Margin="10">
+                            <i:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="PointerPressed">
+                                    <core:InvokeCommandAction Command="{Binding AddTaskCommand}"></core:InvokeCommandAction>
+                                </core:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
                             <SymbolIcon  Symbol="Add" Margin="10 0"/>
                             <TextBlock Text="Add new to-do"/>
-                            <Button Command="{Binding AddTaskCommand}" />                            
                         </StackPanel>
                     </Border>
                 </StackPanel>
