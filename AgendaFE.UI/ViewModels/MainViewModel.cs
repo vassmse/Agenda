@@ -19,6 +19,8 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand AddCategoryCommand { get; private set; }
 
+        public RelayCommand AddTaskCommand { get; private set; }
+
         #endregion
 
         #region Full Properties
@@ -64,25 +66,28 @@ namespace AgendaFE.UI.ViewModels
 
         #region Private properties
 
-        private PresentationManager businessLayer { get; set; }
+        private PresentationManager BusinessLayer { get; set; }
 
         #endregion
 
         public MainViewModel()
         {
-            businessLayer = new PresentationManager();
+            BusinessLayer = new PresentationManager();
 
-            Categories = new ObservableCollection<CategoryDto>(businessLayer.GetCategories());
+            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
+            AddTaskCommand = new RelayCommand(AddTask);
+
             NewCategory = new CategoryDto();
             AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
             SelectedCategory = new CategoryDto();
             //Dummy datas
             SelectedCategory.Name = "School";
             SelectedCategory.StateType = StateTypes.Checklist;
-            SelectedCategory.Tasks = new List<TaskDto>
+            SelectedCategory.Tasks = new ObservableCollection<TaskDto>
             {
                 new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
-                new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now }
+                new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now },
+                new TaskDto { Name = "Water", Description = "12 bottles", State = 0, DeadlineDate = DateTime.Now }
             };
 
         }
@@ -94,10 +99,15 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddCategory()
         {
-            //businessLayer.AddCategory(NewCategory);
-            //Categories.Add(NewCategory);
+            BusinessLayer.AddCategory(NewCategory);
+            Categories.Add(NewCategory);
             NewCategory.Name = String.Empty;
             NewCategory.Description = String.Empty;
+        }
+
+        public void AddTask()
+        {            
+            SelectedCategory.Tasks.Add(new TaskDto { Name = "NewItem", Description = "--", State = 0 });
         }
     }
 }

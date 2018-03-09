@@ -48,6 +48,7 @@ namespace AgendaFE.UI.Views
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
 
         }
+
     }
 
    

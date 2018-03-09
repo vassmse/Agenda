@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace AgendaContracts.Models
@@ -14,7 +15,7 @@ namespace AgendaContracts.Models
 
         public string Description { get; set; }
 
-        public List<TaskDto> Tasks { get; set; }
+        public ObservableCollection<TaskDto> Tasks { get; set; }
     }
 
     public enum StateTypes

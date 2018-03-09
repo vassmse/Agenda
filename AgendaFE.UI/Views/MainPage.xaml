@@ -12,13 +12,17 @@
         <!--<Grid.Background>
             <ImageBrush ImageSource="/Images/bg.jpg"/>
         </Grid.Background>-->
+
+
+
         <NavigationView x:Name="NavView"
                     ItemInvoked="NavView_ItemInvoked"
                     SelectionChanged="NavView_SelectionChanged"
                     Loaded="NavView_Loaded"
                     OpenPaneLength="220"
                     AlwaysShowHeader="True"      
-                    Canvas.ZIndex="0">
+                    Canvas.ZIndex="0"  
+                        >
             <NavigationView.MenuItems>
                 <NavigationViewItemHeader Content="Calendar" Margin="33,0,0,0"/>
                 <NavigationViewItem x:Uid="AppsNavItem" Icon="Calendar" Content="Today" Tag="today"/>
@@ -26,40 +30,19 @@
                 <NavigationViewItem x:Uid="Warning" Icon="Audio" Content="Expired" Tag="expired"/>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItemHeader Content="Categories" Margin="33,0,0,0"/>
+            <!--Miért nem megy??-->
+                <!--<NavigationViewList ItemsSource="{Binding Categories}">
+                    <NavigationViewList.ItemTemplate>
+                        <DataTemplate>
+                            <NavigationViewItem Icon="Calendar" Content="{Binding Name}" Tag="categories" />
+                        </DataTemplate>
+                    </NavigationViewList.ItemTemplate>
+                </NavigationViewList>-->
+                
+               
 
 
             </NavigationView.MenuItems>
-
-            <!--<NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="ASB" QueryIcon="Find"/>
-            </NavigationView.AutoSuggestBox>-->
-
-            <!--<NavigationView.HeaderTemplate>
-                <DataTemplate >
-                    <Grid Background="AliceBlue"  Padding="10 0 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                           Grid.Row="0"
-                           FontSize="20"
-                           VerticalAlignment="Center"
-                           Text="Welcome"/>
-                        <TextBlock
-                           Grid.Row="1"
-                           FontSize="22"
-                           VerticalAlignment="Center"
-                           Text="2018.02.25. Monday"/>
-                    </Grid>
-                </DataTemplate>
-            </NavigationView.HeaderTemplate>-->
-
-            <!--<NavigationView.PaneFooter>
-                <HyperlinkButton x:Name="MoreInfoBtn"
-                             Content="More info"
-                             Margin="12,0"/>
-            </NavigationView.PaneFooter>-->
 
             <Frame x:Name="ContentFrame" Margin="24">
                 <Frame.ContentTransitions>
