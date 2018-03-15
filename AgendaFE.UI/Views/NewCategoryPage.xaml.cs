@@ -27,11 +27,10 @@ namespace AgendaFE.UI.Views
         ViewModelLocator vm = new ViewModelLocator();
         public MainViewModel ViewModel { get; set; }
 
+
         public NewCategoryPage()
         {
             this.InitializeComponent();
-            //ViewModel = vm.MainPage;
-            //DataContext = vm.MainPage;
             ViewModel = vm.MainPage;
             TypeComboBox.ItemsSource = Enum.GetValues(typeof(StateTypes));
         }

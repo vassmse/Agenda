@@ -21,11 +21,46 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand AddTaskCommand { get; private set; }
 
+        public RelayCommand<string> SelectedTaskCommand { get; private set; }
+
         #endregion
+        public string TestString { get; set; }
+
+
+        private List<string> testList;
+        public List<string> TestList
+        {
+            get { return testList; }
+            set { testList = value; }
+        }
 
         #region Full Properties
 
-        public string TestString { get; set; }
+        private TaskDto selectedTask;
+
+        public TaskDto SelectedTask
+        {
+            get { return selectedTask; }
+            set
+            {
+                selectedTask = value;
+                RaisePropertyChanged(nameof(SelectedTask));
+            }
+        }
+
+        private bool isPanelActive;
+
+        public bool IsPanelActive
+        {
+            get { return isPanelActive; }
+            set
+            {
+                isPanelActive = value;
+                RaisePropertyChanged(nameof(IsPanelActive));
+            }
+        }
+
+
 
         private ObservableCollection<CategoryDto> categories;
 
@@ -38,15 +73,6 @@ namespace AgendaFE.UI.ViewModels
                 RaisePropertyChanged(nameof(Categories));
             }
         }
-
-        private List<string> testList;
-
-        public List<string> TestList
-        {
-            get { return testList; }
-            set { testList = value; }
-        }
-
 
         private CategoryDto newCategory;
 
@@ -87,13 +113,16 @@ namespace AgendaFE.UI.ViewModels
 
             AddTaskCommand = new RelayCommand(AddTask);
             AddCategoryCommand = new RelayCommand(AddCategory);
-          
+            SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
+
             #endregion
 
             BusinessLayer = new PresentationManager();
-            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());            
+            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
             NewCategory = new CategoryDto();
             SelectedCategory = new CategoryDto();
+            SelectedTask = new TaskDto { Name = "test" };
+
             TestString = "TestString";
 
             //Dummy datas
@@ -126,8 +155,14 @@ namespace AgendaFE.UI.ViewModels
         }
 
         public void AddTask()
-        {            
+        {
             SelectedCategory.Tasks.Add(new TaskDto { Name = "NewItem", Description = "--", State = 0 });
+        }
+
+        public void SelectedTaskAction(string taskName)
+        {
+            SelectedTask.Name = taskName;
+            IsPanelActive = !IsPanelActive;
         }
 
         #endregion

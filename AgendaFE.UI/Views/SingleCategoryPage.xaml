@@ -7,11 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:viewModels="using:AgendaFE.UI.ViewModels"
+    xmlns:models="using:AgendaContracts.Models"
+    
     mc:Ignorable="d">
 
     <SplitView x:Name="splitView"
                PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-               IsPaneOpen="True"
+               IsPaneOpen="{x:Bind ViewModel.IsPanelActive, Mode=TwoWay}"
                DisplayMode="Inline"
                OpenPaneLength="256"
                CompactPaneLength="48"
@@ -19,10 +22,15 @@
         <SplitView.Content>
             <ScrollViewer>
                 <StackPanel Orientation="Vertical">
-                    <ItemsControl ItemsSource="{Binding SelectedCategory.Tasks}" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" PointerPressed="Button_Click">
+                    <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks}" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:TaskDto">
                                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" Background="Transparent" >
+                                    <i:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="PointerPressed">
+                                            <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Name}" />
+                                        </core:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
 
                                     <Grid Grid.Row="0" Height="80" >
                                         <Grid.RowDefinitions>
@@ -37,10 +45,10 @@
 
                                         <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0"/>
 
-                                        <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                            <TextBlock Text="{Binding Description}" />
-                                            <TextBlock Text="{Binding DeadlineDate}" Padding="20 0" />
+                                            <TextBlock Text="{x:Bind Description}" />
+                                            <TextBlock Text="{x:Bind DeadlineDate}" Padding="20 0" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
@@ -59,7 +67,7 @@
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <i:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="PointerPressed">
-                                    <core:InvokeCommandAction Command="{Binding AddTaskCommand}"></core:InvokeCommandAction>
+                                    <core:InvokeCommandAction Command="{x:Bind ViewModel.AddTaskCommand}" />
                                 </core:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <SymbolIcon  Symbol="Add" Margin="10 0"/>
@@ -72,10 +80,10 @@
 
         </SplitView.Content>
         <SplitView.Pane>
-            <TextBlock Text="Pane"
-                   FontSize="24"
+            <TextBlock Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}"
+                   FontSize="13"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Center" />
         </SplitView.Pane>
     </SplitView>
 </Page>

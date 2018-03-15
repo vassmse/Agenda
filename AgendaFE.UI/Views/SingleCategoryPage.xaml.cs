@@ -26,16 +26,13 @@ namespace AgendaFE.UI.Views
     public sealed partial class SingleCategoryPage : Page
     {
         ViewModelLocator vm = new ViewModelLocator();
+        public MainViewModel ViewModel { get; set; }
 
         public SingleCategoryPage()
         {
             this.InitializeComponent();
-            DataContext = vm.MainPage;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            splitView.IsPaneOpen = !splitView.IsPaneOpen;
+            ViewModel = vm.MainPage;
+            DataContext = ViewModel;
         }
 
         private void ItemsControl_PointerEntered(object sender, PointerRoutedEventArgs e)
