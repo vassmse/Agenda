@@ -36,7 +36,7 @@ namespace AgendaFE.UI
             InitializeComponent();
             ViewModel = vm.MainPage;
             DataContext = ViewModel;
-            MenuItems = NavigationViewItems.menu;           
+            MenuItems = NavigationViewItems.menu;
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
@@ -84,29 +84,32 @@ namespace AgendaFE.UI
 
         private void NavView_Navigate(NavigationViewItem item)
         {
-            switch (item.Tag)
+            if (item != null)
             {
-                case "today":
-                    ContentFrame.Navigate(typeof(DailyReportPage));
-                    NavView.Header = "Daily report";
-                    break;
-                case "week":
-                    ContentFrame.Navigate(typeof(WeeklyReportPage));
-                    NavView.Header = "Weekly report";
-                    break;
-                case "expired":
-                    ContentFrame.Navigate(typeof(WeeklyReportPage));
-                    NavView.Header = "Expired tasks";
-                    break;
-                case "category":
-                    ContentFrame.Navigate(typeof(SingleCategoryPage));
-                    NavView.Header = item.Content;
-                    break;
-                case "addnew":
-                    ContentFrame.Navigate(typeof(NewCategoryPage));
-                    NavView.Header = "Add new category";
-                    break;
+                switch (item.Tag)
+                {
+                    case "today":
+                        ContentFrame.Navigate(typeof(DailyReportPage));
+                        NavView.Header = "Daily report";
+                        break;
+                    case "week":
+                        ContentFrame.Navigate(typeof(WeeklyReportPage));
+                        NavView.Header = "Weekly report";
+                        break;
+                    case "expired":
+                        ContentFrame.Navigate(typeof(WeeklyReportPage));
+                        NavView.Header = "Expired tasks";
+                        break;
+                    case "category":
+                        ContentFrame.Navigate(typeof(SingleCategoryPage));
+                        NavView.Header = item.Content;
+                        break;
+                    case "addnew":
+                        ContentFrame.Navigate(typeof(NewCategoryPage));
+                        NavView.Header = "Add new category";
+                        break;
 
+                }
             }
         }
     }

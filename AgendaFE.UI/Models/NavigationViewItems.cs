@@ -29,11 +29,16 @@ namespace AgendaFE.UI.Models
             {
                 menu.Add(new NavigationViewItem { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
             }
+
+            menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
         public static void AddMenuItem(string name)
         {
-            new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" };
+            menu.RemoveAt(menu.Count - 1);
+            menu.Add(new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
