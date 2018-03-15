@@ -44,7 +44,7 @@ namespace AgendaFE.UI.ViewModels
             set
             {
                 selectedTask = value;
-                RaisePropertyChanged(nameof(SelectedTask));
+                RaisePropertyChanged("SelectedTask");
             }
         }
 
@@ -166,5 +166,6 @@ namespace AgendaFE.UI.ViewModels
         }
 
         #endregion
+
     }
 }
