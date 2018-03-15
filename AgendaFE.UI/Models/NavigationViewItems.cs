@@ -6,11 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace AgendaFE.UI.Models
 {
-    public class NavigationViewItems: INotifyPropertyChanged
+    public class NavigationViewItems : INotifyPropertyChanged
     {
         public static ObservableCollection<NavigationViewItemBase> menu = new ObservableCollection<NavigationViewItemBase>();
 
@@ -18,27 +19,30 @@ namespace AgendaFE.UI.Models
 
         static NavigationViewItems()
         {
-            menu.Add(new NavigationViewItemHeader { Content = "Calendar" });
-            menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-            menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-            menu.Add(new NavigationViewItem() { Content = "expired", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+
+            menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
+            menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
+            menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "week" });
+            menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "expired" });
             menu.Add(new NavigationViewItemSeparator());
-            menu.Add(new NavigationViewItemHeader { Content = "Categories" });
+            menu.Add(new NavigationViewItemHeader { Content = "Categories", Margin = new Thickness(33, 0, 0, 0) });
 
             foreach (var category in ViewModel.Categories)
             {
                 menu.Add(new NavigationViewItem { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
             }
 
+            menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
         public static void AddMenuItem(string name)
         {
             menu.RemoveAt(menu.Count - 1);
+            menu.RemoveAt(menu.Count - 1);
             menu.Add(new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
