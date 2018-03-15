@@ -1,7 +1,9 @@
-﻿using AgendaFE.UI.ViewModels;
+﻿using AgendaFE.UI.Models;
+using AgendaFE.UI.ViewModels;
 using AgendaFE.UI.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,20 +27,25 @@ namespace AgendaFE.UI
     public sealed partial class MainPage : Page
     {
         ViewModelLocator vm = new ViewModelLocator();
+        public MainViewModel ViewModel { get; set; }
+
+        public ObservableCollection<NavigationViewItemBase> MenuItems;
 
         public MainPage()
         {
             InitializeComponent();
-            DataContext = vm.MainPage;
+            ViewModel = vm.MainPage;
+            DataContext = ViewModel;
+            MenuItems = NavigationViewItems.menu;           
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (var category in vm.MainPage.Categories)
-            {
-                NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-            }
+            //foreach (var category in vm.MainPage.Categories)
+            //{
+            //    NavView.MenuItems.Add(new NavigationViewItem()
+            //    { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            //}
 
             //NavView.MenuItems.Add(new NavigationViewItem()
             //{ Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
@@ -46,20 +53,20 @@ namespace AgendaFE.UI
             //NavView.MenuItems.Add(new NavigationViewItem()
             //{ Content = "School", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "category" });
 
-            NavView.MenuItems.Add(new NavigationViewItemSeparator());
+            //NavView.MenuItems.Add(new NavigationViewItemSeparator());
 
-            NavView.MenuItems.Add(new NavigationViewItem()
-            { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+            //NavView.MenuItems.Add(new NavigationViewItem()
+            //{ Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
 
             // set the initial SelectedItem 
-            foreach (NavigationViewItemBase item in NavView.MenuItems)
-            {
-                if (item is NavigationViewItem && item.Tag.ToString() == "today")
-                {
-                    NavView.SelectedItem = item;
-                    break;
-                }
-            }
+            //foreach (NavigationViewItemBase item in NavView.MenuItems)
+            //{
+            //    if (item is NavigationViewItem && item.Tag.ToString() == "today")
+            //    {
+            //        NavView.SelectedItem = item;
+            //        break;
+            //    }
+            //}
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

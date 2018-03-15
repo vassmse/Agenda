@@ -1,5 +1,6 @@
 ﻿using AgendaContracts.Models;
 using AgendaFE.Logic.EntryPoints;
+using AgendaFE.UI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -150,6 +151,7 @@ namespace AgendaFE.UI.ViewModels
         {
             //BusinessLayer.AddCategory(NewCategory);
             Categories.Add(NewCategory);
+            NavigationViewItems.AddMenuItem(NewCategory.Name);
             NewCategory.Name = String.Empty;
             NewCategory.Description = String.Empty;
         }
@@ -161,8 +163,14 @@ namespace AgendaFE.UI.ViewModels
 
         public void SelectedTaskAction(string taskName)
         {
-            SelectedTask.Name = taskName;
-            IsPanelActive = !IsPanelActive;
+            if (SelectedTask.Name == taskName)
+                IsPanelActive = !IsPanelActive;
+            else
+            {
+                SelectedTask.Name = taskName;
+                IsPanelActive = true;
+            }
+
         }
 
         #endregion

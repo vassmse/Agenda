@@ -6,6 +6,7 @@
     xmlns:models="using:AgendaContracts.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:menu="using:AgendaFE.UI.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -20,25 +21,8 @@
                     OpenPaneLength="220"
                     AlwaysShowHeader="True"      
                     Canvas.ZIndex="0"  
+                    MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}"
                         >
-            <NavigationView.MenuItems>
-                <NavigationViewItemHeader Content="Calendar" Margin="33,0,0,0"/>
-                <NavigationViewItem x:Uid="AppsNavItem" Icon="Calendar" Content="Today" Tag="today"/>
-                <NavigationViewItem x:Uid="GamesNavItem" Icon="Calendar" Content="7 days" Tag="week"/>
-                <NavigationViewItem x:Uid="Warning" Icon="Audio" Content="Expired" Tag="expired"/>
-                <NavigationViewItemSeparator/>
-                <NavigationViewItemHeader Content="Categories" Margin="33,0,0,0"/>
-            <!--Miért nem megy??-->
-                <!--<NavigationViewList ItemsSource="{Binding TestList}">
-                    <NavigationViewList.ItemTemplate>
-                        <DataTemplate>
-                            <NavigationViewItem Icon="Calendar" Content="{Binding }" Tag="categories" />
-                        </DataTemplate>
-                    </NavigationViewList.ItemTemplate>
-                </NavigationViewList>-->
-
-
-            </NavigationView.MenuItems>
 
             <Frame x:Name="ContentFrame" Margin="24">
                 <Frame.ContentTransitions>
