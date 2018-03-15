@@ -72,14 +72,18 @@ namespace AgendaFE.UI.ViewModels
 
         public MainViewModel()
         {
-            BusinessLayer = new PresentationManager();
+            #region RelayCommands
 
-            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
             AddTaskCommand = new RelayCommand(AddTask);
+            AddCategoryCommand = new RelayCommand(AddCategory);
+          
+            #endregion
 
+            BusinessLayer = new PresentationManager();
+            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
             NewCategory = new CategoryDto();
-            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
             SelectedCategory = new CategoryDto();
+
             //Dummy datas
             SelectedCategory.Name = "School";
             SelectedCategory.StateType = StateTypes.Checklist;
@@ -92,10 +96,8 @@ namespace AgendaFE.UI.ViewModels
 
         }
 
-        public bool CanAddCategory()
-        {
-            return true;
-        }
+
+        #region Commands
 
         public void AddCategory()
         {
@@ -109,5 +111,7 @@ namespace AgendaFE.UI.ViewModels
         {            
             SelectedCategory.Tasks.Add(new TaskDto { Name = "NewItem", Description = "--", State = 0 });
         }
+
+        #endregion
     }
 }
