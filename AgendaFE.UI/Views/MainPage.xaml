@@ -13,8 +13,6 @@
             <ImageBrush ImageSource="/Images/bg.jpg"/>
         </Grid.Background>-->
 
-
-
         <NavigationView x:Name="NavView"
                     ItemInvoked="NavView_ItemInvoked"
                     SelectionChanged="NavView_SelectionChanged"
@@ -31,15 +29,13 @@
                 <NavigationViewItemSeparator/>
                 <NavigationViewItemHeader Content="Categories" Margin="33,0,0,0"/>
             <!--Miért nem megy??-->
-                <!--<NavigationViewList ItemsSource="{Binding Categories}">
+                <!--<NavigationViewList ItemsSource="{Binding TestList}">
                     <NavigationViewList.ItemTemplate>
                         <DataTemplate>
-                            <NavigationViewItem Icon="Calendar" Content="{Binding Name}" Tag="categories" />
+                            <NavigationViewItem Icon="Calendar" Content="{Binding }" Tag="categories" />
                         </DataTemplate>
                     </NavigationViewList.ItemTemplate>
                 </NavigationViewList>-->
-                
-               
 
 
             </NavigationView.MenuItems>

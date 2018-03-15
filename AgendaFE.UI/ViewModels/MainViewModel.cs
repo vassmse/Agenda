@@ -25,6 +25,8 @@ namespace AgendaFE.UI.ViewModels
 
         #region Full Properties
 
+        public string TestString { get; set; }
+
         private ObservableCollection<CategoryDto> categories;
 
         public ObservableCollection<CategoryDto> Categories
@@ -36,6 +38,15 @@ namespace AgendaFE.UI.ViewModels
                 RaisePropertyChanged(nameof(Categories));
             }
         }
+
+        private List<string> testList;
+
+        public List<string> TestList
+        {
+            get { return testList; }
+            set { testList = value; }
+        }
+
 
         private CategoryDto newCategory;
 
@@ -80,9 +91,10 @@ namespace AgendaFE.UI.ViewModels
             #endregion
 
             BusinessLayer = new PresentationManager();
-            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
+            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());            
             NewCategory = new CategoryDto();
             SelectedCategory = new CategoryDto();
+            TestString = "TestString";
 
             //Dummy datas
             SelectedCategory.Name = "School";
@@ -94,6 +106,12 @@ namespace AgendaFE.UI.ViewModels
                 new TaskDto { Name = "Water", Description = "12 bottles", State = 0, DeadlineDate = DateTime.Now }
             };
 
+            TestList = new List<string>
+            {
+                "alma",
+                "körte",
+                "barack"
+            };
         }
 
 
@@ -101,7 +119,7 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddCategory()
         {
-            BusinessLayer.AddCategory(NewCategory);
+            //BusinessLayer.AddCategory(NewCategory);
             Categories.Add(NewCategory);
             NewCategory.Name = String.Empty;
             NewCategory.Description = String.Empty;

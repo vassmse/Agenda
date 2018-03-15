@@ -6,19 +6,22 @@
     RequestedTheme="Light"
     xmlns:vm="using:AgendaFE.UI.ViewModels">
 
-    <Application.Resources>
+    <!--<Application.Resources>
+
         <ResourceDictionary>
+            <vm:MainViewModel x:Key="MainViewModel" />
             <vm:ViewModelLocator x:Key="ViewModelLocator" />
         </ResourceDictionary>
 
-            <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+
+        --><!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
               TintColor="Yellow" TintOpacity=".9"/>
         <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
-              TintColor="Orange" TintOpacity=".9"/>-->
-        
-    </Application.Resources>
-    
-    
+              TintColor="Orange" TintOpacity=".9"/>--><!--
+
+    </Application.Resources>-->
+
+
 
 
 </Application>

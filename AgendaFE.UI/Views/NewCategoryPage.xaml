@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox x:Name="CategoryName" Header= "Name" Text="{Binding NewCategory.Name, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" />
-        <TextBox x:Name="Description" Header="Description" Text="{Binding NewCategory.Description, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True" Height="100" />
+        <TextBox x:Name="CategoryName" Header= "Name" Text="{x:Bind ViewModel.NewCategory.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" />
+        <TextBox x:Name="Description" Header="Description" Text="{x:Bind Path=ViewModel.NewCategory.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True" Height="100" />
 
-        <ComboBox x:Name="TypeComboBox" PlaceholderText="Type" Margin="0,24,0,0" />
+        <ComboBox x:Name="TypeComboBox" PlaceholderText="Select type" Margin="0,24,0,0" />
 
         <StackPanel Orientation="Horizontal">
             <Button Content="Save" Margin="0,24" Command="{Binding AddCategoryCommand}"/>
