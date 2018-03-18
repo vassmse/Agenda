@@ -21,6 +21,7 @@
                     OpenPaneLength="220"
                     AlwaysShowHeader="True"      
                     Canvas.ZIndex="0"  
+                    SelectedItem="{x:Bind ViewModel.SelectedCategory}"
                     MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}">
 
             <Frame x:Name="ContentFrame" Margin="24">

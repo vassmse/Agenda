@@ -40,23 +40,7 @@ namespace AgendaFE.UI
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
-        {
-            //foreach (var category in vm.MainPage.Categories)
-            //{
-            //    NavView.MenuItems.Add(new NavigationViewItem()
-            //    { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-            //}
-
-            //NavView.MenuItems.Add(new NavigationViewItem()
-            //{ Content = "Work", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
-
-            //NavView.MenuItems.Add(new NavigationViewItem()
-            //{ Content = "School", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "category" });
-
-            //NavView.MenuItems.Add(new NavigationViewItemSeparator());
-
-            //NavView.MenuItems.Add(new NavigationViewItem()
-            //{ Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+        {           
 
             // set the initial SelectedItem 
             //foreach (NavigationViewItemBase item in NavView.MenuItems)
@@ -71,8 +55,8 @@ namespace AgendaFE.UI
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            //var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
-            //NavView_Navigate(item as NavigationViewItem);
+            var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
+            NavView_Navigate(item as NavigationViewItem);
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -84,6 +68,7 @@ namespace AgendaFE.UI
 
         private void NavView_Navigate(NavigationViewItem item)
         {
+
             if (item != null)
             {
                 switch (item.Tag)
@@ -103,6 +88,8 @@ namespace AgendaFE.UI
                     case "category":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;
+                        ViewModel.SelectedCategory = ViewModel.Categories.Where(c => c.Name == item.Content.ToString()).First();
+
                         break;
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));

@@ -122,19 +122,21 @@ namespace AgendaFE.UI.ViewModels
             Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
             NewCategory = new CategoryDto();
             SelectedCategory = new CategoryDto();
-            SelectedTask = new TaskDto { Name = "test" };
+            SelectedTask = new TaskDto();
 
             TestString = "TestString";
 
             //Dummy datas
-            SelectedCategory.Name = "School";
-            SelectedCategory.StateType = StateTypes.Checklist;
-            SelectedCategory.Tasks = new ObservableCollection<TaskDto>
+
+            foreach (var category in Categories)
             {
-                new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
-                new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now },
-                new TaskDto { Name = "Water", Description = "12 bottles", State = 0, DeadlineDate = DateTime.Now }
-            };
+                category.Tasks = new ObservableCollection<TaskDto>
+                {
+                     new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
+                     new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now },
+                     new TaskDto { Name = "Water", Description = "12 bottles", State = 0, DeadlineDate = DateTime.Now }
+                };
+            }
 
             TestList = new List<string>
             {
