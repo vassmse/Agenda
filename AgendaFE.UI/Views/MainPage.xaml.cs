@@ -40,17 +40,15 @@ namespace AgendaFE.UI
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
-        {           
-
-            // set the initial SelectedItem 
-            //foreach (NavigationViewItemBase item in NavView.MenuItems)
-            //{
-            //    if (item is NavigationViewItem && item.Tag.ToString() == "today")
-            //    {
-            //        NavView.SelectedItem = item;
-            //        break;
-            //    }
-            //}
+        {
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "today")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -88,7 +86,12 @@ namespace AgendaFE.UI
                     case "category":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;
-                        ViewModel.SelectedCategory = ViewModel.Categories.Where(c => c.Name == item.Content.ToString()).First();
+
+                        if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
+                        {
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
+
+                        }
                         break;
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));

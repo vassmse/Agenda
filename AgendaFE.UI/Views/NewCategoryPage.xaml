@@ -14,7 +14,7 @@
         <ComboBox x:Name="TypeComboBox" PlaceholderText="Select type" Margin="0,24,0,0" />
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="Save" Margin="0,24" Command="{Binding AddCategoryCommand}"/>
+            <Button Content="Save" Margin="0,24" Command="{x:Bind ViewModel.AddCategoryCommand}"/>
             <Button Content="Cancel" Margin="24"/>
         </StackPanel>
     </StackPanel>

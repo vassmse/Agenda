@@ -139,6 +139,10 @@ namespace AgendaFE.UI.ViewModels
         public void AddCategoryAction()
         {
             //BusinessLayer.AddCategory(NewCategory);
+            NewCategory.Tasks = new ObservableCollection<TaskDto>
+            {
+                new TaskDto { Name = "NewItem", Description = "--", State = 0 }
+            };
             Categories.Add(NewCategory);
             NavigationViewItems.AddMenuItem(NewCategory.Name);
             NewCategory.Name = String.Empty;
@@ -164,13 +168,13 @@ namespace AgendaFE.UI.ViewModels
         public void SaveTaskAction(string taskName)
         {
             //TODO
-            for(int i= 0;i<Categories.Count();i++)
+            for (int i = 0; i < Categories.Count(); i++)
             {
-                if(Categories[i] == SelectedCategory)
+                if (Categories[i] == SelectedCategory)
                 {
-                    for(int j=0;j<Categories[i].Tasks.Count();j++)
+                    for (int j = 0; j < Categories[i].Tasks.Count(); j++)
                     {
-                        if(Categories[i].Tasks[j].Name == SelectedTask.Name)
+                        if (Categories[i].Tasks[j].Name == SelectedTask.Name)
                         {
                             Categories[i].Tasks[j] = SelectedTask;
                         }
