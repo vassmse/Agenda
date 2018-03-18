@@ -9,8 +9,12 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:viewModels="using:AgendaFE.UI.ViewModels"
     xmlns:models="using:AgendaContracts.Models"
-    
+    xmlns:converters="using:AgendaFE.UI.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:TimeConverter x:Key="TimeConverter"/>
+    </Page.Resources>
 
     <SplitView x:Name="splitView"
                PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
@@ -80,10 +84,20 @@
 
         </SplitView.Content>
         <SplitView.Pane>
-            <TextBlock Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}"
-                   FontSize="13"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center" />
+            <ScrollViewer>
+                <StackPanel Padding="10 20">
+                    <TextBox x:Name="TaskName" Header= "Name" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
+                    <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" MaxLength="32" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
+                    <TextBox x:Name="TaskState" Header= "State" Margin="10" Text="{x:Bind ViewModel.SelectedTask.State, Mode=TwoWay}" Width="200" HorizontalAlignment="Center" />
+                    <TextBox x:Name="TaskPriority" Header= "Priority" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Priority, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
+                    <CalendarDatePicker x:Name="TaskDeadlineDate" Margin="10" Header= "Deadline date" Width="200" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    <CalendarDatePicker x:Name="TaskScheduledDate" Margin="10" Header= "Scheduled date" Width="200" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
+                        <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
+                        <Button Content="Cancel" Margin="8 0" Width="80" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </SplitView.Pane>
     </SplitView>
 </Page>

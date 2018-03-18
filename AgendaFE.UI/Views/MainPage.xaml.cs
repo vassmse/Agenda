@@ -89,7 +89,6 @@ namespace AgendaFE.UI
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;
                         ViewModel.SelectedCategory = ViewModel.Categories.Where(c => c.Name == item.Content.ToString()).First();
-
                         break;
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));

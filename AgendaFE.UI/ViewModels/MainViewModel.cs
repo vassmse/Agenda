@@ -24,16 +24,10 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<string> SelectedTaskCommand { get; private set; }
 
+        public RelayCommand<string> SaveTaskCommand { get; private set; }
+
         #endregion
-        public string TestString { get; set; }
 
-
-        private List<string> testList;
-        public List<string> TestList
-        {
-            get { return testList; }
-            set { testList = value; }
-        }
 
         #region Full Properties
 
@@ -112,9 +106,11 @@ namespace AgendaFE.UI.ViewModels
         {
             #region RelayCommands
 
-            AddTaskCommand = new RelayCommand(AddTask);
-            AddCategoryCommand = new RelayCommand(AddCategory);
+            AddTaskCommand = new RelayCommand(AddTaskAction);
+            AddCategoryCommand = new RelayCommand(AddCategoryAction);
             SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
+            SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
+
 
             #endregion
 
@@ -124,32 +120,23 @@ namespace AgendaFE.UI.ViewModels
             SelectedCategory = new CategoryDto();
             SelectedTask = new TaskDto();
 
-            TestString = "TestString";
-
             //Dummy datas
 
             foreach (var category in Categories)
             {
                 category.Tasks = new ObservableCollection<TaskDto>
                 {
-                     new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 0, DeadlineDate = DateTime.Now },
+                     new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 1, DeadlineDate = DateTime.Now },
                      new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now },
-                     new TaskDto { Name = "Water", Description = "12 bottles", State = 0, DeadlineDate = DateTime.Now }
+                     new TaskDto { Name = "Water", Description = "12 bottles", State = 1, DeadlineDate = DateTime.Now }
                 };
             }
-
-            TestList = new List<string>
-            {
-                "alma",
-                "körte",
-                "barack"
-            };
         }
 
 
         #region Commands
 
-        public void AddCategory()
+        public void AddCategoryAction()
         {
             //BusinessLayer.AddCategory(NewCategory);
             Categories.Add(NewCategory);
@@ -158,7 +145,7 @@ namespace AgendaFE.UI.ViewModels
             NewCategory.Description = String.Empty;
         }
 
-        public void AddTask()
+        public void AddTaskAction()
         {
             SelectedCategory.Tasks.Add(new TaskDto { Name = "NewItem", Description = "--", State = 0 });
         }
@@ -169,10 +156,27 @@ namespace AgendaFE.UI.ViewModels
                 IsPanelActive = !IsPanelActive;
             else
             {
-                SelectedTask.Name = taskName;
+                SelectedTask = SelectedCategory.Tasks.Where(t => t.Name == taskName).First();
                 IsPanelActive = true;
             }
+        }
 
+        public void SaveTaskAction(string taskName)
+        {
+            //TODO
+            for(int i= 0;i<Categories.Count();i++)
+            {
+                if(Categories[i] == SelectedCategory)
+                {
+                    for(int j=0;j<Categories[i].Tasks.Count();j++)
+                    {
+                        if(Categories[i].Tasks[j].Name == SelectedTask.Name)
+                        {
+                            Categories[i].Tasks[j] = SelectedTask;
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
