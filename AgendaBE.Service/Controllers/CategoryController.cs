@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgendaBE.Service.Helpers;
 using AgendaBE.Service.Models;
+using AgendaBE.Service.Services;
 using AgendaContracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +14,11 @@ namespace AgendaBE.Service.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        private DBHelper Helper { get; }
+        private CategoryService Service { get; }
 
         public CategoryController(DataBaseContext context)
         {
-            Helper = new DBHelper(context);
+            Service = new CategoryService(context);
             
         }
 
@@ -26,14 +26,14 @@ namespace AgendaBE.Service.Controllers
         [HttpGet]
         public IEnumerable<CategoryDto> GetAll()
         {
-            return Helper.GetCategories();
+            return Service.GetCategories();
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}", Name = "GetCategory")]
         public IActionResult Get(int id)
         {
-            var category = Helper.GetCategory(id);
+            var category = Service.GetCategory(id);
 
             if (category == null)
             {
@@ -51,7 +51,7 @@ namespace AgendaBE.Service.Controllers
                 return BadRequest();
             }
 
-            Helper.AddCategory(item);
+            Service.AddCategory(item);
 
             return CreatedAtRoute("GetCategory", new { id = 0 }, item);
         }

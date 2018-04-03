@@ -1,7 +1,9 @@
 ﻿using AgendaContracts.Models;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,7 +23,8 @@ namespace AgendaFE.UI.Models
         public List<CategoryDto> GetCategories()
         {
             var request = new RestRequest("category", Method.GET);
-            return client.Execute<List<CategoryDto>>(request).Data;
+            var response = client.Execute<List<CategoryDto>>(request);
+            return JsonConvert.DeserializeObject<List<CategoryDto>>(response.Content);
         }
 
         public void AddCategory(CategoryDto category)
