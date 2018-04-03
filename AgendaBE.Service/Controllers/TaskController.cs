@@ -28,18 +28,20 @@ namespace AgendaBE.Service.Controllers
             return Service.GetAllTasks();
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<controller>
+        //[HttpPost]
+        //public IActionResult Create([FromBody] TaskDto item)
+        //{
+        //    Service.AddTask(item);
+        //    return new NoContentResult();
+        //}
+
         [HttpPost]
-        public void Create([FromBody] TaskDto item)
+        public IActionResult Create([FromBody] TaskDto item)
         {
-            Service.AddTask(item);           
+            Service.AddTask(item);
+            return new NoContentResult();
         }
 
         // PUT api/<controller>/5

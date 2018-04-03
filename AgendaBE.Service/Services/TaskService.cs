@@ -17,9 +17,9 @@ namespace AgendaBE.Service.Services
 
             if (Context.Tasks.Count() == 0)
             {
-                AddTask(new TaskDto { Name = "Apple", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
-                AddTask(new TaskDto { Name = "Banana", Description = "blaa bla bla", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
-                AddTask(new TaskDto { Name = "Bread", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
+                AddTask(new TaskDto { Name = "Apple", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=1 });
+                AddTask(new TaskDto { Name = "Banana", Description = "blaa bla bla", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=1 });
+                AddTask(new TaskDto { Name = "Bread", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=2 });
             }
         }
 
@@ -37,7 +37,7 @@ namespace AgendaBE.Service.Services
         public void UpdateTask(long id, TaskDto task)
         {
             var result = Context.Tasks.SingleOrDefault(t => t.TaskId == id);
-            result.Name = task.Name;
+            result.Name = task.Name; //TODO
             Context.SaveChanges();
         }
 
@@ -55,14 +55,13 @@ namespace AgendaBE.Service.Services
 
         private TaskDto GetTaskDto(Models.Task task)
         {
-            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate };
+            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, ParentId=task.CategoryId };
         }
 
         private Models.Task GetTask(TaskDto task)
         {
-            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived = false, CreatedDate = DateTime.Now };
+            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived = false, CreatedDate = DateTime.Now, CategoryId = task.ParentId };
         }
-
 
 
     }

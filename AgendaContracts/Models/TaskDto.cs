@@ -74,7 +74,18 @@ namespace AgendaContracts.Models
                 NotifyPropertyChanged(nameof(ScheduledDate));
             }
         }
-        
+
+        private int parentId;
+        public int ParentId
+        {
+            get { return parentId; }
+            set
+            {
+                parentId = value;
+                NotifyPropertyChanged(nameof(ParentId));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

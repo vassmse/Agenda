@@ -121,9 +121,17 @@ namespace AgendaFE.UI.ViewModels
 
             //Dummy datas
 
+            var tasks = RestClient.GetAllTasks();
+
             foreach (var category in Categories)
             {
-                category.Tasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
+                foreach(var task in tasks)
+                {
+                    if(category.Id == task.ParentId)
+                    {
+                        category.Tasks.Add(task);
+                    }
+                }
             }
         }
 
@@ -141,8 +149,8 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddTaskAction()
         {
-            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0 };
-            RestClient.AddTask(SelectedCategory, newTask);
+            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, ParentId=SelectedCategory.Id };
+            RestClient.AddTask(newTask);
             SelectedCategory.Tasks.Add(newTask);
         }
 

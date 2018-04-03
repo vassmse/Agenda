@@ -55,7 +55,8 @@ namespace AgendaFE.UI.Models
             return JsonConvert.DeserializeObject<List<TaskDto>>(response.Content);
         }
 
-        public void AddTask(CategoryDto parentCategory, TaskDto task)
+
+        public void AddTask(TaskDto task)
         {
             var request = new RestRequest("task", Method.POST);
             request.AddJsonBody(task);
