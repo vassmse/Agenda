@@ -137,13 +137,7 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddCategoryAction()
         {
-            //BusinessLayer.AddCategory(NewCategory);
-            /*
-            NewCategory.Tasks = new ObservableCollection<TaskDto>
-            {
-                new TaskDto { Name = "NewItem", Description = "--", State = 0 }
-            };*/
-
+            RestClient.AddCategory(NewCategory);
             Categories.Add(NewCategory);
             NavigationViewItems.AddMenuItem(NewCategory.Name);
             NewCategory.Name = String.Empty;
