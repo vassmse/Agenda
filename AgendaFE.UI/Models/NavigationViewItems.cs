@@ -15,11 +15,13 @@ namespace AgendaFE.UI.Models
     {
         public static ObservableCollection<NavigationViewItemBase> menu = new ObservableCollection<NavigationViewItemBase>();
 
-        private static MainViewModel ViewModel = new MainViewModel();
+        private static MainViewModel ViewModel;
+
+        private static ViewModelLocator vm = new ViewModelLocator();
 
         static NavigationViewItems()
         {
-
+            ViewModel = vm.MainPage;
             menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
             menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
             menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "week" });
