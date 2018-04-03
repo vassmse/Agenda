@@ -33,6 +33,11 @@ namespace AgendaBE.Service.Services
             return GetCategoryDto(Context.Categories.FirstOrDefault(t => t.CategoryId == id));
         }
 
+        public List<Category> GetCategories2()
+        {
+            return Context.Categories.ToList();
+        }
+
         public void AddCategory(CategoryDto category)
         {
             Context.Categories.Add(GetCategory(category));
@@ -51,7 +56,7 @@ namespace AgendaBE.Service.Services
 
         private CategoryDto GetCategoryDto(Category category)
         {
-            return new CategoryDto { Name = category.Name, Description = category.Description, Done = category.Done, StateType = (StateTypes)Enum.Parse(typeof(StateTypes), category.StateType) };
+            return new CategoryDto {Id=category.CategoryId, Name = category.Name, Description = category.Description, Done = category.Done, StateType = (StateTypes)Enum.Parse(typeof(StateTypes), category.StateType) };
         }
 
         private Category GetCategory(CategoryDto category)

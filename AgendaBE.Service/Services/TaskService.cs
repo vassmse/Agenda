@@ -46,7 +46,7 @@ namespace AgendaBE.Service.Services
 
         private TaskDto GetTaskDto(Models.Task task)
         {
-            return new TaskDto { Name = task.Name, Description = task.Description, State = task.State, Priority=task.Priority, DeadlineDate=task.DeadlineDate, ScheduledDate = task.ScheduledDate };
+            return new TaskDto { Id=task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority=task.Priority, DeadlineDate=task.DeadlineDate, ScheduledDate = task.ScheduledDate };
         }
 
         private Models.Task GetTask(TaskDto task)

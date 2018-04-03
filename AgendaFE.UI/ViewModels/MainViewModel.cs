@@ -141,7 +141,9 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddTaskAction()
         {
-            SelectedCategory.Tasks.Add(new TaskDto { Name = "NewItem", Description = "--", State = 0 });
+            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0 };
+            RestClient.AddTask(SelectedCategory, newTask);
+            SelectedCategory.Tasks.Add(newTask);
         }
 
         public void SelectedTaskAction(string taskName)

@@ -37,8 +37,9 @@ namespace AgendaBE.Service.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Create([FromBody] TaskDto item)
         {
+            Service.AddTask(item);           
         }
 
         // PUT api/<controller>/5

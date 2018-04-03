@@ -8,6 +8,8 @@ namespace AgendaContracts.Models
 {
     public class CategoryDto : INotifyPropertyChanged
     {
+        public int Id { get; set; }
+
         private string name;
         public string Name
         {

@@ -20,6 +20,8 @@ namespace AgendaFE.UI.Models
             client = new RestClient("http://localhost:51104/api/");
         }
 
+        #region Category
+
         public List<CategoryDto> GetCategories()
         {
             var request = new RestRequest("category", Method.GET);
@@ -41,12 +43,26 @@ namespace AgendaFE.UI.Models
             client.Execute(request);
         }
 
+        #endregion
+
+
+        #region Task
+
         public List<TaskDto> GetAllTasks()
         {
             var request = new RestRequest("task", Method.GET);
             var response = client.Execute<List<CategoryDto>>(request);
             return JsonConvert.DeserializeObject<List<TaskDto>>(response.Content);
         }
+
+        public void AddTask(CategoryDto parentCategory, TaskDto task)
+        {
+            var request = new RestRequest("task", Method.POST);
+            request.AddJsonBody(task);
+            client.Execute<List<CategoryDto>>(request);
+        }
+
+        #endregion
 
     }
 }

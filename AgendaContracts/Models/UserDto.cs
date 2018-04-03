@@ -7,6 +7,8 @@ namespace AgendaContracts.Models
 {
     public class UserDto: INotifyPropertyChanged
     {
+        public int Id { get; set; }
+
         private string name;
         public string Name
         {
