@@ -17,7 +17,7 @@ namespace AgendaBE.Service.Services
 
             if (Context.Tasks.Count() == 0)
             {
-                AddTask(new TaskDto { Name = "Apple", Description = "blaa", State = 0, Priority = 0, DeadlineDate=DateTime.Now, ScheduledDate=DateTime.Now });
+                AddTask(new TaskDto { Name = "Apple", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
                 AddTask(new TaskDto { Name = "Banana", Description = "blaa bla bla", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
                 AddTask(new TaskDto { Name = "Bread", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
             }
@@ -34,6 +34,15 @@ namespace AgendaBE.Service.Services
             Context.SaveChanges();
         }
 
+        public void UpdateTask(long id, TaskDto task)
+        {
+            var result = Context.Tasks.SingleOrDefault(t => t.TaskId == id);
+            result.Name = task.Name;
+            Context.SaveChanges();
+        }
+
+
+
         private List<TaskDto> GetTaskDto(List<Models.Task> tasks)
         {
             var CategoryDtoList = new List<TaskDto>();
@@ -46,12 +55,12 @@ namespace AgendaBE.Service.Services
 
         private TaskDto GetTaskDto(Models.Task task)
         {
-            return new TaskDto { Id=task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority=task.Priority, DeadlineDate=task.DeadlineDate, ScheduledDate = task.ScheduledDate };
+            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate };
         }
 
         private Models.Task GetTask(TaskDto task)
         {
-            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived=false, CreatedDate=DateTime.Now };
+            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived = false, CreatedDate = DateTime.Now };
         }
 
 

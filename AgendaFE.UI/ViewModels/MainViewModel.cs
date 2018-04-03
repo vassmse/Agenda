@@ -159,6 +159,8 @@ namespace AgendaFE.UI.ViewModels
 
         public void SaveTaskAction(string taskName)
         {
+            RestClient.UpdateTask(SelectedTask);
+
             //TODO
             for (int i = 0; i < Categories.Count(); i++)
             {

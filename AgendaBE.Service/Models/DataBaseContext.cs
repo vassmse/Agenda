@@ -13,6 +13,11 @@ namespace AgendaBE.Service.Models
         {
         }
 
+        public DataBaseContext()
+        {
+
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Task> Tasks { get; set; }

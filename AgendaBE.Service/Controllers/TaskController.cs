@@ -44,8 +44,15 @@ namespace AgendaBE.Service.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Update(long id, [FromBody] TaskDto item)
         {
+            if (item == null || item.Id != id)
+            {
+                return BadRequest();
+            }
+
+            Service.UpdateTask(id, item);
+            return new NoContentResult();
         }
 
         // DELETE api/<controller>/5

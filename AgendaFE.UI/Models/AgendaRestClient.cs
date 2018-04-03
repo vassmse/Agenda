@@ -62,6 +62,14 @@ namespace AgendaFE.UI.Models
             client.Execute<List<CategoryDto>>(request);
         }
 
+        public void UpdateTask(TaskDto task)
+        {
+            var request = new RestRequest("task/"+task.Id, Method.PUT);
+            request.AddJsonBody(task);
+            client.Execute<List<CategoryDto>>(request);
+        }
+
+
         #endregion
 
     }
