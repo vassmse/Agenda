@@ -40,5 +40,13 @@ namespace AgendaFE.UI.Models
             //request.AddParameter("id", idItem);
             client.Execute(request);
         }
+
+        public List<TaskDto> GetAllTasks()
+        {
+            var request = new RestRequest("task", Method.GET);
+            var response = client.Execute<List<CategoryDto>>(request);
+            return JsonConvert.DeserializeObject<List<TaskDto>>(response.Content);
+        }
+
     }
 }

@@ -123,12 +123,7 @@ namespace AgendaFE.UI.ViewModels
 
             foreach (var category in Categories)
             {
-                category.Tasks = new ObservableCollection<TaskDto>
-                {
-                     new TaskDto { Name = "Banana", Description = "Nice 2 bananas", State = 1, DeadlineDate = DateTime.Now },
-                     new TaskDto { Name = "Bread", Description = "White one", State = 0, DeadlineDate = DateTime.Now },
-                     new TaskDto { Name = "Water", Description = "12 bottles", State = 1, DeadlineDate = DateTime.Now }
-                };
+                category.Tasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
             }
         }
 

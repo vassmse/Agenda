@@ -9,13 +9,13 @@ namespace AgendaBE.Service.Services
 {
     public class CategoryService
     {
-        private DataBaseContext context;
+        private DataBaseContext Context { get; set; }
 
         public CategoryService(DataBaseContext dbContext)
         {
-            context = dbContext;
+            Context = dbContext;
 
-            if (context.Categories.Count() == 0)
+            if (Context.Categories.Count() == 0)
             {
                 AddCategory(new CategoryDto { Name = "School", Description = "blaa", Done = false, StateType = StateTypes.Checklist });
                 AddCategory(new CategoryDto { Name = "Work", Description = "blaa bla bla", Done = false, StateType = StateTypes.Checklist });
@@ -25,18 +25,18 @@ namespace AgendaBE.Service.Services
 
         public List<CategoryDto> GetCategories()
         {
-            return GetCategoryDto(context.Categories.ToList());
+            return GetCategoryDto(Context.Categories.ToList());
         }
 
         public CategoryDto GetCategory(int id)
         {
-            return GetCategoryDto(context.Categories.FirstOrDefault(t => t.CategoryId == id));
+            return GetCategoryDto(Context.Categories.FirstOrDefault(t => t.CategoryId == id));
         }
 
         public void AddCategory(CategoryDto category)
         {
-            context.Categories.Add(GetCategory(category));
-            context.SaveChanges();
+            Context.Categories.Add(GetCategory(category));
+            Context.SaveChanges();
         }
 
         private List<CategoryDto> GetCategoryDto(List<Category> categories)
