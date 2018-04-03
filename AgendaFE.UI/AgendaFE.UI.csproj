@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\TimeConverter.cs" />
+    <Compile Include="Models\AgendaRestClient.cs" />
     <Compile Include="Models\NavigationViewItems.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -174,10 +175,6 @@
     <ProjectReference Include="..\AgendaContracts\AgendaContracts.csproj">
       <Project>{c07d5505-271a-4d94-b70c-0262cdf34259}</Project>
       <Name>AgendaContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AgendaFE.Logic\AgendaFE.Logic.csproj">
-      <Project>{01267db9-216e-4735-aa24-abb6ff99f6ea}</Project>
-      <Name>AgendaFE.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

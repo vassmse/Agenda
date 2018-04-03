@@ -1,5 +1,4 @@
 ﻿using AgendaContracts.Models;
-using AgendaFE.Logic.EntryPoints;
 using AgendaFE.UI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -96,9 +95,9 @@ namespace AgendaFE.UI.ViewModels
 
         #endregion
 
-        #region Private properties
+        #region Private properties        
 
-        private PresentationManager BusinessLayer { get; set; }
+        private AgendaRestClient RestClient { get; set; }
 
         #endregion
 
@@ -113,9 +112,9 @@ namespace AgendaFE.UI.ViewModels
 
 
             #endregion
-
-            BusinessLayer = new PresentationManager();
-            Categories = new ObservableCollection<CategoryDto>(BusinessLayer.GetCategories());
+            
+            RestClient = new AgendaRestClient();
+            Categories = new ObservableCollection<CategoryDto>(RestClient.GetCategories());
             NewCategory = new CategoryDto();
             SelectedCategory = new CategoryDto();
             SelectedTask = new TaskDto();
@@ -139,10 +138,12 @@ namespace AgendaFE.UI.ViewModels
         public void AddCategoryAction()
         {
             //BusinessLayer.AddCategory(NewCategory);
+            /*
             NewCategory.Tasks = new ObservableCollection<TaskDto>
             {
                 new TaskDto { Name = "NewItem", Description = "--", State = 0 }
-            };
+            };*/
+
             Categories.Add(NewCategory);
             NavigationViewItems.AddMenuItem(NewCategory.Name);
             NewCategory.Name = String.Empty;

@@ -9,7 +9,7 @@ namespace AgendaBE.Service.Helpers
 {
     public class DBHelper
     {
-        private DataBaseContext _context;
+        private DataBaseContext _context; //TODO: Repository Pattern, controllernek saját service
 
         public DBHelper(DataBaseContext context)
         {

@@ -47,11 +47,19 @@ namespace AgendaContracts.Models
                 description = value;
                 NotifyPropertyChanged(nameof(Description));
             }
-        }
+        }    
 
 
         public ObservableCollection<TaskDto> Tasks { get; set; }
+
+
+        public CategoryDto()
+        {
+            Tasks = new ObservableCollection<TaskDto>();
+        }
+
         public StateTypes StateType1 { get => stateType; set => stateType = value; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
