@@ -60,7 +60,10 @@ namespace AgendaFE.UI.ViewModels
 
         public ObservableCollection<CategoryDto> Categories
         {
-            get { return categories; }
+            get
+            {
+                return categories;
+            }
             set
             {
                 categories = value;
@@ -112,7 +115,7 @@ namespace AgendaFE.UI.ViewModels
 
 
             #endregion
-            
+
             RestClient = new AgendaRestClient();
             Categories = new ObservableCollection<CategoryDto>(RestClient.GetCategories());
             NewCategory = new CategoryDto();
@@ -125,9 +128,9 @@ namespace AgendaFE.UI.ViewModels
 
             foreach (var category in Categories)
             {
-                foreach(var task in tasks)
+                foreach (var task in tasks)
                 {
-                    if(category.Id == task.ParentId)
+                    if (category.Id == task.ParentId)
                     {
                         category.Tasks.Add(task);
                     }
@@ -149,7 +152,7 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddTaskAction()
         {
-            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, DeadlineDate=DateTime.Now, ScheduledDate=DateTime.Now, ParentId=SelectedCategory.Id };
+            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             SelectedCategory.Tasks.Add(newTask);
         }
