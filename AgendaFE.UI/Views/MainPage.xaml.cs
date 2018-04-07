@@ -61,7 +61,6 @@ namespace AgendaFE.UI
         {
             NavigationViewItem item = args.SelectedItem as NavigationViewItem;
             NavView_Navigate(item);
-
         }
 
         private void NavView_Navigate(NavigationViewItem item)
@@ -86,11 +85,9 @@ namespace AgendaFE.UI
                     case "category":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;
-
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
                         {
-                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
-
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()); //TODO
                         }
                         break;
                     case "addnew":

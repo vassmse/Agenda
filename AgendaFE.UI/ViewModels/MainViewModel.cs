@@ -149,7 +149,7 @@ namespace AgendaFE.UI.ViewModels
 
         public void AddTaskAction()
         {
-            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, ParentId=SelectedCategory.Id };
+            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, DeadlineDate=DateTime.Now, ScheduledDate=DateTime.Now, ParentId=SelectedCategory.Id };
             RestClient.AddTask(newTask);
             SelectedCategory.Tasks.Add(newTask);
         }

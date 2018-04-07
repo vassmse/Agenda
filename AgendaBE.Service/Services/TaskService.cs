@@ -37,7 +37,7 @@ namespace AgendaBE.Service.Services
         public void UpdateTask(long id, TaskDto task)
         {
             var result = Context.Tasks.SingleOrDefault(t => t.TaskId == id);
-            result.Name = task.Name; //TODO
+            Context.Entry(result).CurrentValues.SetValues(task);
             Context.SaveChanges();
         }
 
