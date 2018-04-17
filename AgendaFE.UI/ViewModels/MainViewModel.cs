@@ -164,8 +164,8 @@ namespace AgendaFE.UI.ViewModels
             RestClient.AddCategory(NewCategory);
             Categories.Add(NewCategory);
             NavigationViewItems.AddMenuItem(NewCategory.Name);
-            NewCategory.Name = String.Empty;
-            NewCategory.Description = String.Empty;
+            //NewCategory.Name = "a";
+            //NewCategory.Description = "a";
         }
 
         public void AddTaskAction()
@@ -210,7 +210,7 @@ namespace AgendaFE.UI.ViewModels
         public void DeleteTaskAction(string taskName)
         {
             RestClient.DeleteTask(SelectedTask);
-            
+            IsPanelActive = false;
             
             for (int i = 0; i < Categories.Count(); i++)
             {

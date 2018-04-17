@@ -85,6 +85,7 @@ namespace AgendaFE.UI
                     case "category":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;
+                        var a = ViewModel.Categories;
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
                         {
                             ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()); //TODO
