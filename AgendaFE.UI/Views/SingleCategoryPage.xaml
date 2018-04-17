@@ -89,11 +89,30 @@
                 <StackPanel Padding="10 20">
                     <TextBox x:Name="TaskName" Header= "Name" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
                     <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" MaxLength="32" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
-                    <TextBox x:Name="TaskState" Header= "State" Margin="10" Text="{x:Bind ViewModel.SelectedTask.State, Mode=TwoWay}" Width="200" HorizontalAlignment="Center" />
-                    <TextBox x:Name="TaskPriority" Header= "Priority" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Priority, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
-                    <CalendarDatePicker x:Name="TaskDeadlineDate" Margin="10" Header= "Deadline date" Width="200" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
-                    <CalendarDatePicker x:Name="TaskScheduledDate" Margin="10" Header= "Scheduled date" Width="200" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
-                    <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
+                    <!--<TextBox x:Name="TaskState" Header= "State" Margin="10" Text="{x:Bind ViewModel.SelectedTask.State, Mode=TwoWay}" Width="200" HorizontalAlignment="Center" />-->
+                    <!--<TextBox x:Name="TaskPriority" Header= "Priority" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Priority, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />-->
+                    <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
+                    <Grid Margin="20 0 ">
+                        <Grid.ColumnDefinitions>                            
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="UseDeadline"/>
+                        <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskDeadlineDate" IsEnabled="{x:Bind UseDeadline.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    </Grid>
+                    <TextBlock Text="Scheduled Date"  Margin="20 10" ></TextBlock>
+                    <Grid Margin="20 0 ">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="UseSchedule"/>
+                        <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    </Grid>
+
+                   <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
                         <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
                         <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
                     </StackPanel>
