@@ -25,15 +25,14 @@ namespace AgendaFE.UI.Views
     {
         ViewModelLocator vm = new ViewModelLocator();
 
+        public MainViewModel ViewModel { get; set; }
+
         public DailyReportPage()
         {
             this.InitializeComponent();
             DataContext = vm.MainPage;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            splitView.IsPaneOpen = !splitView.IsPaneOpen;
+            ViewModel = vm.MainPage;
+            DataContext = ViewModel;
         }
     }
 }

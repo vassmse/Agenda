@@ -18,7 +18,7 @@ namespace AgendaBE.Service.Controllers
 
         public CategoryController(DataBaseContext context)
         {
-            Service = new CategoryService(context);
+            Service = new CategoryService(context); //TODO: saját interface, dependency injection
             
         }
 

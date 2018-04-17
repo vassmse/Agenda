@@ -59,8 +59,15 @@ namespace AgendaBE.Service.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(long id, [FromBody] TaskDto item)
         {
+            if (item == null || item.Id != id)
+            {
+                return BadRequest();
+            }
+
+            Service.DeleteTask(id, item);
+            return new NoContentResult();
         }
     }
 }

@@ -41,6 +41,13 @@ namespace AgendaBE.Service.Services
             Context.SaveChanges();
         }
 
+        public void DeleteTask(long id, TaskDto task)
+        {
+            var result = Context.Tasks.SingleOrDefault(t => t.TaskId == id);
+            Context.Remove(result);
+            Context.SaveChanges();
+        }
+
 
 
         private List<TaskDto> GetTaskDto(List<Models.Task> tasks)

@@ -25,6 +25,9 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<string> SaveTaskCommand { get; private set; }
 
+        public RelayCommand<string> DeleteTaskCommand { get; private set; }
+
+
         #endregion
 
 
@@ -71,6 +74,20 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
+        private ObservableCollection<TaskDto> allTasks;
+
+        public ObservableCollection<TaskDto> AllTasks
+
+        {
+            get { return allTasks; }
+            set
+            {
+                allTasks = value;
+                RaisePropertyChanged(nameof(AllTasks));
+            }
+        }
+
+
         private CategoryDto newCategory;
 
         public CategoryDto NewCategory
@@ -112,6 +129,7 @@ namespace AgendaFE.UI.ViewModels
             AddCategoryCommand = new RelayCommand(AddCategoryAction);
             SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
             SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
+            DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
 
 
             #endregion
@@ -121,14 +139,14 @@ namespace AgendaFE.UI.ViewModels
             NewCategory = new CategoryDto();
             SelectedCategory = new CategoryDto();
             SelectedTask = new TaskDto();
+            AllTasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
 
             //Dummy datas
-
-            var tasks = RestClient.GetAllTasks();
+            
 
             foreach (var category in Categories)
             {
-                foreach (var task in tasks)
+                foreach (var task in AllTasks)
                 {
                     if (category.Id == task.ParentId)
                     {
@@ -155,6 +173,7 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             SelectedCategory.Tasks.Add(newTask);
+            AllTasks.Add(newTask);
         }
 
         public void SelectedTaskAction(string taskName)
@@ -182,6 +201,27 @@ namespace AgendaFE.UI.ViewModels
                         if (Categories[i].Tasks[j].Name == SelectedTask.Name)
                         {
                             Categories[i].Tasks[j] = SelectedTask;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void DeleteTaskAction(string taskName)
+        {
+            RestClient.DeleteTask(SelectedTask);
+            
+            
+            for (int i = 0; i < Categories.Count(); i++)
+            {
+                if (Categories[i] == SelectedCategory)
+                {
+                    for (int j = 0; j < Categories[i].Tasks.Count(); j++)
+                    {
+                        if (Categories[i].Tasks[j].Name == SelectedTask.Name)
+                        {
+                            Categories[i].Tasks.RemoveAt(j);
+
                         }
                     }
                 }

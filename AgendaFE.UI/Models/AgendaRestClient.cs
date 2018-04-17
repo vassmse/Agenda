@@ -22,7 +22,7 @@ namespace AgendaFE.UI.Models
 
         #region Category
 
-        public List<CategoryDto> GetCategories()
+        public List<CategoryDto> GetCategories() //TODO: async await
         {
             var request = new RestRequest("category", Method.GET);
             var response = client.Execute<List<CategoryDto>>(request);
@@ -38,7 +38,7 @@ namespace AgendaFE.UI.Models
 
         public void DeleteCategory(int id)
         {
-            var request = new RestRequest("api/item/{"+id+"}", Method.DELETE);
+            var request = new RestRequest("api/item/{" + id + "}", Method.DELETE);
             //request.AddParameter("id", idItem);
             client.Execute(request);
         }
@@ -65,9 +65,17 @@ namespace AgendaFE.UI.Models
 
         public void UpdateTask(TaskDto task)
         {
-            var request = new RestRequest("task/"+task.Id, Method.PUT);
+            var request = new RestRequest("task/" + task.Id, Method.PUT);
             request.AddJsonBody(task);
             client.Execute<List<CategoryDto>>(request);
+        }
+
+        public async void DeleteTask(TaskDto task)
+        {
+            var request = new RestRequest("task/" + task.Id, Method.DELETE);
+            request.AddJsonBody(task);
+            var response = await client.ExecuteTaskAsync<List<CategoryDto>>(request);
+            Console.WriteLine(response.Content);
         }
 
 

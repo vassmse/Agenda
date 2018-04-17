@@ -5,33 +5,54 @@
     xmlns:local="using:AgendaFE.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"    >
+    xmlns:converters="using:AgendaFE.UI.Converters"
+    xmlns:models="using:AgendaContracts.Models"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    mc:Ignorable="d" >
 
-    <SplitView x:Name="splitView"
-               PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-               IsPaneOpen="True"
-               DisplayMode="Inline"
-               OpenPaneLength="256"
-               CompactPaneLength="48"
-               PanePlacement="Right"
-               >
-        <SplitView.Content>
-            <StackPanel>
-                <TextBlock Text="Content"
-                   FontSize="24"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
-                
-                <Button Content="HidePane" Click="Button_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </StackPanel>
-            
-        </SplitView.Content>
-        <SplitView.Pane>
-            <TextBlock Text="Pane"
-                   FontSize="24"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
-        </SplitView.Pane>
-        
-    </SplitView>
+    <Page.Resources>
+        <converters:TimeConverter x:Key="TimeConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.AllTasks}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:TaskDto">
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0" Margin="10" Background="Transparent" >
+
+                            <Grid Grid.Row="0" Height="80" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0"/>
+
+                                <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    <TextBlock Text="{x:Bind Description}" />
+                                    <TextBlock Text="{x:Bind DeadlineDate}" Padding="20 0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
+                                    <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
+                                    <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
+                                    <SymbolIcon  Symbol="Home" Margin="10 0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+
+    </ScrollViewer>
 </Page>
