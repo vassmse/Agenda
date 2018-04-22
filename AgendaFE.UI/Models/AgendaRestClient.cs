@@ -22,25 +22,25 @@ namespace AgendaFE.UI.Models
 
         #region Category
 
-        public List<CategoryDto> GetCategories() //TODO: async await
+        public List<CategoryDto> GetCategories()
         {
             var request = new RestRequest("category", Method.GET);
             var response = client.Execute<List<CategoryDto>>(request);
             return JsonConvert.DeserializeObject<List<CategoryDto>>(response.Content);
         }
 
-        public void AddCategory(CategoryDto category)
+        public async void AddCategory(CategoryDto category)
         {
             var request = new RestRequest("category", Method.POST);
             request.AddJsonBody(category);
-            client.Execute<List<CategoryDto>>(request);
+            await client.ExecuteTaskAsync<List<CategoryDto>>(request);
         }
 
-        public void DeleteCategory(int id)
+        public async void DeleteCategory(int id)
         {
             var request = new RestRequest("api/item/{" + id + "}", Method.DELETE);
             //request.AddParameter("id", idItem);
-            client.Execute(request);
+            await client.ExecuteTaskAsync(request);
         }
 
         #endregion
@@ -56,18 +56,18 @@ namespace AgendaFE.UI.Models
         }
 
 
-        public void AddTask(TaskDto task)
+        public async void AddTask(TaskDto task)
         {
             var request = new RestRequest("task", Method.POST);
             request.AddJsonBody(task);
-            client.Execute<List<CategoryDto>>(request);
+            await client.ExecuteTaskAsync<List<CategoryDto>>(request);
         }
 
-        public void UpdateTask(TaskDto task)
+        public async void UpdateTask(TaskDto task)
         {
             var request = new RestRequest("task/" + task.Id, Method.PUT);
             request.AddJsonBody(task);
-            client.Execute<List<CategoryDto>>(request);
+            await client.ExecuteTaskAsync<List<CategoryDto>>(request);
         }
 
         public async void DeleteTask(TaskDto task)
