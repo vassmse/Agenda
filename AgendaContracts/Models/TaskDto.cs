@@ -53,6 +53,19 @@ namespace AgendaContracts.Models
             }
         }
 
+
+        private bool hasDeadlineDate;
+        public bool HasDeadlineDate
+        {
+            get { return hasDeadlineDate; }
+            set
+            {
+                hasDeadlineDate = value;
+                NotifyPropertyChanged(nameof(HasDeadlineDate));
+            }
+        }
+
+
         private DateTime deadlineDate;
         public DateTime DeadlineDate
         {
@@ -61,6 +74,17 @@ namespace AgendaContracts.Models
             {
                 deadlineDate = value;
                 NotifyPropertyChanged(nameof(DeadlineDate));
+            }
+        }
+
+        private bool hasScheduledDate;
+        public bool HasScheduledDate
+        {
+            get { return hasScheduledDate; }
+            set
+            {
+                hasScheduledDate = value;
+                NotifyPropertyChanged(nameof(HasScheduledDate));
             }
         }
 

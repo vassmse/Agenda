@@ -62,12 +62,12 @@ namespace AgendaBE.Service.Services
 
         private TaskDto GetTaskDto(Models.Task task)
         {
-            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, ParentId=task.CategoryId };
+            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, ParentId=task.CategoryId, HasDeadlineDate=task.HasDeadlineDate, HasScheduledDate=task.HasScheduledDate };
         }
 
         private Models.Task GetTask(TaskDto task)
         {
-            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived = false, CreatedDate = DateTime.Now, CategoryId = task.ParentId };
+            return new Models.Task { Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, Archived = false, CreatedDate = DateTime.Now, CategoryId = task.ParentId, HasDeadlineDate = task.HasDeadlineDate, HasScheduledDate = task.HasScheduledDate };
         }
 
 

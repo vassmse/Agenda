@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NullableBooleanToBooleanConverter.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Models\AgendaRestClient.cs" />
     <Compile Include="Models\NavigationViewItems.cs" />

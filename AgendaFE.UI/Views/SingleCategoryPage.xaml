@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <converters:TimeConverter x:Key="TimeConverter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
     </Page.Resources>
 
     <SplitView x:Name="splitView"
@@ -53,7 +54,8 @@
                                             <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                                 <TextBlock Text="{x:Bind Description}" />
-                                                <TextBlock Text="{x:Bind DeadlineDate}" Padding="20 0" />
+                                                <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyy}'}" Padding="20 0" Visibility="{x:Bind HasDeadlineDate}" />
+                                                <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyy}'}" Padding="20 0" Visibility="{x:Bind HasScheduledDate}" />
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
@@ -98,7 +100,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox x:Name="UseDeadline"/>
+                        <CheckBox x:Name="UseDeadline" IsChecked="{x:Bind ViewModel.SelectedTask.HasDeadlineDate, Mode=TwoWay}" />
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskDeadlineDate" IsEnabled="{x:Bind UseDeadline.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
                     <TextBlock Text="Scheduled Date"  Margin="20 10" ></TextBlock>
@@ -108,13 +110,13 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox x:Name="UseSchedule"/>
+                        <CheckBox x:Name="UseSchedule" IsChecked="{x:Bind ViewModel.SelectedTask.HasScheduledDate, Mode=TwoWay}"/>
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
 
                    <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
                         <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
-                        <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
+                        <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Id}" Margin="8 0" Width="80" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

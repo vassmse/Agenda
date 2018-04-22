@@ -23,7 +23,7 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<string> SelectedTaskCommand { get; private set; }
 
-        public RelayCommand<string> SaveTaskCommand { get; private set; }
+        public RelayCommand<int> SaveTaskCommand { get; private set; }
 
         public RelayCommand<string> DeleteTaskCommand { get; private set; }
 
@@ -45,6 +45,7 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
+
         private bool isPanelActive;
 
         public bool IsPanelActive
@@ -57,6 +58,17 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
+        private bool hasDeadlineDate;
+
+        public bool HasDeadlineDate
+        {
+            get { return hasDeadlineDate; }
+            set
+            {
+                hasDeadlineDate = value;
+                RaisePropertyChanged(nameof(HasDeadlineDate));
+            }
+        }
 
 
         private ObservableCollection<CategoryDto> categories;
@@ -128,7 +140,7 @@ namespace AgendaFE.UI.ViewModels
             AddTaskCommand = new RelayCommand(AddTaskAction);
             AddCategoryCommand = new RelayCommand(AddCategoryAction);
             SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
-            SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
+            SaveTaskCommand = new RelayCommand<int>(SaveTaskAction);
             DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
 
 
@@ -142,7 +154,7 @@ namespace AgendaFE.UI.ViewModels
             AllTasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
 
             //Dummy datas
-            
+
 
             foreach (var category in Categories)
             {
@@ -187,7 +199,7 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
-        public void SaveTaskAction(string taskName)
+        public void SaveTaskAction(int taskId)
         {
             RestClient.UpdateTask(SelectedTask);
 
@@ -211,7 +223,7 @@ namespace AgendaFE.UI.ViewModels
         {
             RestClient.DeleteTask(SelectedTask);
             IsPanelActive = false;
-            
+
             for (int i = 0; i < Categories.Count(); i++)
             {
                 if (Categories[i] == SelectedCategory)
