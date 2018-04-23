@@ -23,7 +23,7 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<string> SelectedTaskCommand { get; private set; }
 
-        public RelayCommand<int> SaveTaskCommand { get; private set; }
+        public RelayCommand<string> SaveTaskCommand { get; private set; }
 
         public RelayCommand<string> DeleteTaskCommand { get; private set; }
 
@@ -140,7 +140,7 @@ namespace AgendaFE.UI.ViewModels
             AddTaskCommand = new RelayCommand(AddTaskAction);
             AddCategoryCommand = new RelayCommand(AddCategoryAction);
             SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
-            SaveTaskCommand = new RelayCommand<int>(SaveTaskAction);
+            SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
             DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
 
 
@@ -199,7 +199,7 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
-        public void SaveTaskAction(int taskId)
+        public void SaveTaskAction(string taskId)
         {
             RestClient.UpdateTask(SelectedTask);
 

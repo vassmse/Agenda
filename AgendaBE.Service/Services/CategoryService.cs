@@ -54,7 +54,7 @@ namespace AgendaBE.Service.Services
             return CategoryDtoList;
         }
 
-        private CategoryDto GetCategoryDto(Category category)
+        private CategoryDto GetCategoryDto(Category category) //TODO: létezik mapper
         {
             return new CategoryDto {Id=category.CategoryId, Name = category.Name, Description = category.Description, Done = category.Done, StateType = (StateTypes)Enum.Parse(typeof(StateTypes), category.StateType) };
         }
