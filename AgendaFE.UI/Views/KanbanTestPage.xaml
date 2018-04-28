@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="10">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="10" AllowDrop="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*"/>
@@ -30,9 +30,9 @@
 
         <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="0" Grid.Row="1"  >
             <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" >
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" />
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
+                <StackPanel Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" CanDrag="True" />
+                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" CanDrag="True"/>
+                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" CanDrag="True"/>
             </StackPanel>
         </Border>
         <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="1" Grid.Row="1"  >
