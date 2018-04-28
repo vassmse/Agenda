@@ -58,6 +58,15 @@ namespace AgendaFE.UI.Models
             menu.Remove(deletion);
         }
 
+        public static void RenameMenuItem(string oldName, string newName )
+        {
+            foreach (var item in menu)
+            {
+                if (item.Content != null && item.Content.ToString() == oldName)
+                    item.Content = newName;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

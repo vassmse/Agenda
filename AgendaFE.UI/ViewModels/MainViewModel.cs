@@ -29,6 +29,8 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<CategoryDto> DeleteCategoryCommand { get; private set; }
 
+        public RelayCommand<CategoryDto> RenameCategoryCommand { get; private set; }
+
 
         #endregion
 
@@ -71,7 +73,6 @@ namespace AgendaFE.UI.ViewModels
                 RaisePropertyChanged(nameof(HasDeadlineDate));
             }
         }
-
 
         private ObservableCollection<CategoryDto> categories;
 
@@ -127,6 +128,8 @@ namespace AgendaFE.UI.ViewModels
         }
 
 
+
+
         #endregion
 
         #region Private properties        
@@ -145,6 +148,7 @@ namespace AgendaFE.UI.ViewModels
             SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
             DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
             DeleteCategoryCommand = new RelayCommand<CategoryDto>(DeleteCategoryAction);
+            RenameCategoryCommand = new RelayCommand<CategoryDto>(RenameCategoryAction);
 
 
 
@@ -254,6 +258,20 @@ namespace AgendaFE.UI.ViewModels
             RestClient.DeleteCategory(category);
             Categories.Remove(category);
             NavigationViewItems.DeleteMenuItem(category.Name);
+        }
+
+        public void RenameCategoryAction(CategoryDto category)
+        {
+            if (!category.Renaming)
+            {
+                category.Renaming = true;
+                category.OldName = category.Name;
+            }
+            else
+            {
+                category.Renaming = false;
+                NavigationViewItems.RenameMenuItem(category.OldName, category.Name);
+            }
         }
 
         #endregion

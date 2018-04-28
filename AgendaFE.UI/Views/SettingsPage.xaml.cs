@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,6 +38,27 @@ namespace AgendaFE.UI.Views
         {
             CategoryDto source = ((Button)sender).DataContext as CategoryDto;
             ViewModel.DeleteCategoryAction(source);
+        }
+
+        private void RenameCategory(object sender, RoutedEventArgs e)
+        {            
+            CategoryDto source = ((Button)sender).DataContext as CategoryDto;
+            ViewModel.RenameCategoryAction(source);
+        }
+
+        //private void EnterPressed(object sender, KeyRoutedEventArgs e)
+        //{
+        //    if(e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        CategoryDto source = ((TextBox)sender).DataContext as CategoryDto;
+        //        ViewModel.RenameCategoryAction(source);
+        //    }
+        //}
+
+        private void RenameByClick(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            CategoryDto source = ((TextBlock)sender).DataContext as CategoryDto;
+            ViewModel.RenameCategoryAction(source);
         }
     }
 }

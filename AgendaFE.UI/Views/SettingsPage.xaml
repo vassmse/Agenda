@@ -6,7 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:AgendaContracts.Models"
+    xmlns:converters="using:AgendaFE.UI.Converters"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter  x:Key="BooleanToVisibility" />
+        <converters:InverseBooleanToVisibilityConverter  x:Key="InverseBooleanToVisibility" />
+    </Page.Resources>
 
     <StackPanel Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="Category settings" FontSize="18" />
@@ -19,13 +24,17 @@
                                 <ColumnDefinition Width="200" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Name}" Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Name, Mode=TwoWay}" Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" DoubleTapped="RenameByClick" Visibility="{x:Bind Renaming, Converter={StaticResource InverseBooleanToVisibility}, Mode=TwoWay}" />
+                            <TextBox Text="{Binding Name, Mode=TwoWay}"  Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}"  />
                             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
                                 <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="DeleteCategory">
                                     <SymbolIcon Symbol="Delete" />
                                 </Button>
-                                <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                                <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="RenameCategory" Visibility="{x:Bind Renaming, Converter={StaticResource InverseBooleanToVisibility}, Mode=TwoWay}">
                                     <SymbolIcon Symbol="Rename" />
+                                </Button>
+                                <Button Margin="0 0 15 0" Foreground="Green" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="RenameCategory" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}" >
+                                    <SymbolIcon Symbol="Save" />
                                 </Button>
                                 <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="True" />
                             </StackPanel>

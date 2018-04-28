@@ -21,6 +21,17 @@ namespace AgendaContracts.Models
             }
         }
 
+        private string oldName;
+        public string OldName
+        {
+            get { return oldName; }
+            set
+            {
+                oldName = value;
+                NotifyPropertyChanged(nameof(OldName));
+            }
+        }
+
         private StateTypes stateType;
         public StateTypes StateType
         {
@@ -37,6 +48,17 @@ namespace AgendaContracts.Models
             {
                 done = value;
                 NotifyPropertyChanged(nameof(Done));
+            }
+        }
+
+        private bool renaming;
+        public bool Renaming
+        {
+            get { return renaming; }
+            set
+            {
+                renaming = value;
+                NotifyPropertyChanged(nameof(Renaming));
             }
         }
 
