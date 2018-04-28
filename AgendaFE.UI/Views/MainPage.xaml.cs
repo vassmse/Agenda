@@ -78,7 +78,7 @@ namespace AgendaFE.UI
                 switch (item.Tag)
                 {
                     case "today":
-                        ContentFrame.Navigate(typeof(DailyReportPage));
+                        ContentFrame.Navigate(typeof(KanbanTestPage));
                         NavView.Header = "Daily report";
                         break;
                     case "week":

@@ -108,6 +108,9 @@
     <Compile Include="Views\DailyReportPage.xaml.cs">
       <DependentUpon>DailyReportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\KanbanTestPage.xaml.cs">
+      <DependentUpon>KanbanTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\DailyReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KanbanTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
