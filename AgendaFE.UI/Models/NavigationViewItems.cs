@@ -50,20 +50,36 @@ namespace AgendaFE.UI.Models
         public static void DeleteMenuItem(string name)
         {
             NavigationViewItemBase deletion = null;
-            foreach(var item in menu)
+            foreach (var item in menu)
             {
-                if (item.Content!=null && item.Content.ToString() == name)
+                if (item.Content != null && item.Content.ToString() == name)
                     deletion = item;
             }
             menu.Remove(deletion);
         }
 
-        public static void RenameMenuItem(string oldName, string newName )
+        public static void RenameMenuItem(string oldName, string newName)
         {
             foreach (var item in menu)
             {
                 if (item.Content != null && item.Content.ToString() == oldName)
                     item.Content = newName;
+            }
+        }
+
+        public static void HideMenuItem(bool hide, string name)
+        {
+            foreach (var item in menu)
+            {
+                if (item.Content != null && item.Content.ToString() == name)
+                {
+                    if (hide)
+                        item.Visibility = Visibility.Collapsed;
+                    else
+                        item.Visibility = Visibility.Visible;
+
+                }
+
             }
         }
 

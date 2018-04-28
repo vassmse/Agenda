@@ -60,5 +60,18 @@ namespace AgendaFE.UI.Views
             CategoryDto source = ((TextBlock)sender).DataContext as CategoryDto;
             ViewModel.RenameCategoryAction(source);
         }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {            
+            CategoryDto source = ((ToggleSwitch)sender).DataContext as CategoryDto;
+            if (((ToggleSwitch)sender).IsOn)
+            {
+                ViewModel.HideCategory(false, source.Name);
+            }
+            else
+            {
+                ViewModel.HideCategory(true, source.Name);
+            }
+        }
     }
 }

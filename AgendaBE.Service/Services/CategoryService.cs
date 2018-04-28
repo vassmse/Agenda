@@ -51,6 +51,13 @@ namespace AgendaBE.Service.Services
             Context.SaveChanges();
         }
 
+        public void UpdateCategory(CategoryDto category)
+        {
+            var result = Context.Categories.SingleOrDefault(c => c.CategoryId == category.Id);
+            Context.Entry(result).CurrentValues.SetValues(category);
+            Context.SaveChanges();
+        }
+
         private List<CategoryDto> GetCategoryDto(List<Category> categories)
         {
             var CategoryDtoList = new List<CategoryDto>();

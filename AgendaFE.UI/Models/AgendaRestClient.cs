@@ -39,6 +39,13 @@ namespace AgendaFE.UI.Models
         public async void DeleteCategory(CategoryDto category)
         {
             var request = new RestRequest("category/{" + category.Id + "}", Method.DELETE);
+            request.AddJsonBody(category);
+            await client.ExecuteTaskAsync(request);
+        }
+
+        public async void UpdateCategory(CategoryDto category)
+        {
+            var request = new RestRequest("category/{" + category.Id + "}", Method.PUT);
             //request.AddParameter("id", idItem);
             request.AddJsonBody(category);
             await client.ExecuteTaskAsync(request);

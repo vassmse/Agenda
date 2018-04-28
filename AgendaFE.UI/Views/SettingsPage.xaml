@@ -36,7 +36,7 @@
                                 <Button Margin="0 0 15 0" Foreground="Green" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="RenameCategory" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}" >
                                     <SymbolIcon Symbol="Save" />
                                 </Button>
-                                <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="True" />
+                                <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="{Binding Visibility, Mode=TwoWay}" Toggled="ToggleSwitch_Toggled" />
                             </StackPanel>
                         </Grid>
                     </Border>

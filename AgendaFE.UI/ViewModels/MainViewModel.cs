@@ -271,7 +271,14 @@ namespace AgendaFE.UI.ViewModels
             {
                 category.Renaming = false;
                 NavigationViewItems.RenameMenuItem(category.OldName, category.Name);
+                RestClient.UpdateCategory(category);
             }
+        }
+
+        public void HideCategory(bool hide, string name)
+        {
+              NavigationViewItems.HideMenuItem(hide, name);
+            
         }
 
         #endregion

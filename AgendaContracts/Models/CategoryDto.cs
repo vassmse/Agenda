@@ -51,6 +51,17 @@ namespace AgendaContracts.Models
             }
         }
 
+        private bool visibility;
+        public bool Visibility
+        {
+            get { return visibility; }
+            set
+            {
+                visibility = value;
+                NotifyPropertyChanged(nameof(Visibility));
+            }
+        }
+
         private bool renaming;
         public bool Renaming
         {
@@ -80,6 +91,7 @@ namespace AgendaContracts.Models
         public CategoryDto()
         {
             Tasks = new ObservableCollection<TaskDto>();
+            Visibility = true;
         }
 
         public StateTypes StateType1 { get => stateType; set => stateType = value; }
