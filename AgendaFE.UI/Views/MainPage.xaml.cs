@@ -73,7 +73,6 @@ namespace AgendaFE.UI
 
         private void NavView_Navigate(NavigationViewItem item)
         {
-
             if (item != null)
             {
                 switch (item.Tag)
@@ -102,6 +101,10 @@ namespace AgendaFE.UI
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));
                         NavView.Header = "Add new category";
+                        break;
+                    default:
+                        ContentFrame.Navigate(typeof(SettingsPage));
+                        NavView.Header = "Settings";
                         break;
 
                 }

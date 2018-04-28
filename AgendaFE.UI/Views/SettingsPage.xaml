@@ -5,9 +5,35 @@
     xmlns:local="using:AgendaFE.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:AgendaContracts.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Settings" />
-    </Grid>
+    <StackPanel Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock Text="Category settings" FontSize="18" />
+        <ItemsControl ItemsSource="{x:Bind ViewModel.Categories}" Width="500" HorizontalAlignment="Left" Margin="0 10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:CategoryDto">
+                    <Border BorderThickness="0,0,0,1" BorderBrush="#c0c0c0">
+                        <Grid Margin="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" />
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                                <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                                    <SymbolIcon Symbol="Delete" />
+                                </Button>
+                                <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                                    <SymbolIcon Symbol="Rename" />
+                                </Button>
+                                <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="True" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
 </Page>
