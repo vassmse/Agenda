@@ -34,11 +34,13 @@ namespace AgendaFE.UI.Views
             this.InitializeComponent();
             ViewModel = vm.MainPage;
             DataContext = ViewModel;
+            
         }
 
         private void ItemsControl_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 0);
+            
         }
 
         private void ItemsControl_PointerExited(object sender, PointerRoutedEventArgs e)
