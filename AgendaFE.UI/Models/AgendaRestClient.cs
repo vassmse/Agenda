@@ -36,10 +36,11 @@ namespace AgendaFE.UI.Models
             await client.ExecuteTaskAsync<List<CategoryDto>>(request);
         }
 
-        public async void DeleteCategory(int id)
+        public async void DeleteCategory(CategoryDto category)
         {
-            var request = new RestRequest("api/item/{" + id + "}", Method.DELETE);
+            var request = new RestRequest("category/{" + category.Id + "}", Method.DELETE);
             //request.AddParameter("id", idItem);
+            request.AddJsonBody(category);
             await client.ExecuteTaskAsync(request);
         }
 

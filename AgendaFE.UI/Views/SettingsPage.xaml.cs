@@ -1,4 +1,5 @@
-﻿using AgendaFE.UI.ViewModels;
+﻿using AgendaContracts.Models;
+using AgendaFE.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,12 @@ namespace AgendaFE.UI.Views
         {
             this.InitializeComponent();
             ViewModel = vm.MainPage;
+        }
+
+        private void DeleteCategory(object sender, RoutedEventArgs e)
+        {
+            CategoryDto source = ((Button)sender).DataContext as CategoryDto;
+            ViewModel.DeleteCategoryAction(source);
         }
     }
 }

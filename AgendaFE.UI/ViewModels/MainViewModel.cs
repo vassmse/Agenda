@@ -27,6 +27,8 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand<string> DeleteTaskCommand { get; private set; }
 
+        public RelayCommand<CategoryDto> DeleteCategoryCommand { get; private set; }
+
 
         #endregion
 
@@ -142,6 +144,8 @@ namespace AgendaFE.UI.ViewModels
             SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
             SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
             DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
+            DeleteCategoryCommand = new RelayCommand<CategoryDto>(DeleteCategoryAction);
+
 
 
             #endregion
@@ -243,6 +247,13 @@ namespace AgendaFE.UI.ViewModels
         public void CheckChangedAction(TaskDto task)
         {
             RestClient.UpdateTask(task);
+        }
+
+        public void DeleteCategoryAction(CategoryDto category)
+        {
+            RestClient.DeleteCategory(category);
+            Categories.Remove(category);
+            NavigationViewItems.DeleteMenuItem(category.Name);
         }
 
         #endregion

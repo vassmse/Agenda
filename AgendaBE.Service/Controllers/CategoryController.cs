@@ -56,6 +56,13 @@ namespace AgendaBE.Service.Controllers
             return CreatedAtRoute("GetCategory", new { id = 0 }, item);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromBody] CategoryDto category)
+        {
+            Service.DeleteCategory(category);
+            return new NoContentResult();
+        }
+
         //[HttpPut("{id}")]
         //public IActionResult Update(long id, [FromBody] TodoItem item)
         //{
@@ -78,18 +85,6 @@ namespace AgendaBE.Service.Controllers
         //    return new NoContentResult();
         //}
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(long id)
-        //{
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    _context.TodoItems.Remove(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
     }
 }

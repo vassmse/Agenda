@@ -47,6 +47,17 @@ namespace AgendaFE.UI.Models
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
+        public static void DeleteMenuItem(string name)
+        {
+            NavigationViewItemBase deletion = null;
+            foreach(var item in menu)
+            {
+                if (item.Content!=null && item.Content.ToString() == name)
+                    deletion = item;
+            }
+            menu.Remove(deletion);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

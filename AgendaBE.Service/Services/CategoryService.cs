@@ -44,6 +44,13 @@ namespace AgendaBE.Service.Services
             Context.SaveChanges();
         }
 
+        public void DeleteCategory(CategoryDto category)
+        {
+            var result = Context.Categories.SingleOrDefault(c => c.CategoryId == category.Id);
+            Context.Remove(result);
+            Context.SaveChanges();
+        }
+
         private List<CategoryDto> GetCategoryDto(List<Category> categories)
         {
             var CategoryDtoList = new List<CategoryDto>();
