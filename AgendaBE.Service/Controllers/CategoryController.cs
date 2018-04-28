@@ -66,11 +66,6 @@ namespace AgendaBE.Service.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(long id, [FromBody] CategoryDto category)
         {
-            if (category == null || category.Id != id)
-            {
-                return BadRequest();
-            }
-
             Service.UpdateCategory(category);
             return new NoContentResult();
         }

@@ -17,9 +17,9 @@ namespace AgendaBE.Service.Services
 
             if (Context.Categories.Count() == 0)
             {
-                AddCategory(new CategoryDto { Name = "School", Description = "blaa", Done = false, StateType = StateTypes.Checklist });
-                AddCategory(new CategoryDto { Name = "Work", Description = "blaa bla bla", Done = false, StateType = StateTypes.Checklist });
-                AddCategory(new CategoryDto { Name = "Shopping", Description = "blaa", Done = false, StateType = StateTypes.Kanban3 });
+                AddCategory(new CategoryDto { Name = "School", Description = "blaa", StateType = StateTypes.Checklist });
+                AddCategory(new CategoryDto { Name = "Work", Description = "blaa bla bla", StateType = StateTypes.Checklist });
+                AddCategory(new CategoryDto { Name = "Shopping", Description = "blaa", StateType = StateTypes.Kanban3 });
             }
         }
 
@@ -54,7 +54,7 @@ namespace AgendaBE.Service.Services
         public void UpdateCategory(CategoryDto category)
         {
             var result = Context.Categories.SingleOrDefault(c => c.CategoryId == category.Id);
-            Context.Entry(result).CurrentValues.SetValues(category);
+            result.Name = category.Name;
             Context.SaveChanges();
         }
 
