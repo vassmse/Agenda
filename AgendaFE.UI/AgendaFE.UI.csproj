@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\IntToBoolConverter.cs" />
     <Compile Include="Converters\NullableBooleanToBooleanConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
@@ -111,6 +112,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\NewCategoryPage.xaml.cs">
       <DependentUpon>NewCategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SingleCategoryPage.xaml.cs">
       <DependentUpon>SingleCategoryPage.xaml</DependentUpon>
@@ -151,6 +155,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NewCategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -240,6 +240,11 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
+        public void CheckChangedAction(TaskDto task)
+        {
+            RestClient.UpdateTask(task);
+        }
+
         #endregion
 
     }

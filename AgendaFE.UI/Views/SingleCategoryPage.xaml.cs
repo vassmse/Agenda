@@ -1,4 +1,5 @@
-﻿using AgendaFE.UI.ViewModels;
+﻿using AgendaContracts.Models;
+using AgendaFE.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,6 +47,11 @@ namespace AgendaFE.UI.Views
 
         }
 
+        private void TaskReady(object sender, RoutedEventArgs e)
+        {
+            TaskDto source = ((CheckBox)sender).DataContext as TaskDto;
+            ViewModel.CheckChangedAction(source);
+        }
     }
 
    

@@ -15,6 +15,7 @@
     <Page.Resources>
         <converters:TimeConverter x:Key="TimeConverter"/>
         <converters:StringFormatConverter x:Key="StringFormatConverter" />
+        <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
     </Page.Resources>
 
     <SplitView x:Name="splitView"
@@ -49,7 +50,7 @@
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
-                                            <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0"/>
+                                            <CheckBox x:Name="checkBox"  Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0" IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady" />
 
                                             <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
@@ -95,7 +96,7 @@
                     <!--<TextBox x:Name="TaskPriority" Header= "Priority" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Priority, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />-->
                     <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
                     <Grid Margin="20 0 ">
-                        <Grid.ColumnDefinitions>                            
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -114,7 +115,7 @@
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
 
-                   <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
                         <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
                         <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
                     </StackPanel>

@@ -13,6 +13,7 @@
 
     <Page.Resources>
         <converters:TimeConverter x:Key="TimeConverter"/>
+        <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
     </Page.Resources>
 
     <ScrollViewer>
@@ -33,7 +34,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0"/>
+                                <CheckBox x:Name="checkBox"  Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0" IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=OneWay}" IsEnabled="False" />
 
                                 <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
