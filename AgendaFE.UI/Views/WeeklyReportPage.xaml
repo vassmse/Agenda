@@ -11,7 +11,9 @@
 
     <Page.Resources>
         <converters:TimeConverter x:Key="TimeConverter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
         <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
     </Page.Resources>
 
     <ScrollViewer>
@@ -20,27 +22,20 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskDto">
                         <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
-
-                            <Grid Grid.Row="0" Height="80" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                    <RowDefinition Height="40"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <CheckBox x:Name="checkBox"  Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0" IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=OneWay}" IsEnabled="False" />
-
-                                <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                    <TextBlock Text="{x:Bind Description}" />
-                                    <TextBlock Text="{x:Bind DeadlineDate}" Padding="20 0" />
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Padding="10">
+                                    <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" IsEnabled="False">
+                                        <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Padding="10 0 0 0"/>
+                                    </CheckBox>
+                                    <TextBlock Text="Deadline:" VerticalAlignment="Center" Padding="10 0 0 0" Visibility="{x:Bind HasDeadlineDate}"/>
+                                    <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
+                                    <TextBlock Text="Scheduled:" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}"/>
+                                    <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
                                 </StackPanel>
-                                
-                            </Grid>
+                                <StackPanel Orientation="Horizontal" Visibility="{x:Bind Description, Converter={StaticResource StringToVisibility}, Mode=OneWay}">
+                                    <TextBlock Text="{x:Bind Description}" Padding="48 0 0 5"  VerticalAlignment="Center" />
+                                </StackPanel>
+                            </StackPanel>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

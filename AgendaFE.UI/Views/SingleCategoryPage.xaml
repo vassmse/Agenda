@@ -16,6 +16,7 @@
         <converters:TimeConverter x:Key="TimeConverter"/>
         <converters:StringFormatConverter x:Key="StringFormatConverter" />
         <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
     </Page.Resources>
 
     <SplitView x:Name="splitView"
@@ -39,37 +40,24 @@
                                             </core:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
 
-                                        <Grid Grid.Row="0" Height="80" >
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"/>
-                                                <RowDefinition Height="40"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <CheckBox x:Name="checkBox"  Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0" IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady" />
-
-                                            <TextBlock Text="{x:Bind Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                                <TextBlock Text="{x:Bind Description}" />
-                                                <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyy}'}" Padding="20 0" Visibility="{x:Bind HasDeadlineDate}" />
-                                                <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyy}'}" Padding="20 0" Visibility="{x:Bind HasScheduledDate}" />
+                                        <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Padding="10">
+                                            <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady">
+                                                <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Padding="10 0 0 0"/>
+                                            </CheckBox>
+                                            <TextBlock Text="Deadline:" VerticalAlignment="Center" Padding="10 0 0 0" Visibility="{x:Bind HasDeadlineDate}"/>
+                                            <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
+                                            <TextBlock Text="Scheduled:" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}"/>
+                                            <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Visibility="{x:Bind Description, Converter={StaticResource StringToVisibility}, Mode=OneWay}">
+                                                <TextBlock Text="{x:Bind Description}" Padding="48 0 0 5"  VerticalAlignment="Center" />
                                             </StackPanel>
-
-                                            <!--<StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" >
-                                                <SymbolIcon  Symbol="GlobalNavigationButton" Margin="10 0"/>
-                                                <SymbolIcon  Symbol="Bookmarks" Margin="10 0"/>
-                                                <SymbolIcon  Symbol="Home" Margin="10 0"/>
-                                            </StackPanel>-->
-                                        </Grid>
-                                    </Border>
+                                        </StackPanel>
+                                    </Border>                                    
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-
 
                         <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Margin="10" Background="Transparent" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
                             <StackPanel Orientation="Horizontal" Margin="10">
@@ -91,10 +79,8 @@
             <ScrollViewer>
                 <StackPanel Padding="10 20">
                     <TextBox x:Name="TaskName" Header= "Name" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
-                    <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" MaxLength="32" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
-                    <!--<TextBox x:Name="TaskState" Header= "State" Margin="10" Text="{x:Bind ViewModel.SelectedTask.State, Mode=TwoWay}" Width="200" HorizontalAlignment="Center" />-->
-                    <!--<TextBox x:Name="TaskPriority" Header= "Priority" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Priority, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />-->
-                    <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
+                    <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
+                   <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
                     <Grid Margin="20 0 ">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
@@ -114,7 +100,6 @@
                         <CheckBox x:Name="UseSchedule" IsChecked="{x:Bind ViewModel.SelectedTask.HasScheduledDate, Mode=TwoWay}"/>
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
-
                     <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
                         <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
                         <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
