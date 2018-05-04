@@ -95,11 +95,10 @@ namespace AgendaFE.UI
                         break;
                     case "category":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
-                        NavView.Header = item.Content;                        
-                        var a = ViewModel.Categories;
+                        NavView.Header = item.Content;                     
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
                         {
-                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()); //TODO
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
                         }
                         break;
                     case "addnew":
