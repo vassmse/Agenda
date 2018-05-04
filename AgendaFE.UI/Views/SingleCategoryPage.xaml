@@ -36,7 +36,7 @@
                                     <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
                                         <i:Interaction.Behaviors>
                                             <core:EventTriggerBehavior EventName="PointerPressed">
-                                                <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Name}" />
+                                                <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />
                                             </core:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
 
@@ -101,7 +101,7 @@
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
-                        <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" />
+                        <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" />
                         <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
                     </StackPanel>
                 </StackPanel>

@@ -21,11 +21,11 @@ namespace AgendaFE.UI.ViewModels
 
         public RelayCommand AddTaskCommand { get; private set; }
 
-        public RelayCommand<string> SelectedTaskCommand { get; private set; }
+        public RelayCommand<int> SelectedTaskCommand { get; private set; }
 
-        public RelayCommand<string> SaveTaskCommand { get; private set; }
+        public RelayCommand SaveTaskCommand { get; private set; }
 
-        public RelayCommand<string> DeleteTaskCommand { get; private set; }
+        public RelayCommand DeleteTaskCommand { get; private set; }
 
         public RelayCommand<CategoryDto> DeleteCategoryCommand { get; private set; }
 
@@ -105,12 +105,12 @@ namespace AgendaFE.UI.ViewModels
 
         public List<TaskDto> DailyTasks
         {
-            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList();  }            
+            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList(); }
         }
 
         public List<TaskDto> WeeklyTasks
         {
-            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear+7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList(); }
+            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList(); }
         }
 
         public List<TaskDto> ExpiredTasks
@@ -160,9 +160,9 @@ namespace AgendaFE.UI.ViewModels
 
             AddTaskCommand = new RelayCommand(AddTaskAction);
             AddCategoryCommand = new RelayCommand(AddCategoryAction);
-            SelectedTaskCommand = new RelayCommand<string>(SelectedTaskAction);
-            SaveTaskCommand = new RelayCommand<string>(SaveTaskAction);
-            DeleteTaskCommand = new RelayCommand<string>(DeleteTaskAction);
+            SelectedTaskCommand = new RelayCommand<int>(SelectedTaskAction);
+            SaveTaskCommand = new RelayCommand(SaveTaskAction);
+            DeleteTaskCommand = new RelayCommand(DeleteTaskAction);
             DeleteCategoryCommand = new RelayCommand<CategoryDto>(DeleteCategoryAction);
             RenameCategoryCommand = new RelayCommand<CategoryDto>(RenameCategoryAction);
 
@@ -200,34 +200,32 @@ namespace AgendaFE.UI.ViewModels
             RestClient.AddCategory(NewCategory);
             Categories.Add(NewCategory);
             NavigationViewItems.AddMenuItem(NewCategory.Name);
-            //NewCategory.Name = "a";
-            //NewCategory.Description = "a";
         }
 
         public void AddTaskAction()
         {
-            var newTask = new TaskDto { Name = "NewItem", Description = "--", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
+            int id = AllTasks.Last().Id + 1;
+            var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
-            SelectedCategory.Tasks.Add(newTask);
             AllTasks.Add(newTask);
+            Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
         }
 
-        public void SelectedTaskAction(string taskName)
+        public void SelectedTaskAction(int taskId)
         {
-            if (SelectedTask.Name == taskName)
+            if (SelectedTask.Id == taskId)
                 IsPanelActive = !IsPanelActive;
             else
             {
-                SelectedTask = SelectedCategory.Tasks.Where(t => t.Name == taskName).First();
+                SelectedTask = SelectedCategory.Tasks.Where(t => t.Id == taskId).First();
                 IsPanelActive = true;
             }
         }
 
-        public void SaveTaskAction(string taskId)
+        public void SaveTaskAction()
         {
             RestClient.UpdateTask(SelectedTask);
 
-            //TODO
             for (int i = 0; i < Categories.Count(); i++)
             {
                 if (Categories[i] == SelectedCategory)
@@ -243,7 +241,7 @@ namespace AgendaFE.UI.ViewModels
             }
         }
 
-        public void DeleteTaskAction(string taskName)
+        public void DeleteTaskAction()
         {
             RestClient.DeleteTask(SelectedTask);
             IsPanelActive = false;
@@ -293,8 +291,7 @@ namespace AgendaFE.UI.ViewModels
 
         public void HideCategory(bool hide, string name)
         {
-              NavigationViewItems.HideMenuItem(hide, name);
-            
+            NavigationViewItems.HideMenuItem(hide, name);
         }
 
         #endregion
