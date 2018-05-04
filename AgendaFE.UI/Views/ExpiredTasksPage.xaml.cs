@@ -21,13 +21,13 @@ namespace AgendaFE.UI.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class WeeklyReportPage : Page
+    public sealed partial class ExpiredTasksPage : Page
     {
         ViewModelLocator vm = new ViewModelLocator();
 
         public MainViewModel ViewModel { get; set; }
 
-        public WeeklyReportPage()
+        public ExpiredTasksPage()
         {
             this.InitializeComponent();
             DataContext = vm.MainPage;

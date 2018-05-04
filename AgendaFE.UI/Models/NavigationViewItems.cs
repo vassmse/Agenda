@@ -23,6 +23,7 @@ namespace AgendaFE.UI.Models
         {
             ViewModel = vm.MainPage;
             menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
+            menu.Add(new NavigationViewItem() { Content = "KanbanTest", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "kanban" });
             menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
             menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "week" });
             menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "expired" });

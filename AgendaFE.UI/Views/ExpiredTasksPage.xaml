@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="AgendaFE.UI.Views.WeeklyReportPage"
+    x:Class="AgendaFE.UI.Views.ExpiredTasksPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AgendaFE.UI.Views"
@@ -16,7 +16,7 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.WeeklyTasks}" >
+            <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.ExpiredTasks}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskDto">
                         <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
@@ -39,7 +39,6 @@
                                     <TextBlock Text="{x:Bind Description}" />
                                     <TextBlock Text="{x:Bind DeadlineDate}" Padding="20 0" />
                                 </StackPanel>
-                                
                             </Grid>
                         </Border>
                     </DataTemplate>

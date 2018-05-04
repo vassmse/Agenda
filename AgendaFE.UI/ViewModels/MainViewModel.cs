@@ -103,6 +103,22 @@ namespace AgendaFE.UI.ViewModels
         }
 
 
+        public List<TaskDto> DailyTasks
+        {
+            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList();  }            
+        }
+
+        public List<TaskDto> WeeklyTasks
+        {
+            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear+7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList(); }
+        }
+
+        public List<TaskDto> ExpiredTasks
+        {
+            get { return AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList(); }
+        }
+
+
         private CategoryDto newCategory;
 
         public CategoryDto NewCategory
