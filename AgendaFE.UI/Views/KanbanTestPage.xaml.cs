@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgendaContracts.Models;
+using AgendaFE.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,34 +27,40 @@ namespace AgendaFE.UI.Views
     /// </summary>
     public sealed partial class KanbanTestPage : Page
     {
+        ViewModelLocator vm = new ViewModelLocator();
+        public MainViewModel ViewModel { get; set; }
+
         public KanbanTestPage()
         {
             this.InitializeComponent();
+            ViewModel = vm.MainPage;
+            DataContext = ViewModel;
         }
 
         private async void Grid_Drop(object sender, DragEventArgs e)
         {
-            if (e.DataView.Contains(StandardDataFormats.StorageItems))
-            {
-                var items = await e.DataView.GetStorageItemsAsync();
-                if (items.Count > 0)
+            if ((e.OriginalSource as Grid)?.DataContext is MainViewModel targetAccount)
+                if (await (e.DataView.GetDataAsync("ID")) is int sourceAccountId)
                 {
-                    var storageFile = items[0] as StorageFile;
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(await storageFile.OpenAsync(FileAccessMode.Read));
-                    // Set the image on the main page to the dropped image
-                    //Image.Source = bitmapImage;
+                    var sourceAccount = sourceAccountId;
                 }
-            }
         }
 
         private void Grid_DragOver(object sender, DragEventArgs e)
         {
             e.AcceptedOperation = DataPackageOperation.Move;
-            e.DragUIOverride.Caption = "You can drop it here.";
             e.DragUIOverride.IsGlyphVisible = true;
             e.DragUIOverride.IsContentVisible = true;
             e.DragUIOverride.IsCaptionVisible = true;
+        }
+
+        private void TextBlock_DragStarting(UIElement sender, DragStartingEventArgs args)
+        {
+            if ((sender as StackPanel)?.DataContext is TaskDto task)
+            {
+                args.AllowedOperations = DataPackageOperation.Move;
+                args.Data.SetData("ID", task.Id);
+            }
         }
     }
 }
