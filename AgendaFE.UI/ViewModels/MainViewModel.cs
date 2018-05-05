@@ -118,17 +118,28 @@ namespace AgendaFE.UI.ViewModels
             get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList()); }
         }
 
+        //private ObservableCollection<TaskDto> toDoTasks;
+
+        //public ObservableCollection<TaskDto> ToDoTasks
+        //{
+        //    get
+        //    {                
+        //        return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
+        //    }
+        //}
+
         private ObservableCollection<TaskDto> toDoTasks;
 
         public ObservableCollection<TaskDto> ToDoTasks
         {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State==0 && t.ParentId==SelectedCategory.Id).ToList()); }
+            get { return toDoTasks; }
             set
             {
                 toDoTasks = value;
                 RaisePropertyChanged(nameof(ToDoTasks));
             }
         }
+
 
         public ObservableCollection<TaskDto> DoingTasks
         {
@@ -162,6 +173,10 @@ namespace AgendaFE.UI.ViewModels
             {
                 selectedCategory = value;
                 RaisePropertyChanged(nameof(SelectedCategory));
+                if (selectedCategory.StateType == StateTypes.Kanban3)
+                {
+                    ToDoTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
+                }
             }
         }
 
@@ -198,6 +213,7 @@ namespace AgendaFE.UI.ViewModels
             SelectedCategory = new CategoryDto();
             SelectedTask = new TaskDto();
             AllTasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
+            ToDoTasks = new ObservableCollection<TaskDto>();
 
             //Dummy datas
 
@@ -212,6 +228,8 @@ namespace AgendaFE.UI.ViewModels
                     }
                 }
             }
+
+
         }
 
 

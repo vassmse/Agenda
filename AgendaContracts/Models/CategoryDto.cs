@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace AgendaContracts.Models
@@ -93,8 +94,6 @@ namespace AgendaContracts.Models
             Tasks = new ObservableCollection<TaskDto>();
             Visibility = true;
         }
-
-        public StateTypes StateType1 { get => stateType; set => stateType = value; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
