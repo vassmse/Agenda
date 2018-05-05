@@ -55,6 +55,7 @@ namespace AgendaBE.Service.Services
         {
             var result = Context.Categories.SingleOrDefault(c => c.CategoryId == category.Id);
             result.Name = category.Name;
+            result.StateType = category.StateType.ToString();
             Context.SaveChanges();
         }
 

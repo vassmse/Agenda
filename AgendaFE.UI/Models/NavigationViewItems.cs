@@ -38,11 +38,11 @@ namespace AgendaFE.UI.Models
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
-        public static void AddMenuItem(string name)
+        public static void AddMenuItem(string name, string category)
         {
             menu.RemoveAt(menu.Count - 1);
             menu.RemoveAt(menu.Count - 1);
-            menu.Add(new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            menu.Add(new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = category });
             menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
@@ -80,6 +80,15 @@ namespace AgendaFE.UI.Models
 
                 }
 
+            }
+        }
+
+        public static void ChangeTag(string name, string tag)
+        {
+            foreach (var item in menu)
+            {
+                if (item.Content != null && item.Content.ToString() == name)
+                    item.Tag = tag;
             }
         }
 

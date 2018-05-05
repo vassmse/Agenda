@@ -31,14 +31,19 @@ namespace AgendaFE.UI.Views
         public SettingsPage()
         {
             this.InitializeComponent();
-            ViewModel = vm.MainPage;
-            var ComboItemSource = Enum.GetValues(typeof(StateTypes));
+            ViewModel = vm.MainPage;            
         }
 
         private void DeleteCategory(object sender, RoutedEventArgs e)
         {
             CategoryDto source = ((Button)sender).DataContext as CategoryDto;
             ViewModel.DeleteCategoryAction(source);
+        }
+
+        private void SaveCategory(object sender, RoutedEventArgs e)
+        {
+            CategoryDto source = ((Button)sender).DataContext as CategoryDto;
+            ViewModel.SaveCategoryAction(source);
         }
 
         private void RenameCategory(object sender, RoutedEventArgs e)

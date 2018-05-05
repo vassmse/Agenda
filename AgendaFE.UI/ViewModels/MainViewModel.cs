@@ -240,7 +240,7 @@ namespace AgendaFE.UI.ViewModels
             var newCategory = new CategoryDto { Id = id, Name = NewCategory.Name, Description = NewCategory.Description, StateType = NewCategory.StateType };
             RestClient.AddCategory(newCategory);
             Categories.Add(newCategory);
-            NavigationViewItems.AddMenuItem(newCategory.Name);
+            NavigationViewItems.AddMenuItem(newCategory.Name, newCategory.StateType.ToString());
 
             //Add dummy tasks
             int taskId = AllTasks.Last().Id + 1;
@@ -310,7 +310,7 @@ namespace AgendaFE.UI.ViewModels
         {
             RestClient.DeleteTask(SelectedTask);
             IsPanelActive = false;
-
+            SelectedCategory.ToDoTasks.Remove(SelectedTask);
             AllTasks.Remove(SelectedTask);
 
             for (int i = 0; i < Categories.Count(); i++)
@@ -339,6 +339,14 @@ namespace AgendaFE.UI.ViewModels
             RestClient.DeleteCategory(category);
             Categories.Remove(category);
             NavigationViewItems.DeleteMenuItem(category.Name);
+        }
+
+        public void SaveCategoryAction(CategoryDto category)
+        {
+            RestClient.UpdateCategory(category);
+            NavigationViewItems.ChangeTag(category.Name, category.StateType.ToString());
+            //Categories.Remove(category);
+            // NavigationViewItems.DeleteMenuItem(category.Name);
         }
 
         public void RenameCategoryAction(CategoryDto category)

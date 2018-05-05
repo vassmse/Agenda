@@ -32,7 +32,7 @@ namespace AgendaFE.UI.Views
         {
             this.InitializeComponent();
             ViewModel = vm.MainPage;
-            TypeComboBox.ItemsSource = Enum.GetValues(typeof(StateTypes));
+            //TypeComboBox.ItemsSource = Enum.GetValues(typeof(StateTypes));
         }
     }
 }

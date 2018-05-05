@@ -38,7 +38,9 @@ namespace AgendaContracts.Models
         {
             get { return stateType; }
             set { stateType = value; }
-        }
+        }        
+
+        public Array StateTypeValues { get; set; }
 
 
         private bool done;
@@ -106,6 +108,7 @@ namespace AgendaContracts.Models
             Tasks = new ObservableCollection<TaskDto>();
             ToDoTasks = new ObservableCollection<TaskDto>();
             Visibility = true;
+            StateTypeValues = Enum.GetValues(typeof(StateTypes));
         }
 
 

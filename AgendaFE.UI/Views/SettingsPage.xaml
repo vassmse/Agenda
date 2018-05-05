@@ -15,19 +15,22 @@
     <ScrollViewer>
         <StackPanel Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <TextBlock Text="Category settings" FontSize="18" />
-            
-            <ItemsControl ItemsSource="{x:Bind ViewModel.Categories}" Width="500" HorizontalAlignment="Left" Margin="0 10">
-                <ItemsControl.ItemTemplate>                    
+
+            <ItemsControl ItemsSource="{x:Bind ViewModel.Categories}" HorizontalAlignment="Left" Margin="0 10">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:CategoryDto">
                         <Border BorderThickness="0,0,0,1" BorderBrush="#c0c0c0">
                             <Grid Margin="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="200" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Name, Mode=TwoWay}" Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" DoubleTapped="RenameByClick" Visibility="{x:Bind Renaming, Converter={StaticResource InverseBooleanToVisibility}, Mode=TwoWay}" />
-                                <TextBox Text="{Binding Name, Mode=TwoWay}"  Grid.Column="0" Padding="0 0 10 0" VerticalAlignment="Center" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}"  />
-                                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Name, Mode=TwoWay}" Grid.Column="0" Margin="0 0 10 0" VerticalAlignment="Center" DoubleTapped="RenameByClick" Visibility="{x:Bind Renaming, Converter={StaticResource InverseBooleanToVisibility}, Mode=TwoWay}" />
+                                <TextBox Text="{Binding Name, Mode=TwoWay}"  Grid.Column="0" Margin="0 0 10 0" VerticalAlignment="Center" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}"  />
+
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
                                     <Button Margin="0 0 15 0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="DeleteCategory">
                                         <SymbolIcon Symbol="Delete" />
                                     </Button>
@@ -36,17 +39,24 @@
                                     </Button>
                                     <Button Margin="0 0 15 0" Foreground="Green" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Click="RenameCategory" Visibility="{x:Bind Renaming, Converter={StaticResource BooleanToVisibility}, Mode=TwoWay}" >
                                         <SymbolIcon Symbol="Save" />
-                                    </Button>   
-                                    
+                                    </Button>
+
                                     <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="{Binding Visibility, Mode=TwoWay}" Toggled="ToggleSwitch_Toggled" />
                                 </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                                    <ComboBox ItemsSource="{x:Bind StateTypeValues }" SelectedItem="{x:Bind StateType, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="2" Margin="20 0 15 0"  />
+                                    <Button  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0 0 10 0" Click="SaveCategory">
+                                        <SymbolIcon Symbol="Save" />
+                                    </Button>
+                                </StackPanel>
+
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text="Language settings" FontSize="18" Margin="0 10"/>
+            <TextBlock Text="Language settings" FontSize="18" Margin="0 30 0 0"/>
             <StackPanel Margin="10">
                 <TextBlock Text="Select a language:" Style="{ThemeResource BaseTextBlockStyle}"/>
                 <RadioButton x:Name="Option1RadioButton" Content="Hungarian" />
