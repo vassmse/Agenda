@@ -36,5 +36,11 @@ namespace AgendaFE.UI.Views
             ViewModel = vm.MainPage;
             DataContext = ViewModel;
         }
+
+        private void TaskReady(object sender, RoutedEventArgs e)
+        {
+            TaskDto source = ((CheckBox)sender).DataContext as TaskDto;
+            ViewModel.CheckChangedAction(source);
+        }
     }
 }

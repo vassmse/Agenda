@@ -25,17 +25,15 @@
                     <DataTemplate x:DataType="models:TaskDto">
                         <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
                             <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal" Padding="10">
-                                    <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" IsEnabled="False">
-                                        <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Padding="10 0 0 0"/>
-                                    </CheckBox>
-                                    <TextBlock Text="Deadline:" VerticalAlignment="Center" Padding="10 0 0 0" Visibility="{x:Bind HasDeadlineDate}"/>
-                                    <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
-                                    <TextBlock Text="Scheduled:" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}"/>
-                                    <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
+                                <StackPanel Orientation="Horizontal" Padding="5">
+                                    <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady" Width="30" Height="30" />
+                                    <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Margin="-78 0 0 0" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Visibility="{x:Bind Description, Converter={StaticResource StringToVisibility}, Mode=OneWay}">
-                                    <TextBlock Text="{x:Bind Description}" Padding="48 0 0 5"  VerticalAlignment="Center" />
+                                <StackPanel Orientation="Horizontal" Padding="33 0 0 5">
+                                    <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}" />
+                                    <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
+                                    <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasDeadlineDate}" />
+                                    <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>

@@ -32,6 +32,7 @@ namespace AgendaFE.UI.Views
         {
             this.InitializeComponent();
             ViewModel = vm.MainPage;
+            var ComboItemSource = Enum.GetValues(typeof(StateTypes));
         }
 
         private void DeleteCategory(object sender, RoutedEventArgs e)

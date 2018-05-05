@@ -17,9 +17,15 @@ namespace AgendaBE.Service.Services
 
             if (Context.Tasks.Count() == 0)
             {
-                AddTask(new TaskDto { Name = "Apple", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=1 });
-                AddTask(new TaskDto { Name = "Banana", Description = "blaa bla bla", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=1 });
-                AddTask(new TaskDto { Name = "Bread", Description = "blaa", State = 0, Priority = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId=2 });
+                AddTask(new TaskDto { Name = "Apple", Description = "1 kg", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate=DateTime.Now });
+                AddTask(new TaskDto { Name = "Banana", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
+                AddTask(new TaskDto { Name = "Bread", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
+                AddTask(new TaskDto { Name = "Milk", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
+                AddTask(new TaskDto { Name = "Rice", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
+                AddTask(new TaskDto { Name = "Clean desk", Description = "", State = 0, Priority = 0, ParentId = 2 });
+                AddTask(new TaskDto { Name = "Math Homework", Description = "", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(2), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });
+                AddTask(new TaskDto { Name = "History Essay", Description = "About Roman cities", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(3), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });
+                AddTask(new TaskDto { Name = "Buy pens", Description = "", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(2), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });
             }
         }
 
@@ -62,7 +68,7 @@ namespace AgendaBE.Service.Services
 
         private TaskDto GetTaskDto(Models.Task task)
         {
-            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, ParentId=task.CategoryId, HasDeadlineDate=task.HasDeadlineDate, HasScheduledDate=task.HasScheduledDate };
+            return new TaskDto { Id = task.TaskId, Name = task.Name, Description = task.Description, State = task.State, Priority = task.Priority, DeadlineDate = task.DeadlineDate, ScheduledDate = task.ScheduledDate, ParentId = task.CategoryId, HasDeadlineDate = task.HasDeadlineDate, HasScheduledDate = task.HasScheduledDate };
         }
 
         private Models.Task GetTask(TaskDto task)

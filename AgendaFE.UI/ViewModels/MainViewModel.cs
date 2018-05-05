@@ -202,6 +202,27 @@ namespace AgendaFE.UI.ViewModels
             RestClient.AddCategory(newCategory);
             Categories.Add(newCategory);
             NavigationViewItems.AddMenuItem(newCategory.Name);
+
+            //Add dummy tasks
+            int taskId = AllTasks.Last().Id + 1;
+            var newTask = new TaskDto { Id = id, Name = "TO-DO 1", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            RestClient.AddTask(newTask);
+            AllTasks.Add(newTask);
+            Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);
+
+            taskId = AllTasks.Last().Id + 1;
+            newTask = new TaskDto { Id = id, Name = "TO-DO 2", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            RestClient.AddTask(newTask);
+            AllTasks.Add(newTask);
+            Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);
+
+            taskId = AllTasks.Last().Id + 1;
+            newTask = new TaskDto { Id = id, Name = "TO-DO 3", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            RestClient.AddTask(newTask);
+            AllTasks.Add(newTask);
+            Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);
+
+
             NewCategory.Name = String.Empty;
             NewCategory.Description = String.Empty;
         }
@@ -249,6 +270,8 @@ namespace AgendaFE.UI.ViewModels
         {
             RestClient.DeleteTask(SelectedTask);
             IsPanelActive = false;
+
+            AllTasks.Remove(SelectedTask);
 
             for (int i = 0; i < Categories.Count(); i++)
             {
