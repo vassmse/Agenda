@@ -103,34 +103,41 @@ namespace AgendaFE.UI.ViewModels
         }
 
 
-        public List<TaskDto> DailyTasks
+        public ObservableCollection<TaskDto> DailyTasks
         {
-            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList()); }
         }
 
-        public List<TaskDto> WeeklyTasks
+        public ObservableCollection<TaskDto> WeeklyTasks
         {
-            get { return AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList()); }
         }
 
-        public List<TaskDto> ExpiredTasks
+        public ObservableCollection<TaskDto> ExpiredTasks
         {
-            get { return AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList()); }
         }
 
-        public List<TaskDto> ToDoTasks
+        private ObservableCollection<TaskDto> toDoTasks;
+
+        public ObservableCollection<TaskDto> ToDoTasks
         {
-            get { return AllTasks.Where(t => t.State==0).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State==0 && t.ParentId==SelectedCategory.Id).ToList()); }
+            set
+            {
+                toDoTasks = value;
+                RaisePropertyChanged(nameof(ToDoTasks));
+            }
         }
 
-        public List<TaskDto> DoingTasks
+        public ObservableCollection<TaskDto> DoingTasks
         {
-            get { return AllTasks.Where(t => t.State == 2).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 2 && t.ParentId == SelectedCategory.Id).ToList()); }
         }
 
-        public List<TaskDto> DoneTasks
+        public ObservableCollection<TaskDto> DoneTasks
         {
-            get { return AllTasks.Where(t => t.State == 1).ToList(); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 1 && t.ParentId == SelectedCategory.Id).ToList()); }
         }
 
 
@@ -248,6 +255,7 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
+            ToDoTasks.Add(newTask);
             Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
         }
 

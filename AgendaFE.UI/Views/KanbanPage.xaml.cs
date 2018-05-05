@@ -25,12 +25,12 @@ namespace AgendaFE.UI.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class KanbanTestPage : Page
+    public sealed partial class KanbanPage : Page
     {
         ViewModelLocator vm = new ViewModelLocator();
         public MainViewModel ViewModel { get; set; }
 
-        public KanbanTestPage()
+        public KanbanPage()
         {
             this.InitializeComponent();
             ViewModel = vm.MainPage;
@@ -62,5 +62,18 @@ namespace AgendaFE.UI.Views
                 args.Data.SetData("ID", task.Id);
             }
         }
+
+        private void ItemsControl_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 0);
+
+        }
+
+        private void ItemsControl_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+
+        }
+        
     }
 }

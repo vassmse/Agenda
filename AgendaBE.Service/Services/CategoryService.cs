@@ -17,9 +17,9 @@ namespace AgendaBE.Service.Services
 
             if (Context.Categories.Count() == 0)
             {
-                AddCategory(new CategoryDto { Name = "School", Description = "blaa", StateType = StateTypes.Checklist });
+                AddCategory(new CategoryDto { Name = "School", Description = "blaa", StateType = StateTypes.Kanban3 });
                 AddCategory(new CategoryDto { Name = "Work", Description = "blaa bla bla", StateType = StateTypes.Checklist });
-                AddCategory(new CategoryDto { Name = "Shopping", Description = "blaa", StateType = StateTypes.Kanban3 });
+                AddCategory(new CategoryDto { Name = "Shopping", Description = "blaa", StateType = StateTypes.Checklist });
             }
         }
 

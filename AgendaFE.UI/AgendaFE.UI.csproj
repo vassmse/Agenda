@@ -112,8 +112,8 @@
     <Compile Include="Views\ExpiredTasksPage.xaml.cs">
       <DependentUpon>ExpiredTasksPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\KanbanTestPage.xaml.cs">
-      <DependentUpon>KanbanTestPage.xaml</DependentUpon>
+    <Compile Include="Views\KanbanPage.xaml.cs">
+      <DependentUpon>KanbanPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -163,7 +163,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\KanbanTestPage.xaml">
+    <Page Include="Views\KanbanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,7 +23,6 @@ namespace AgendaFE.UI.Models
         {
             ViewModel = vm.MainPage;
             menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
-            menu.Add(new NavigationViewItem() { Content = "KanbanTest", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "kanban" });
             menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
             menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "week" });
             menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "expired" });
@@ -31,8 +30,8 @@ namespace AgendaFE.UI.Models
             menu.Add(new NavigationViewItemHeader { Content = "Categories", Margin = new Thickness(33, 0, 0, 0) });
 
             foreach (var category in ViewModel.Categories)
-            {
-                menu.Add(new NavigationViewItem { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "category" });
+            {                
+                menu.Add(new NavigationViewItem { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = category.StateType.ToString() });
             }
 
             menu.Add(new NavigationViewItemSeparator());

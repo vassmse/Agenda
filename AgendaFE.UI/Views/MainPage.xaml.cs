@@ -77,10 +77,6 @@ namespace AgendaFE.UI
             {
                 switch (item.Tag)
                 {
-                    case "kanban":
-                        ContentFrame.Navigate(typeof(KanbanTestPage));
-                        NavView.Header = "Daily report";
-                        break;
                     case "today":
                         ContentFrame.Navigate(typeof(DailyReportPage));
                         NavView.Header = "Daily report";
@@ -93,7 +89,9 @@ namespace AgendaFE.UI
                         ContentFrame.Navigate(typeof(ExpiredTasksPage));
                         NavView.Header = "Expired tasks";
                         break;
-                    case "category":
+
+
+                    case "Checklist":
                         ContentFrame.Navigate(typeof(SingleCategoryPage));
                         NavView.Header = item.Content;                     
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
@@ -101,6 +99,33 @@ namespace AgendaFE.UI
                             ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
                         }
                         break;
+                    case "MultiChecklist":
+                        ContentFrame.Navigate(typeof(SingleCategoryPage));
+                        NavView.Header = item.Content;
+                        if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
+                        {
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
+                        }
+                        break;
+                    case "Kanban3":
+                        ContentFrame.Navigate(typeof(KanbanPage));
+                        NavView.Header = item.Content;
+                        if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
+                        {
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
+                        }
+                        break;
+                    case "Kanban5":
+                        ContentFrame.Navigate(typeof(SingleCategoryPage));
+                        NavView.Header = item.Content;
+                        if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
+                        {
+                            ViewModel.SelectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString());
+                        }
+                        break;
+
+
+
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));
                         NavView.Header = "Add new category";
