@@ -6,7 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:AgendaContracts.Models"
+    xmlns:converters="using:AgendaFE.UI.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:TimeConverter x:Key="TimeConverter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+        <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
+    </Page.Resources>
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="10" AllowDrop="True" Drop="Grid_Drop" DragOver="Grid_DragOver">
@@ -30,39 +38,79 @@
         </Border>
 
         <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="0" Grid.Row="1"  >
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
-                <ItemsControl ItemsSource="{x:Bind ViewModel.AllTasks}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="models:TaskDto">
-                            <StackPanel Width="150" Height="50" Background="LawnGreen" Margin="10" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
-                                <TextBlock Text="{Binding Name}"  HorizontalAlignment="Center" VerticalAlignment="Center"  />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.ToDoTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:TaskDto">
+                                <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  HorizontalAlignment="Center"  VerticalAlignment="Center"  />
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="13" Padding="0 5 0 0" VerticalAlignment="Center" Visibility="{Binding Description, Converter={StaticResource StringToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Padding="0 5 0 0">
+                                        <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                        <TextBlock Text="{Binding DeadlineDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                        <TextBlock Text="{Binding ScheduledDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                    </StackPanel>
 
-            <!--<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" >
-                <StackPanel Width="50" Height="50" Background="LawnGreen" Margin="10" HorizontalAlignment="Center" CanDrag="True" >
-                    <TextBlock Text="HI" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" CanDrag="True"/>
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" CanDrag="True"/>
-            </StackPanel>-->
+            </ScrollViewer>
         </Border>
         <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="1" Grid.Row="1"  >
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" >
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" />
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.DoingTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:TaskDto">
+                                <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  HorizontalAlignment="Center"  VerticalAlignment="Center"  />
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="13" Padding="0 5 0 0" VerticalAlignment="Center" Visibility="{Binding Description, Converter={StaticResource StringToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Padding="0 5 0 0">
+                                        <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                        <TextBlock Text="{Binding DeadlineDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                        <TextBlock Text="{Binding ScheduledDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
         <Border BorderThickness="0,1,0,0" BorderBrush="#c0c0c0" Grid.Column="2" Grid.Row="1"  >
-            <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" >
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center" />
-                <Button  Width="50" Height="50" Background="AliceBlue" Margin="10" HorizontalAlignment="Center"/>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.DoneTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:TaskDto">
+                                <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  HorizontalAlignment="Center"  VerticalAlignment="Center"  />
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="13" Padding="0 5 0 0" VerticalAlignment="Center" Visibility="{Binding Description, Converter={StaticResource StringToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Padding="0 5 0 0">
+                                        <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                        <TextBlock Text="{Binding DeadlineDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Visibility="{x:Bind HasDeadlineDate}" />
+                                        <TextBlock Text="{Binding ScheduledDate,Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" Padding="5 0 0 0 " FontSize="12" VerticalAlignment="Center" Visibility="{x:Bind HasScheduledDate}" />
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Page>

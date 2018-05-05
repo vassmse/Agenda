@@ -118,6 +118,21 @@ namespace AgendaFE.UI.ViewModels
             get { return AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList(); }
         }
 
+        public List<TaskDto> ToDoTasks
+        {
+            get { return AllTasks.Where(t => t.State==0).ToList(); }
+        }
+
+        public List<TaskDto> DoingTasks
+        {
+            get { return AllTasks.Where(t => t.State == 2).ToList(); }
+        }
+
+        public List<TaskDto> DoneTasks
+        {
+            get { return AllTasks.Where(t => t.State == 1).ToList(); }
+        }
+
 
         private CategoryDto newCategory;
 

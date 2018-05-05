@@ -274,9 +274,9 @@
                             VerticalAlignment="Bottom"
                             DefaultLabelPosition="Right"
                             Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                            Margin="10"
+                            Margin="10"                                    
                            >
-                            <AppBarButton Icon="Sort"/>
+                            <AppBarButton Icon="Bullets"/>
                             <AppBarButton Icon="Pictures"/>
                             <AppBarButton Icon="Save"/>
                         </CommandBar>
