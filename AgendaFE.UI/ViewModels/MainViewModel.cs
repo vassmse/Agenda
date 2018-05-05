@@ -118,38 +118,7 @@ namespace AgendaFE.UI.ViewModels
             get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList()); }
         }
 
-        //private ObservableCollection<TaskDto> toDoTasks;
-
-        //public ObservableCollection<TaskDto> ToDoTasks
-        //{
-        //    get
-        //    {                
-        //        return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
-        //    }
-        //}
-
-        //private ObservableCollection<TaskDto> toDoTasks;
-
-        //public ObservableCollection<TaskDto> ToDoTasks
-        //{
-        //    get { return toDoTasks; }
-        //    set
-        //    {
-        //        toDoTasks = value;
-        //        RaisePropertyChanged(nameof(ToDoTasks));
-        //    }
-        //}
-
-
-        public ObservableCollection<TaskDto> DoingTasks
-        {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 2 && t.ParentId == SelectedCategory.Id).ToList()); }
-        }
-
-        public ObservableCollection<TaskDto> DoneTasks
-        {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 1 && t.ParentId == SelectedCategory.Id).ToList()); }
-        }
+       
 
 
         private CategoryDto newCategory;
@@ -176,6 +145,8 @@ namespace AgendaFE.UI.ViewModels
                 if (selectedCategory.StateType == StateTypes.Kanban3)
                 {
                     selectedCategory.ToDoTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
+                    selectedCategory.DoingTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 2 && t.ParentId == SelectedCategory.Id).ToList());
+                    selectedCategory.DoneTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 1 && t.ParentId == SelectedCategory.Id).ToList());
                 }
             }
         }
@@ -214,9 +185,6 @@ namespace AgendaFE.UI.ViewModels
             SelectedTask = new TaskDto();
             AllTasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
 
-            //Dummy datas
-
-
             foreach (var category in Categories)
             {
                 foreach (var task in AllTasks)
@@ -229,6 +197,30 @@ namespace AgendaFE.UI.ViewModels
             }
 
 
+        }
+
+        public void ChangeTaskState(int taskId, int newState)
+        {
+            //TODO:!!!
+            var task = AllTasks.Where(t => t.Id == taskId).First();
+            var oldState = task.State;
+            task.State = newState;
+            if (oldState == 0)
+                SelectedCategory.ToDoTasks.Remove(SelectedCategory.ToDoTasks.Where(t => t.Id == taskId).First());
+            else if(oldState == 1)
+                SelectedCategory.DoneTasks.Remove(SelectedCategory.DoneTasks.Where(t => t.Id == taskId).First());
+            else if (oldState == 2)
+                SelectedCategory.DoingTasks.Remove(SelectedCategory.DoingTasks.Where(t => t.Id == taskId).First());
+
+            if (newState == 0)
+                SelectedCategory.ToDoTasks.Add(task);
+            else if (newState == 1)
+                SelectedCategory.DoneTasks.Add(task);
+            else if (newState == 2)
+                SelectedCategory.DoingTasks.Add(task);
+            AllTasks.Remove(AllTasks.Where(t => t.Id == taskId).First());
+            AllTasks.Add(task);
+            RestClient.UpdateTask(task);
         }
 
 
@@ -345,8 +337,6 @@ namespace AgendaFE.UI.ViewModels
         {
             RestClient.UpdateCategory(category);
             NavigationViewItems.ChangeTag(category.Name, category.StateType.ToString());
-            //Categories.Remove(category);
-            // NavigationViewItems.DeleteMenuItem(category.Name);
         }
 
         public void RenameCategoryAction(CategoryDto category)

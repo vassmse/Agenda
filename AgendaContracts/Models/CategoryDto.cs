@@ -90,6 +90,7 @@ namespace AgendaContracts.Models
 
         public ObservableCollection<TaskDto> Tasks { get; set; }
 
+        //TODO:!!! szépen!
         private ObservableCollection<TaskDto> toDoTasks;
 
         public ObservableCollection<TaskDto> ToDoTasks
@@ -102,11 +103,37 @@ namespace AgendaContracts.Models
             }
         }
 
+        private ObservableCollection<TaskDto> doingTasks;
+
+        public ObservableCollection<TaskDto> DoingTasks
+        {
+            get { return doingTasks; }
+            set
+            {
+                doingTasks = value;
+                NotifyPropertyChanged(nameof(DoingTasks));
+            }
+        }
+
+        private ObservableCollection<TaskDto> doneTasks;
+
+        public ObservableCollection<TaskDto> DoneTasks
+        {
+            get { return doneTasks; }
+            set
+            {
+                doneTasks = value;
+                NotifyPropertyChanged(nameof(DoneTasks));
+            }
+        }
+
 
         public CategoryDto()
         {
             Tasks = new ObservableCollection<TaskDto>();
             ToDoTasks = new ObservableCollection<TaskDto>();
+            DoingTasks = new ObservableCollection<TaskDto>();
+            DoneTasks = new ObservableCollection<TaskDto>();
             Visibility = true;
             StateTypeValues = Enum.GetValues(typeof(StateTypes));
         }

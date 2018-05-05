@@ -39,10 +39,28 @@ namespace AgendaFE.UI.Views
 
         private async void Grid_Drop(object sender, DragEventArgs e)
         {
-            if ((e.OriginalSource as Grid)?.DataContext is MainViewModel targetAccount)
-                if (await (e.DataView.GetDataAsync("ID")) is int sourceAccountId)
+            if (((e.OriginalSource as ScrollViewer)?.DataContext is MainViewModel targetAccount)&& (e.OriginalSource as ScrollViewer).Name!=null)
+                if (await (e.DataView.GetDataAsync("ID")) is int taskId)
                 {
-                    var sourceAccount = sourceAccountId;
+                    try
+                    {
+                        var targetState = (e.OriginalSource as ScrollViewer)?.Name;
+                        switch (targetState)
+                        {
+                            case "TodoPanel":
+                                ViewModel.ChangeTaskState(taskId, 0);
+                                break;
+                            case "DoingPanel":
+                                ViewModel.ChangeTaskState(taskId, 2);
+                                break;
+                            case "DonePanel":
+                                ViewModel.ChangeTaskState(taskId, 1);
+                                break;
+                        }
+                    }
+                    catch
+                    {
+                    }
                 }
         }
 
