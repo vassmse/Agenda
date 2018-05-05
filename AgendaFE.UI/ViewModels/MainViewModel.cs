@@ -128,17 +128,17 @@ namespace AgendaFE.UI.ViewModels
         //    }
         //}
 
-        private ObservableCollection<TaskDto> toDoTasks;
+        //private ObservableCollection<TaskDto> toDoTasks;
 
-        public ObservableCollection<TaskDto> ToDoTasks
-        {
-            get { return toDoTasks; }
-            set
-            {
-                toDoTasks = value;
-                RaisePropertyChanged(nameof(ToDoTasks));
-            }
-        }
+        //public ObservableCollection<TaskDto> ToDoTasks
+        //{
+        //    get { return toDoTasks; }
+        //    set
+        //    {
+        //        toDoTasks = value;
+        //        RaisePropertyChanged(nameof(ToDoTasks));
+        //    }
+        //}
 
 
         public ObservableCollection<TaskDto> DoingTasks
@@ -175,7 +175,7 @@ namespace AgendaFE.UI.ViewModels
                 RaisePropertyChanged(nameof(SelectedCategory));
                 if (selectedCategory.StateType == StateTypes.Kanban3)
                 {
-                    ToDoTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
+                    selectedCategory.ToDoTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
                 }
             }
         }
@@ -213,7 +213,6 @@ namespace AgendaFE.UI.ViewModels
             SelectedCategory = new CategoryDto();
             SelectedTask = new TaskDto();
             AllTasks = new ObservableCollection<TaskDto>(RestClient.GetAllTasks());
-            ToDoTasks = new ObservableCollection<TaskDto>();
 
             //Dummy datas
 
@@ -273,7 +272,7 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
-            ToDoTasks.Add(newTask);
+            SelectedCategory.ToDoTasks.Add(newTask);
             Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
         }
 

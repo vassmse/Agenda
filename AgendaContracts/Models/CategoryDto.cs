@@ -88,10 +88,23 @@ namespace AgendaContracts.Models
 
         public ObservableCollection<TaskDto> Tasks { get; set; }
 
+        private ObservableCollection<TaskDto> toDoTasks;
+
+        public ObservableCollection<TaskDto> ToDoTasks
+        {
+            get { return toDoTasks; }
+            set
+            {
+                toDoTasks = value;
+                NotifyPropertyChanged(nameof(ToDoTasks));
+            }
+        }
+
 
         public CategoryDto()
         {
             Tasks = new ObservableCollection<TaskDto>();
+            ToDoTasks = new ObservableCollection<TaskDto>();
             Visibility = true;
         }
 
