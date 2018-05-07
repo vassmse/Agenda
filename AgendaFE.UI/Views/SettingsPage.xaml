@@ -56,13 +56,13 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text="Language settings" FontSize="18" Margin="0 30 0 0"/>
+            <!--<TextBlock Text="Language settings" FontSize="18" Margin="0 30 0 0"/>
             <StackPanel Margin="10">
                 <TextBlock Text="Select a language:" Style="{ThemeResource BaseTextBlockStyle}"/>
                 <RadioButton x:Name="Option1RadioButton" Content="Hungarian" />
                 <RadioButton x:Name="Option2RadioButton" Content="English" />
                 <RadioButton x:Name="Option3RadioButton" Content="German"/>
-            </StackPanel>
+            </StackPanel>-->
 
         </StackPanel>
     </ScrollViewer>

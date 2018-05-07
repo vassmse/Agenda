@@ -289,7 +289,7 @@ namespace AgendaFE.UI.ViewModels
                 {
                     for (int j = 0; j < Categories[i].Tasks.Count(); j++)
                     {
-                        if (Categories[i].Tasks[j].Name == SelectedTask.Name)
+                        if (Categories[i].Tasks[j].Id == SelectedTask.Id)
                         {
                             Categories[i].Tasks[j] = SelectedTask;
                         }
@@ -311,7 +311,7 @@ namespace AgendaFE.UI.ViewModels
                 {
                     for (int j = 0; j < Categories[i].Tasks.Count(); j++)
                     {
-                        if (Categories[i].Tasks[j].Name == SelectedTask.Name)
+                        if (Categories[i].Tasks[j].Id == SelectedTask.Id)
                         {
                             Categories[i].Tasks.RemoveAt(j);
 

@@ -269,7 +269,7 @@
                            Margin="10" 
                            Foreground="White"       
                            Text="{Binding}"/>
-                        <CommandBar Grid.Column="1"
+                        <!--<CommandBar Grid.Column="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             DefaultLabelPosition="Right"
@@ -279,7 +279,7 @@
                             <AppBarButton Icon="Bullets"/>
                             <AppBarButton Icon="Pictures"/>
                             <AppBarButton Icon="Save"/>
-                        </CommandBar>
+                        </CommandBar>-->
                     </Grid>
                 </DataTemplate>
             </NavigationView.HeaderTemplate>
