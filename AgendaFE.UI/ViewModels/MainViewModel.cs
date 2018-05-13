@@ -210,23 +210,23 @@ namespace AgendaFE.UI.ViewModels
             var newCategory = new CategoryDto { Id = id, Name = NewCategory.Name, Description = NewCategory.Description, StateType = NewCategory.StateType };
             RestClient.AddCategory(newCategory);
             Categories.Add(newCategory);
-            NavigationViewItems.AddMenuItem(newCategory.Name, newCategory.StateType.ToString());
+            NavigationViewItems.AddMenuItem(newCategory);
 
             //Add dummy tasks
             int taskId = AllTasks.Last().Id + 1;
-            var newTask = new TaskDto { Id = id, Name = "TO-DO 1", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            var newTask = new TaskDto { Id = taskId, Name = "TO-DO 1", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
             Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);
 
             taskId = AllTasks.Last().Id + 1;
-            newTask = new TaskDto { Id = id, Name = "TO-DO 2", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            newTask = new TaskDto { Id = taskId, Name = "TO-DO 2", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
             Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);
 
             taskId = AllTasks.Last().Id + 1;
-            newTask = new TaskDto { Id = id, Name = "TO-DO 3", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
+            newTask = new TaskDto { Id = taskId, Name = "TO-DO 3", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
             Categories.Where(n => n.Id == newCategory.Id).First().Tasks.Add(newTask);

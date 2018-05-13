@@ -1,4 +1,5 @@
-﻿using AgendaFE.UI.ViewModels;
+﻿using AgendaContracts.Models;
+using AgendaFE.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,25 +25,58 @@ namespace AgendaFE.UI.Models
             ViewModel = vm.MainPage;
             menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
             menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
-            menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "week" });
-            menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "expired" });
+            menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "week" });
+            menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarReply), Tag = "expired" });
             menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItemHeader { Content = "Categories", Margin = new Thickness(33, 0, 0, 0) });
 
             foreach (var category in ViewModel.Categories)
-            {                
-                menu.Add(new NavigationViewItem { Content = category.Name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = category.StateType.ToString() });
+            {
+                SymbolIcon icon = new SymbolIcon();
+                switch (category.StateType)
+                {
+                    case StateTypes.Checklist:
+                        icon = new SymbolIcon(Symbol.AllApps);
+                        break;
+                    case StateTypes.Kanban3:
+                        icon = new SymbolIcon(Symbol.DockBottom);
+                        break;
+                    case StateTypes.Kanban5:
+                        icon = new SymbolIcon(Symbol.SelectAll);
+                        break;
+                    case StateTypes.MultiChecklist:
+                        icon = new SymbolIcon(Symbol.Bookmarks);
+                        break;
+                }
+                menu.Add(new NavigationViewItem { Content = category.Name, Icon = icon, Tag = category.StateType.ToString() });                
             }
 
             menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
-        public static void AddMenuItem(string name, string category)
+        public static void AddMenuItem(CategoryDto category)
         {
+            SymbolIcon icon = new SymbolIcon();
+            switch (category.StateType)
+            {
+                case StateTypes.Checklist:
+                    icon = new SymbolIcon(Symbol.AllApps);
+                    break;
+                case StateTypes.Kanban3:
+                    icon = new SymbolIcon(Symbol.DockBottom);
+                    break;
+                case StateTypes.Kanban5:
+                    icon = new SymbolIcon(Symbol.SelectAll);
+                    break;
+                case StateTypes.MultiChecklist:
+                    icon = new SymbolIcon(Symbol.Bookmarks);
+                    break;
+            }
+
             menu.RemoveAt(menu.Count - 1);
             menu.RemoveAt(menu.Count - 1);
-            menu.Add(new NavigationViewItem { Content = name, Icon = new SymbolIcon(Symbol.CalendarDay), Tag = category });
+            menu.Add(new NavigationViewItem { Content = category.Name, Icon = icon, Tag = category.StateType.ToString() });
             menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
