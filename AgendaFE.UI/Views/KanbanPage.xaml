@@ -92,10 +92,15 @@
                 <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="1" Grid.Row="1"  >
                     <ScrollViewer x:Name="DoingPanel" AllowDrop="True" Drop="Grid_Drop" DragOver="Grid_DragOver">
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
-                            <ItemsControl ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks, Converter={StaticResource TaskStateConverter}, ConverterParameter=2, Mode=OneWay}">
+                            <ItemsControl x:Name="doingControl" ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks, Converter={StaticResource TaskStateConverter}, ConverterParameter=2, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="models:TaskDto">
-                                        <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
+                                        <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited">
+                                            <i:Interaction.Behaviors>
+                                                <core:EventTriggerBehavior EventName="PointerReleased">
+                                                    <core:InvokeCommandAction Command="{Binding ElementName=doingControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />
+                                                </core:EventTriggerBehavior>
+                                            </i:Interaction.Behaviors>
                                             <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  HorizontalAlignment="Center"  VerticalAlignment="Center"  />
                                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="13" Padding="0 5 0 0" VerticalAlignment="Center" Visibility="{Binding Description, Converter={StaticResource StringToVisibility}}" />
                                             <StackPanel Orientation="Horizontal" Padding="0 5 0 0">
@@ -117,10 +122,15 @@
                 <Border BorderThickness="0,1,0,0" BorderBrush="#c0c0c0" Grid.Column="2" Grid.Row="1"  >
                     <ScrollViewer x:Name="DonePanel" AllowDrop="True" Drop="Grid_Drop" DragOver="Grid_DragOver">
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch"  >
-                            <ItemsControl ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks, Converter={StaticResource TaskStateConverter}, ConverterParameter=1, Mode=OneWay}">
+                            <ItemsControl x:Name="doneControl" ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks, Converter={StaticResource TaskStateConverter}, ConverterParameter=1, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="models:TaskDto">
-                                        <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" >
+                                        <StackPanel Width="150" Background="{ThemeResource SystemAccentColorLight1}" Margin="10" Padding="10 5" HorizontalAlignment="Center" CanDrag="True" DragStarting="TextBlock_DragStarting" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited">
+                                            <i:Interaction.Behaviors>
+                                                <core:EventTriggerBehavior EventName="PointerReleased">
+                                                    <core:InvokeCommandAction Command="{Binding ElementName=doneControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />
+                                                </core:EventTriggerBehavior>
+                                            </i:Interaction.Behaviors>
                                             <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  HorizontalAlignment="Center"  VerticalAlignment="Center"  />
                                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="13" Padding="0 5 0 0" VerticalAlignment="Center" Visibility="{Binding Description, Converter={StaticResource StringToVisibility}}" />
                                             <StackPanel Orientation="Horizontal" Padding="0 5 0 0">

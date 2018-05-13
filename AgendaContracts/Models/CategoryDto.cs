@@ -107,9 +107,9 @@ namespace AgendaContracts.Models
             StateTypeValues = Enum.GetValues(typeof(StateTypes));
         }
 
-        public void NotifyProperty(String propertyName)
+        public void NotifyProperty()
         {
-            NotifyPropertyChanged(propertyName);
+            NotifyPropertyChanged("Tasks");
 
         }
 

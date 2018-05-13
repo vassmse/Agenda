@@ -193,34 +193,12 @@ namespace AgendaFE.UI.ViewModels
 
         public void ChangeTaskState(int taskId, int newState)
         {
-            //TODO:!!!
             var task = AllTasks.Where(t => t.Id == taskId).First();
             var selectedTask = SelectedCategory.Tasks.Where(t => t.Id == taskId).First();
             task.State = newState;
             selectedTask.State = newState;
-            SelectedCategory.NotifyProperty("Tasks");
-            
-
-
-            //var task = AllTasks.Where(t => t.Id == taskId).First();
-            //var oldState = task.State;
-            //task.State = newState;
-            //if (oldState == 0)
-            //    SelectedCategory.ToDoTasks.Remove(SelectedCategory.ToDoTasks.Where(t => t.Id == taskId).First());
-            //else if(oldState == 1)
-            //    SelectedCategory.DoneTasks.Remove(SelectedCategory.DoneTasks.Where(t => t.Id == taskId).First());
-            //else if (oldState == 2)
-            //    SelectedCategory.DoingTasks.Remove(SelectedCategory.DoingTasks.Where(t => t.Id == taskId).First());
-
-            //if (newState == 0)
-            //    SelectedCategory.ToDoTasks.Add(task);
-            //else if (newState == 1)
-            //    SelectedCategory.DoneTasks.Add(task);
-            //else if (newState == 2)
-            //    SelectedCategory.DoingTasks.Add(task);
-            //AllTasks.Remove(AllTasks.Where(t => t.Id == taskId).First());
-            //AllTasks.Add(task);
-            //RestClient.UpdateTask(task);
+            SelectedCategory.NotifyProperty();
+            RestClient.UpdateTask(task);
         }
 
 
@@ -264,7 +242,9 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
-            Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
+           // Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
+            SelectedCategory.Tasks.Add(newTask);
+            SelectedCategory.NotifyProperty();
         }
 
         public void SelectedTaskAction(int taskId)
@@ -295,6 +275,9 @@ namespace AgendaFE.UI.ViewModels
                     }
                 }
             }
+
+            SelectedCategory.NotifyProperty();
+
         }
 
         public void DeleteTaskAction()
@@ -317,6 +300,9 @@ namespace AgendaFE.UI.ViewModels
                     }
                 }
             }
+
+            SelectedCategory.NotifyProperty();
+
         }
 
         public void CheckChangedAction(TaskDto task)
