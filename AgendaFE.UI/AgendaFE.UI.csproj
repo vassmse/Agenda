@@ -101,6 +101,7 @@
     <Compile Include="Converters\IntToBoolConverter.cs" />
     <Compile Include="Converters\NullableBooleanToBooleanConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
+    <Compile Include="Converters\TaskStateConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Models\AgendaRestClient.cs" />
     <Compile Include="Models\NavigationViewItems.cs" />

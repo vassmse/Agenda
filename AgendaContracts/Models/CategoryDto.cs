@@ -85,45 +85,17 @@ namespace AgendaContracts.Models
                 description = value;
                 NotifyPropertyChanged(nameof(Description));
             }
-        }    
-
-
-        public ObservableCollection<TaskDto> Tasks { get; set; }
-
-        //TODO:!!! szépen!
-        private ObservableCollection<TaskDto> toDoTasks;
-
-        public ObservableCollection<TaskDto> ToDoTasks
-        {
-            get { return toDoTasks; }
-            set
-            {
-                toDoTasks = value;
-                NotifyPropertyChanged(nameof(ToDoTasks));
-            }
         }
 
-        private ObservableCollection<TaskDto> doingTasks;
-
-        public ObservableCollection<TaskDto> DoingTasks
+        private ObservableCollection<TaskDto> tasks;
+        
+        public ObservableCollection<TaskDto> Tasks
         {
-            get { return doingTasks; }
+            get { return tasks; }
             set
             {
-                doingTasks = value;
-                NotifyPropertyChanged(nameof(DoingTasks));
-            }
-        }
-
-        private ObservableCollection<TaskDto> doneTasks;
-
-        public ObservableCollection<TaskDto> DoneTasks
-        {
-            get { return doneTasks; }
-            set
-            {
-                doneTasks = value;
-                NotifyPropertyChanged(nameof(DoneTasks));
+                tasks = value;
+                NotifyPropertyChanged(nameof(Tasks));
             }
         }
 
@@ -131,11 +103,14 @@ namespace AgendaContracts.Models
         public CategoryDto()
         {
             Tasks = new ObservableCollection<TaskDto>();
-            ToDoTasks = new ObservableCollection<TaskDto>();
-            DoingTasks = new ObservableCollection<TaskDto>();
-            DoneTasks = new ObservableCollection<TaskDto>();
             Visibility = true;
             StateTypeValues = Enum.GetValues(typeof(StateTypes));
+        }
+
+        public void NotifyProperty(String propertyName)
+        {
+            NotifyPropertyChanged(propertyName);
+
         }
 
 

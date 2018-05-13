@@ -116,9 +116,7 @@ namespace AgendaFE.UI.ViewModels
         public ObservableCollection<TaskDto> ExpiredTasks
         {
             get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList()); }
-        }
-
-       
+        }       
 
 
         private CategoryDto newCategory;
@@ -142,12 +140,6 @@ namespace AgendaFE.UI.ViewModels
             {
                 selectedCategory = value;
                 RaisePropertyChanged(nameof(SelectedCategory));
-                if (selectedCategory.StateType == StateTypes.Kanban3)
-                {
-                    selectedCategory.ToDoTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 0 && t.ParentId == SelectedCategory.Id).ToList());
-                    selectedCategory.DoingTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 2 && t.ParentId == SelectedCategory.Id).ToList());
-                    selectedCategory.DoneTasks = new ObservableCollection<TaskDto>(AllTasks.Where(t => t.State == 1 && t.ParentId == SelectedCategory.Id).ToList());
-                }
             }
         }
 
@@ -203,24 +195,32 @@ namespace AgendaFE.UI.ViewModels
         {
             //TODO:!!!
             var task = AllTasks.Where(t => t.Id == taskId).First();
-            var oldState = task.State;
+            var selectedTask = SelectedCategory.Tasks.Where(t => t.Id == taskId).First();
             task.State = newState;
-            if (oldState == 0)
-                SelectedCategory.ToDoTasks.Remove(SelectedCategory.ToDoTasks.Where(t => t.Id == taskId).First());
-            else if(oldState == 1)
-                SelectedCategory.DoneTasks.Remove(SelectedCategory.DoneTasks.Where(t => t.Id == taskId).First());
-            else if (oldState == 2)
-                SelectedCategory.DoingTasks.Remove(SelectedCategory.DoingTasks.Where(t => t.Id == taskId).First());
+            selectedTask.State = newState;
+            SelectedCategory.NotifyProperty("Tasks");
+            
 
-            if (newState == 0)
-                SelectedCategory.ToDoTasks.Add(task);
-            else if (newState == 1)
-                SelectedCategory.DoneTasks.Add(task);
-            else if (newState == 2)
-                SelectedCategory.DoingTasks.Add(task);
-            AllTasks.Remove(AllTasks.Where(t => t.Id == taskId).First());
-            AllTasks.Add(task);
-            RestClient.UpdateTask(task);
+
+            //var task = AllTasks.Where(t => t.Id == taskId).First();
+            //var oldState = task.State;
+            //task.State = newState;
+            //if (oldState == 0)
+            //    SelectedCategory.ToDoTasks.Remove(SelectedCategory.ToDoTasks.Where(t => t.Id == taskId).First());
+            //else if(oldState == 1)
+            //    SelectedCategory.DoneTasks.Remove(SelectedCategory.DoneTasks.Where(t => t.Id == taskId).First());
+            //else if (oldState == 2)
+            //    SelectedCategory.DoingTasks.Remove(SelectedCategory.DoingTasks.Where(t => t.Id == taskId).First());
+
+            //if (newState == 0)
+            //    SelectedCategory.ToDoTasks.Add(task);
+            //else if (newState == 1)
+            //    SelectedCategory.DoneTasks.Add(task);
+            //else if (newState == 2)
+            //    SelectedCategory.DoingTasks.Add(task);
+            //AllTasks.Remove(AllTasks.Where(t => t.Id == taskId).First());
+            //AllTasks.Add(task);
+            //RestClient.UpdateTask(task);
         }
 
 
@@ -264,7 +264,6 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
-            SelectedCategory.ToDoTasks.Add(newTask);
             Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
         }
 
@@ -302,7 +301,6 @@ namespace AgendaFE.UI.ViewModels
         {
             RestClient.DeleteTask(SelectedTask);
             IsPanelActive = false;
-            SelectedCategory.ToDoTasks.Remove(SelectedTask);
             AllTasks.Remove(SelectedTask);
 
             for (int i = 0; i < Categories.Count(); i++)

@@ -58,9 +58,7 @@ namespace AgendaFE.UI.Views
                                 break;
                         }
                     }
-                    catch
-                    {
-                    }
+                    catch (Exception ex) { Console.WriteLine(ex); }
                 }
         }
 
