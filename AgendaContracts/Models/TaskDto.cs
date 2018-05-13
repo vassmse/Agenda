@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
@@ -109,6 +110,48 @@ namespace AgendaContracts.Models
                 NotifyPropertyChanged(nameof(ParentId));
             }
         }
+
+
+        private int parentTaskId;
+        public int ParentTaskId
+        {
+            get { return parentTaskId; }
+            set
+            {
+                parentTaskId = value;
+                NotifyPropertyChanged(nameof(ParentTaskId));
+            }
+        }
+
+        private bool isSubTask;
+        public bool IsSubTask
+        {
+            get { return isSubTask; }
+            set
+            {
+                isSubTask = value;
+                NotifyPropertyChanged(nameof(IsSubTask));
+            }
+        }
+
+
+        private ObservableCollection<TaskDto> subTasks;
+
+        public ObservableCollection<TaskDto> SubTasks
+        {
+            get { return subTasks; }
+            set
+            {
+                subTasks = value;
+                NotifyPropertyChanged(nameof(SubTasks));
+            }
+        }
+
+        public TaskDto()
+        {
+            SubTasks = new ObservableCollection<TaskDto>();
+        }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -20,6 +20,7 @@ namespace AgendaFE.UI.ViewModels
         public RelayCommand AddCategoryCommand { get; private set; }
 
         public RelayCommand AddTaskCommand { get; private set; }
+        public RelayCommand<int> AddSubTaskCommand { get; private set; }
 
         public RelayCommand<int> SelectedTaskCommand { get; private set; }
 
@@ -105,18 +106,18 @@ namespace AgendaFE.UI.ViewModels
 
         public ObservableCollection<TaskDto> DailyTasks
         {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day)).ToList()); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (!t.IsSubTask) && ( (t.HasDeadlineDate && t.DeadlineDate.Year == DateTime.Now.Year && t.DeadlineDate.Day == DateTime.Now.Day) || (t.HasScheduledDate && t.ScheduledDate.Year == DateTime.Now.Year && t.ScheduledDate.Day == DateTime.Now.Day))).ToList()); }
         }
 
         public ObservableCollection<TaskDto> WeeklyTasks
         {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear)).ToList()); }
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (!t.IsSubTask) && ((t.HasDeadlineDate && t.DeadlineDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.DeadlineDate.DayOfYear >= DateTime.Now.DayOfYear) || (t.HasScheduledDate && t.ScheduledDate.DayOfYear < DateTime.Now.DayOfYear + 7 && t.ScheduledDate.DayOfYear >= DateTime.Now.DayOfYear))).ToList()); }
         }
 
         public ObservableCollection<TaskDto> ExpiredTasks
         {
-            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day).ToList()); }
-        }       
+            get { return new ObservableCollection<TaskDto>(AllTasks.Where(t => (!t.IsSubTask) && (t.HasDeadlineDate && t.DeadlineDate.Day < DateTime.Now.Day)).ToList()); }
+        }
 
 
         private CategoryDto newCategory;
@@ -166,6 +167,7 @@ namespace AgendaFE.UI.ViewModels
             DeleteTaskCommand = new RelayCommand(DeleteTaskAction);
             DeleteCategoryCommand = new RelayCommand<CategoryDto>(DeleteCategoryAction);
             RenameCategoryCommand = new RelayCommand<CategoryDto>(RenameCategoryAction);
+            AddSubTaskCommand = new RelayCommand<int>(AddSubTaskAction);
 
 
 
@@ -243,9 +245,19 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
-           // Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
+            // Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
             SelectedCategory.Tasks.Add(newTask);
             SelectedCategory.NotifyProperty();
+        }
+
+        public void AddSubTaskAction(int parentId)
+        {
+            int id = AllTasks.Last().Id + 1;
+            var newTask = new TaskDto { Id = id, Name = "New SubTask", Description = "", State = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id, ParentTaskId = parentId, IsSubTask=true };
+            //TODO:restclient
+            SelectedCategory.Tasks.Where(t => t.Id == parentId).First().SubTasks.Add(newTask);
+            SelectedCategory.NotifyProperty();
+            AllTasks.Add(newTask);
         }
 
         public void SelectedTaskAction(int taskId)
@@ -254,7 +266,16 @@ namespace AgendaFE.UI.ViewModels
                 IsPanelActive = !IsPanelActive;
             else
             {
-                SelectedTask = SelectedCategory.Tasks.Where(t => t.Id == taskId).First();
+                SelectedTask = SelectedCategory.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
+                if (SelectedTask == null)
+                {
+                    foreach (var task in SelectedCategory.Tasks)
+                    {
+                        SelectedTask = task.SubTasks.Where(t => t.Id == taskId).FirstOrDefault();
+                        if (SelectedTask != null)
+                            break;
+                    }
+                }
                 IsPanelActive = true;
             }
         }
@@ -272,6 +293,16 @@ namespace AgendaFE.UI.ViewModels
                         if (Categories[i].Tasks[j].Id == SelectedTask.Id)
                         {
                             Categories[i].Tasks[j] = SelectedTask;
+                        }
+                        else
+                        {
+                            for (int k = 0; k < Categories[i].Tasks[j].SubTasks.Count(); k++)
+                            {
+                                if (Categories[i].Tasks[j].SubTasks[k].Id == SelectedTask.Id)
+                                {
+                                    Categories[i].Tasks[j].SubTasks[k] = SelectedTask;
+                                }
+                            }
                         }
                     }
                 }

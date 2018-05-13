@@ -33,7 +33,7 @@
                         <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks}" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="models:TaskDto">
-                                    <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
+                                    <Border BorderThickness="0 1 0 1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10" Background="Transparent" >
                                         <i:Interaction.Behaviors>
                                             <core:EventTriggerBehavior EventName="PointerPressed">
                                                 <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />

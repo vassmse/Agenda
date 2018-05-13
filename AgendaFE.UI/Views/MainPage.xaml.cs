@@ -100,7 +100,7 @@ namespace AgendaFE.UI
                         }
                         break;
                     case "MultiChecklist":
-                        ContentFrame.Navigate(typeof(SingleCategoryPage));
+                        ContentFrame.Navigate(typeof(MultiCheckListPage));
                         NavView.Header = item.Content;
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
                         {

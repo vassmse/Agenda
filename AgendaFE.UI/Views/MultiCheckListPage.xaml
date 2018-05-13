@@ -1,0 +1,149 @@
+﻿<Page
+    x:Class="AgendaFE.UI.Views.MultiCheckListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AgendaFE.UI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:viewModels="using:AgendaFE.UI.ViewModels"
+    xmlns:models="using:AgendaContracts.Models"
+    xmlns:converters="using:AgendaFE.UI.Converters"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:TimeConverter x:Key="TimeConverter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+        <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
+    </Page.Resources>
+
+    <SplitView x:Name="splitView"
+               PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+               IsPaneOpen="{x:Bind ViewModel.IsPanelActive, Mode=TwoWay}"
+               DisplayMode="Inline"
+               OpenPaneLength="256"
+               CompactPaneLength="48"
+               PanePlacement="Right">
+        <SplitView.Content>
+            <StackPanel>
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical">
+                        <ItemsControl x:Name="itemsControl" ItemsSource="{x:Bind ViewModel.SelectedCategory.Tasks}" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="models:TaskDto">
+                                    <StackPanel Orientation="Vertical">
+                                        <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Grid.Row="0" Margin="10 10 10 0" Background="Transparent" >
+                                            
+
+                                            <StackPanel Orientation="Vertical">
+                                                <StackPanel Orientation="Vertical">
+                                                <i:Interaction.Behaviors>
+                                                    <core:EventTriggerBehavior EventName="PointerPressed">
+                                                        <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />
+                                                    </core:EventTriggerBehavior>
+                                                </i:Interaction.Behaviors>
+                                                <StackPanel Orientation="Horizontal" Padding="5">
+                                                        <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady" Width="30" Height="30" />
+                                                        <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Margin="-78 0 0 0" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Padding="33 0 0 5">
+                                                        <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}" />
+                                                        <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
+                                                        <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasDeadlineDate}" />
+                                                        <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <ItemsControl ItemsSource="{Binding SubTasks}" Margin="40 0 0 0">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate x:DataType="models:TaskDto">
+                                                            <StackPanel Orientation="Vertical">
+                                                            <i:Interaction.Behaviors>
+                                                                <core:EventTriggerBehavior EventName="PointerPressed">
+                                                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.SelectedTaskCommand}" CommandParameter="{Binding Id}" />
+                                                                </core:EventTriggerBehavior>
+                                                            </i:Interaction.Behaviors>
+                                                            <StackPanel Orientation="Horizontal" Padding="2">
+                                                                    <CheckBox  IsChecked="{x:Bind State, Converter={StaticResource IntToBoolConverter}, Mode=TwoWay}" Click="TaskReady" Width="30" Height="30" />
+                                                                    <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Margin="-78 0 0 0" />
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" Padding="33 0 0 5">
+                                                                    <TextBlock Text="&#xEC92;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasScheduledDate}" />
+                                                                    <TextBlock Text="{x:Bind ScheduledDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasScheduledDate}" VerticalAlignment="Center" />
+                                                                    <TextBlock Text="&#xE1DC;" FontSize="12" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="15 0 0 0" Visibility="{x:Bind HasDeadlineDate}" />
+                                                                    <TextBlock Text="{x:Bind DeadlineDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyy-MM-dd}'}" FontSize="12" Padding="5 0 0 0" Visibility="{x:Bind HasDeadlineDate}" VerticalAlignment="Center" />
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+                                                <StackPanel Orientation="Horizontal" Margin="33 5 5 15">
+                                                    <i:Interaction.Behaviors>
+                                                        <core:EventTriggerBehavior EventName="PointerPressed">
+                                                            <core:InvokeCommandAction Command="{Binding ElementName=itemsControl, Path=DataContext.AddSubTaskCommand}" CommandParameter="{Binding Id}"  />
+                                                        </core:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                    <SymbolIcon  Symbol="Add" Margin="10 0"/>
+                                                    <TextBlock Text="Add new sub-to-do"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+                        <Border BorderThickness="0,1,0,1" BorderBrush="#c0c0c0" Margin="10" Background="Transparent" PointerEntered="ItemsControl_PointerEntered" PointerExited="ItemsControl_PointerExited" >
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <i:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="PointerPressed">
+                                        <core:InvokeCommandAction Command="{x:Bind ViewModel.AddTaskCommand}" />
+                                    </core:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <SymbolIcon  Symbol="Add" Margin="10 0"/>
+                                <TextBlock Text="Add new to-do"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                </ScrollViewer>
+            </StackPanel>
+        </SplitView.Content>
+        <SplitView.Pane>
+            <ScrollViewer>
+                <StackPanel Padding="10 20">
+                    <TextBox x:Name="TaskName" Header= "Name" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
+                    <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
+                    <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
+                    <Grid Margin="20 0 ">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="UseDeadline" IsChecked="{x:Bind ViewModel.SelectedTask.HasDeadlineDate, Mode=TwoWay}" />
+                        <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskDeadlineDate" IsEnabled="{x:Bind UseDeadline.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    </Grid>
+                    <TextBlock Text="Scheduled Date"  Margin="20 10" ></TextBlock>
+                    <Grid Margin="20 0 ">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="UseSchedule" IsChecked="{x:Bind ViewModel.SelectedTask.HasScheduledDate, Mode=TwoWay}"/>
+                        <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
+                        <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" />
+                        <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </SplitView.Pane>
+    </SplitView>
+</Page>
