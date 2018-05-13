@@ -239,7 +239,7 @@ namespace AgendaFE.UI.ViewModels
         public void AddTaskAction()
         {
             int id = AllTasks.Last().Id + 1;
-            var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
+            var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
            // Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);

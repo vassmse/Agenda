@@ -116,7 +116,7 @@ namespace AgendaFE.UI
                         }
                         break;
                     case "Kanban5":
-                        ContentFrame.Navigate(typeof(SingleCategoryPage));
+                        ContentFrame.Navigate(typeof(KanbanExtendedPage));
                         NavView.Header = item.Content;
                         if (ViewModel.Categories.FirstOrDefault(c => c.Name == item.Content.ToString()) != null)
                         {

@@ -11,7 +11,7 @@ namespace AgendaFE.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (int.Parse(value.ToString())==0)
+            if (int.Parse(value.ToString())==0 || int.Parse(value.ToString()) == 3 || int.Parse(value.ToString()) == 4 || int.Parse(value.ToString()) == 2)
                 return false;
             else return true;
         }
