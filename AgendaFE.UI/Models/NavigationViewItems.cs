@@ -117,34 +117,12 @@ namespace AgendaFE.UI.Models
             }
         }
 
-        public static void ChangeTag(CategoryDto category)
+        public static void ChangeTag(string name, string tag)
         {
-            SymbolIcon icon = new SymbolIcon();
-            switch (category.StateType)
-            {
-                case StateTypes.Checklist:
-                    icon = new SymbolIcon(Symbol.AllApps);
-                    break;
-                case StateTypes.Kanban3:
-                    icon = new SymbolIcon(Symbol.DockBottom);
-                    break;
-                case StateTypes.Kanban5:
-                    icon = new SymbolIcon(Symbol.SelectAll);
-                    break;
-                case StateTypes.MultiChecklist:
-                    icon = new SymbolIcon(Symbol.Bookmarks);
-                    break;
-            }
-
             foreach (var item in menu)
             {
-                if (item.Content != null && item.Content.ToString() == category.Name)
-                {
-                    item.Tag = category.StateType.ToString();
-                    NavigationViewItem navItem = item as NavigationViewItem;
-                    navItem.Icon = icon;
-                }
-
+                if (item.Content != null && item.Content.ToString() == name)
+                    item.Tag = tag;
             }
         }
 

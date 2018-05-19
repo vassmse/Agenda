@@ -139,7 +139,6 @@ namespace AgendaFE.UI.ViewModels
             get { return selectedCategory; }
             set
             {
-                IsPanelActive = false;
                 selectedCategory = value;
                 RaisePropertyChanged(nameof(SelectedCategory));
             }
@@ -352,7 +351,7 @@ namespace AgendaFE.UI.ViewModels
         public void SaveCategoryAction(CategoryDto category)
         {
             RestClient.UpdateCategory(category);
-            NavigationViewItems.ChangeTag(category);
+            NavigationViewItems.ChangeTag(category.Name, category.StateType.ToString());
         }
 
         public void RenameCategoryAction(CategoryDto category)
