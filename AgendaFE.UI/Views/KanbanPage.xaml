@@ -38,13 +38,13 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Border BorderThickness="0,0,1,0" BorderBrush="#c0c0c0" Grid.Column="0" Grid.Row="0"  >
-                    <TextBlock Grid.Column="0" Text="To do" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" />
+                    <TextBlock Grid.Column="0" Text="Csinálni" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" />
                 </Border>
                 <Border BorderThickness="0, 0, 1, 0" BorderBrush="#c0c0c0" Grid.Column="1" Grid.Row="0"  >
-                    <TextBlock Grid.Column="1" Text="Doing" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="1" Text="Folyamatban" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                 </Border>
                 <Border BorderThickness="0" BorderBrush="#c0c0c0" Grid.Column="2" Grid.Row="0"  >
-                    <TextBlock Grid.Column="2" Text="Done" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="2" Text="Kész" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                 </Border>
 
                 <Border BorderThickness="0,1,1,0" BorderBrush="#c0c0c0" Grid.Column="0" Grid.Row="1"  >
@@ -82,7 +82,7 @@
                                         </core:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <SymbolIcon  Symbol="Add" />
-                                    <TextBlock Text="Add new" HorizontalAlignment="Center" Padding="0 5 0 0"/>
+                                    <TextBlock Text="Hozzáadás" HorizontalAlignment="Center" Padding="0 5 0 0"/>
                                 </StackPanel>
                             </Border>
 
@@ -154,9 +154,9 @@
         <SplitView.Pane>
             <ScrollViewer>
                 <StackPanel Padding="10 20">
-                    <TextBox x:Name="TaskName" Header= "Name" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
-                    <TextBox x:Name="TaskDescription" Header= "Description" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
-                    <TextBlock Text="Deadline Date"  Margin="20 10" ></TextBlock>
+                    <TextBox x:Name="TaskName" Header= "Név" Margin="10"  Text="{x:Bind ViewModel.SelectedTask.Name, Mode=TwoWay}" MaxLength="32" Width="200" HorizontalAlignment="Center" />
+                    <TextBox x:Name="TaskDescription" Header= "Leírás" Margin="10" Text="{x:Bind ViewModel.SelectedTask.Description, Mode=TwoWay}" Width="200" TextWrapping="Wrap" AcceptsReturn="True" Height="100"  HorizontalAlignment="Center" />
+                    <TextBlock Text="Határidő"  Margin="20 10" ></TextBlock>
                     <Grid Margin="20 0 ">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
@@ -166,7 +166,7 @@
                         <CheckBox x:Name="UseDeadline" IsChecked="{x:Bind ViewModel.SelectedTask.HasDeadlineDate, Mode=TwoWay}" />
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskDeadlineDate" IsEnabled="{x:Bind UseDeadline.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" Date="{x:Bind ViewModel.SelectedTask.DeadlineDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
-                    <TextBlock Text="Scheduled Date"  Margin="20 10" ></TextBlock>
+                    <TextBlock Text="Ütemezés"  Margin="20 10" ></TextBlock>
                     <Grid Margin="20 0 ">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
@@ -177,8 +177,8 @@
                         <CalendarDatePicker Grid.Column="1" Width="156" x:Name="TaskScheduledDate" IsEnabled="{x:Bind UseSchedule.IsChecked, Converter={StaticResource NullableBooleanToBooleanConverter}, Mode=OneWay}" HorizontalAlignment="Center" Date="{x:Bind ViewModel.SelectedTask.ScheduledDate, Mode=TwoWay, Converter={StaticResource TimeConverter}}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="0 24" HorizontalAlignment="Center">
-                        <Button Content="Save" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" />
-                        <Button Content="Delete" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
+                        <Button Content="Mentés" Margin="8 0" Width="80" Command="{x:Bind ViewModel.SaveTaskCommand}" />
+                        <Button Content="Törlés" Command="{x:Bind ViewModel.DeleteTaskCommand}" CommandParameter="{x:Bind ViewModel.SelectedTask.Name}" Margin="8 0" Width="80" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

@@ -255,6 +255,7 @@
                     MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}">
 
 
+
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
                     <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">

@@ -9,15 +9,21 @@ using System.Threading.Tasks;
 
 namespace AgendaFE.UI.ViewModels
 {
-    public class ViewModelLocator
+  public class ViewModelLocator
+  {
+    static ViewModelLocator()
     {
-        static ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+      ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SimpleIoc.Default.Register<MainViewModel>();
-        }
-
-        public MainViewModel MainPage { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
+      SimpleIoc.Default.Register<MainViewModel>();
     }
+
+    public MainViewModel MainPage
+    {
+      get
+      {
+        return ServiceLocator.Current.GetInstance<MainViewModel>();
+      }
+    }
+  }
 }

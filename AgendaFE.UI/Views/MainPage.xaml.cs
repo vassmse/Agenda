@@ -30,6 +30,7 @@ namespace AgendaFE.UI
         public MainViewModel ViewModel { get; set; }
 
         public ObservableCollection<NavigationViewItemBase> MenuItems;
+        
 
         public MainPage()
         {
@@ -37,6 +38,13 @@ namespace AgendaFE.UI
             ViewModel = vm.MainPage;
             DataContext = ViewModel;
             MenuItems = NavigationViewItems.menu;
+            
+            foreach( var menuItem in MenuItems)
+            {
+                NavView.MenuItems.Add(menuItem);
+            }// TODO: wtf?? nem bindelődik???
+
+           
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
@@ -79,15 +87,15 @@ namespace AgendaFE.UI
                 {
                     case "today":
                         ContentFrame.Navigate(typeof(DailyReportPage));
-                        NavView.Header = "Daily report";
+                        NavView.Header = "Mai nap";
                         break;
                     case "week":
                         ContentFrame.Navigate(typeof(WeeklyReportPage));
-                        NavView.Header = "Weekly report";
+                        NavView.Header = "Heti jelenzés";
                         break;
                     case "expired":
                         ContentFrame.Navigate(typeof(ExpiredTasksPage));
-                        NavView.Header = "Expired tasks";
+                        NavView.Header = "Lejárt feladatok";
                         break;
 
 
@@ -128,11 +136,11 @@ namespace AgendaFE.UI
 
                     case "addnew":
                         ContentFrame.Navigate(typeof(NewCategoryPage));
-                        NavView.Header = "Add new category";
+                        NavView.Header = "Kategória hozzáadása";
                         break;
                     default:
                         ContentFrame.Navigate(typeof(SettingsPage));
-                        NavView.Header = "Settings";
+                        NavView.Header = "Beállítások";
                         break;
 
                 }

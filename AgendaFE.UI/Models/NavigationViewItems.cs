@@ -23,12 +23,12 @@ namespace AgendaFE.UI.Models
         static NavigationViewItems()
         {
             ViewModel = vm.MainPage;
-            menu.Add(new NavigationViewItemHeader { Content = "Calendar", Margin = new Thickness(33, 0, 0, 0) });
-            menu.Add(new NavigationViewItem() { Content = "Today", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
-            menu.Add(new NavigationViewItem() { Content = "7 days", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "week" });
-            menu.Add(new NavigationViewItem() { Content = "Expired", Icon = new SymbolIcon(Symbol.CalendarReply), Tag = "expired" });
+            menu.Add(new NavigationViewItemHeader { Content = "Naptár", Margin = new Thickness(33, 0, 0, 0) });
+            menu.Add(new NavigationViewItem() { Content = "Mai nap", Icon = new SymbolIcon(Symbol.CalendarDay), Tag = "today" });
+            menu.Add(new NavigationViewItem() { Content = "Egy hét", Icon = new SymbolIcon(Symbol.CalendarWeek), Tag = "week" });
+            menu.Add(new NavigationViewItem() { Content = "Lejárt", Icon = new SymbolIcon(Symbol.CalendarReply), Tag = "expired" });
             menu.Add(new NavigationViewItemSeparator());
-            menu.Add(new NavigationViewItemHeader { Content = "Categories", Margin = new Thickness(33, 0, 0, 0) });
+            menu.Add(new NavigationViewItemHeader { Content = "Kategóriák", Margin = new Thickness(33, 0, 0, 0) });
 
             foreach (var category in ViewModel.Categories)
             {
@@ -52,7 +52,7 @@ namespace AgendaFE.UI.Models
             }
 
             menu.Add(new NavigationViewItemSeparator());
-            menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+            menu.Add(new NavigationViewItem { Content = "Új kategória hozzáadása", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
         public static void AddMenuItem(CategoryDto category)
@@ -78,7 +78,7 @@ namespace AgendaFE.UI.Models
             menu.RemoveAt(menu.Count - 1);
             menu.Add(new NavigationViewItem { Content = category.Name, Icon = icon, Tag = category.StateType.ToString() });
             menu.Add(new NavigationViewItemSeparator());
-            menu.Add(new NavigationViewItem { Content = "Add new category", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+            menu.Add(new NavigationViewItem { Content = "Új kategória hozzáadása", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
         }
 
         public static void DeleteMenuItem(string name)

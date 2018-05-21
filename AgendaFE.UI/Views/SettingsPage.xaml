@@ -14,7 +14,7 @@
     </Page.Resources>
     <ScrollViewer>
         <StackPanel Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <TextBlock Text="Category settings" FontSize="18" />
+            <TextBlock Text="Kategória beállítások" FontSize="18" />
 
             <ItemsControl ItemsSource="{x:Bind ViewModel.Categories}" HorizontalAlignment="Left" Margin="0 10">
                 <ItemsControl.ItemTemplate>
@@ -41,7 +41,7 @@
                                         <SymbolIcon Symbol="Save" />
                                     </Button>
 
-                                    <ToggleSwitch Grid.Column="3" OnContent="Visible" OffContent="Hidden" IsOn="{Binding Visibility, Mode=TwoWay}" Toggled="ToggleSwitch_Toggled" />
+                                    <ToggleSwitch Grid.Column="3" OnContent="Látható" OffContent="Rejtve" IsOn="{Binding Visibility, Mode=TwoWay}" Toggled="ToggleSwitch_Toggled" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
                                     <ComboBox ItemsSource="{x:Bind StateTypeValues }" SelectedItem="{x:Bind StateType, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="2" Margin="20 0 15 0"  />
