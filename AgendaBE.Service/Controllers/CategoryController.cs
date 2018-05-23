@@ -18,7 +18,7 @@ namespace AgendaBE.Service.Controllers
 
         public CategoryController(DataBaseContext context)
         {
-            Service = new CategoryService(context); //TODO: saját interface, dependency injection
+            Service = new CategoryService(context);
             
         }
 
@@ -70,27 +70,7 @@ namespace AgendaBE.Service.Controllers
             return new NoContentResult();
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Update(long id, [FromBody] TodoItem item)
-        //{
-        //    if (item == null || item.Id != id)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    todo.IsComplete = item.IsComplete;
-        //    todo.Name = item.Name;
-
-        //    _context.TodoItems.Update(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
 
 
     }

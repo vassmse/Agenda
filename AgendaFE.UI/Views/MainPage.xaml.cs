@@ -38,12 +38,17 @@ namespace AgendaFE.UI
             ViewModel = vm.MainPage;
             DataContext = ViewModel;
             MenuItems = NavigationViewItems.menu;
-            
-            foreach( var menuItem in MenuItems)
+
+            var menuitemsBind = NavView.MenuItems.ToList();
+
+
+            foreach ( var menuItem in MenuItems)
             {
                 NavView.MenuItems.Add(menuItem);
-            }// TODO: wtf?? nem bindelődik???
+            }
 
+            var menuitems = NavView.MenuItems.ToList();
+            
            
         }
 
@@ -56,7 +61,7 @@ namespace AgendaFE.UI
                     NavView.SelectedItem = item;
                     break;
                 }
-            }
+            }            
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

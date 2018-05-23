@@ -219,11 +219,12 @@
                                         </Grid>
                                         <NavigationViewList x:Name="MenuItemsHost" ItemContainerStyleSelector="{TemplateBinding MenuItemContainerStyleSelector}" ItemContainerStyle="{TemplateBinding MenuItemContainerStyle}" ItemTemplate="{TemplateBinding MenuItemTemplate}" IsItemClickEnabled="True" ItemsSource="{TemplateBinding MenuItemsSource}" ItemTemplateSelector="{TemplateBinding MenuItemTemplateSelector}" Margin="0,0,0,20" Grid.Row="3" SelectionMode="Single" SelectedItem="{TemplateBinding SelectedItem}"/>
                                         <Border x:Name="FooterContentBorder" Child="{TemplateBinding PaneFooter}" Grid.Row="4"/>
-                                        <NavigationViewItem x:Name="SettingsNavPaneItem" Grid.Row="5">
+                                        <NavigationViewItem  x:Name="SettingsNavPaneItem"  Grid.Row="5" Content="Beállítások">
                                             <NavigationViewItem.Icon>
                                                 <SymbolIcon Symbol="Setting"/>
                                             </NavigationViewItem.Icon>
                                         </NavigationViewItem>
+
                                     </Grid>
                                 </SplitView.Pane>
                                 <Grid x:Name="ContentGrid">
@@ -252,7 +253,8 @@
                     AlwaysShowHeader="True"      
                     Canvas.ZIndex="0"  
                     SelectedItem="{x:Bind ViewModel.SelectedCategory}"
-                    MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}">
+                    MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}"
+                    IsSettingsVisible="True">
 
 
 
@@ -285,7 +287,7 @@
                 </DataTemplate>
             </NavigationView.HeaderTemplate>
 
-            <Frame x:Name="ContentFrame" Margin="24">
+            <Frame x:Name="ContentFrame" Margin="24" >
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>

@@ -214,7 +214,7 @@ namespace AgendaFE.UI.ViewModels
             Categories.Add(newCategory);
             NavigationViewItems.AddMenuItem(newCategory);
 
-            //Add dummy tasks
+            
             int taskId = AllTasks.Last().Id + 1;
             var newTask = new TaskDto { Id = taskId, Name = "TO-DO 1", Description = "", State = 0, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = newCategory.Id };
             RestClient.AddTask(newTask);
@@ -244,7 +244,6 @@ namespace AgendaFE.UI.ViewModels
             var newTask = new TaskDto { Id = id, Name = "New Task", Description = "", State = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now, ParentId = SelectedCategory.Id };
             RestClient.AddTask(newTask);
             AllTasks.Add(newTask);
-            // Categories.Where(n => n.Id == SelectedCategory.Id).First().Tasks.Add(newTask);
             SelectedCategory.Tasks.Add(newTask);
             SelectedCategory.NotifyProperty();
         }

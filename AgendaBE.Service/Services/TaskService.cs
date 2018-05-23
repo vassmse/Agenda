@@ -22,8 +22,8 @@ namespace AgendaBE.Service.Services
         AddTask(new TaskDto { Name = "Kenyér", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
         AddTask(new TaskDto { Name = "Tészta", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
         AddTask(new TaskDto { Name = "Rízs", Description = "", State = 0, Priority = 0, ParentId = 3, DeadlineDate = DateTime.Now, ScheduledDate = DateTime.Now });
-        AddTask(new TaskDto { Name = "Asztalt letakarítani", Description = "", State = 0, Priority = 0, ParentId = 2 });
-        AddTask(new TaskDto { Name = "Bögrét kimosni", Description = "", State = 0, Priority = 0, ParentId = 2 });
+        AddTask(new TaskDto { Name = "Asztalt letakarítani", Description = "", State = 0, Priority = 0, ParentId = 2, DeadlineDate = DateTime.Now.AddDays(2), ScheduledDate = DateTime.Now });
+        AddTask(new TaskDto { Name = "Bögrét kimosni", Description = "", State = 0, Priority = 0, ParentId = 2, DeadlineDate = DateTime.Now.AddDays(2), ScheduledDate = DateTime.Now });
         AddTask(new TaskDto { Name = "Matek házi", Description = "", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(2), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });
         AddTask(new TaskDto { Name = "Történelem esszé", Description = "A római városokról, emberekről, szokásokról. 10-12 oldalnyi terjedelem.", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(3), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });
         AddTask(new TaskDto { Name = "Tollat venni", Description = "", State = 0, Priority = 0, HasDeadlineDate = true, DeadlineDate = DateTime.Now.AddDays(2), HasScheduledDate = true, ScheduledDate = DateTime.Now, ParentId = 1 });

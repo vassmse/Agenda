@@ -53,6 +53,7 @@ namespace AgendaFE.UI.Models
 
             menu.Add(new NavigationViewItemSeparator());
             menu.Add(new NavigationViewItem { Content = "Új kategória hozzáadása", Icon = new SymbolIcon(Symbol.Add), Tag = "addnew" });
+
         }
 
         public static void AddMenuItem(CategoryDto category)

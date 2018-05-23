@@ -20,8 +20,9 @@ namespace AgendaBE.Service.Services
         AddCategory(new CategoryDto { Name = "Iskola", Description = "", StateType = StateTypes.Kanban3 });
         AddCategory(new CategoryDto { Name = "Munka", Description = "", StateType = StateTypes.MultiChecklist });
         AddCategory(new CategoryDto { Name = "Bevásárlás", Description = "", StateType = StateTypes.Checklist });
+        AddCategory(new CategoryDto { Name = "Agenda szoftver", Description = "", StateType = StateTypes.Kanban5 });
 
-      }
+            }
     }
 
     public List<CategoryDto> GetCategories()
@@ -70,7 +71,7 @@ namespace AgendaBE.Service.Services
       return CategoryDtoList;
     }
 
-    private CategoryDto GetCategoryDto(Category category) //TODO: létezik mapper
+    private CategoryDto GetCategoryDto(Category category)
     {
       return new CategoryDto { Id = category.CategoryId, Name = category.Name, Description = category.Description, Done = category.Done, StateType = (StateTypes)Enum.Parse(typeof(StateTypes), category.StateType) };
     }
