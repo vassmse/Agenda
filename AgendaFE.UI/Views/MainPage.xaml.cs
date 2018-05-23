@@ -36,20 +36,20 @@ namespace AgendaFE.UI
         {
             InitializeComponent();
             ViewModel = vm.MainPage;
-            DataContext = ViewModel;
             MenuItems = NavigationViewItems.menu;
+            DataContext = ViewModel;
 
-            var menuitemsBind = NavView.MenuItems.ToList();
+            //var menuitemsBind = NavView.MenuItems.ToList();
 
-
-            foreach ( var menuItem in MenuItems)
+            //Does not work properly
+            foreach (var menuItem in MenuItems)
             {
                 NavView.MenuItems.Add(menuItem);
             }
 
-            var menuitems = NavView.MenuItems.ToList();
-            
-           
+            //var menuitems = NavView.MenuItems.ToList();
+
+
         }
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)

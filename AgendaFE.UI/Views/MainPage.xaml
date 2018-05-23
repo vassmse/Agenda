@@ -253,7 +253,7 @@
                     AlwaysShowHeader="True"      
                     Canvas.ZIndex="0"  
                     SelectedItem="{x:Bind ViewModel.SelectedCategory}"
-                    MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}"
+                    MenuItemsSource="{x:Bind MenuItems, Mode=TwoWay}"                        
                     IsSettingsVisible="True">
 
 
